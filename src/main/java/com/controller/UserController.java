@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
 import java.util.Map;
 
 @Component
@@ -22,7 +23,7 @@ public class UserController extends ResponseUtils {
     @RequestMapping(value = "/get", method = RequestMethod.GET)
     public Map<String, Object> root() {
         try {
-            return this.outJson(9999, null, userApplication.find(new Document()).orElse(null));
+            return this.outJson(9999, null, userApplication.find(new HashMap<>()).orElse(null));
         } catch (Throwable throwable) {
             return this.outJson(-9999, throwable.getMessage(), null);
         }

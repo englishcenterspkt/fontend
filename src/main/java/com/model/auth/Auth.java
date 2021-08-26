@@ -1,4 +1,4 @@
-package com.model.users;
+package com.model.auth;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
@@ -17,12 +17,12 @@ import java.io.Serializable;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class User implements Serializable {
+public class Auth implements Serializable {
     @JsonSerialize(using = ToStringSerializer.class)
     @Id
     ObjectId _id;
-    private String name;
+    private String user_id;
+    private String jwt;
     private Long create_date;
-    @Builder.Default
-    private Boolean is_deleted = false;
+    private Long expiration_date;
 }
