@@ -3,11 +3,9 @@ package com.utils;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mongodb.BasicDBObject;
-import com.mongodb.MongoClient;
+import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientSettings;
-import com.mongodb.client.AggregateIterable;
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.*;
 import com.utils.enums.MongodbEnum;
 import eu.dozd.mongo.MongoMapper;
 import org.bson.Document;
@@ -21,11 +19,15 @@ public class MongoDBConnection<T> {
     private final MongoCollection<T> mongoCollection;
 
     public MongoDBConnection(String name, Class<T> tClass) {
-        MongoClient mongoClient = new MongoClient(System.getProperty("mongodb"));
+        ConnectionString connectionString = new ConnectionString(MongodbEnum.connection);
+        MongoClientSettings settings = MongoClientSettings.builder()
+                .applyConnectionString(connectionString)
+                .build();
+        MongoClient mongoClient = MongoClients.create(settings);
         CodecRegistry codecRegistry = CodecRegistries.fromRegistries(MongoClientSettings.getDefaultCodecRegistry(),
                 CodecRegistries.fromProviders(MongoMapper.getProviders()));
-        MongoDatabase mongoDatabase = mongoClient.getDatabase(MongodbEnum.database_name).withCodecRegistry(codecRegistry);
-        mongoCollection = mongoDatabase.getCollection(name, tClass);
+        MongoDatabase database = mongoClient.getDatabase(MongodbEnum.database_name).withCodecRegistry(codecRegistry);
+        mongoCollection = database.getCollection(name, tClass);
     }
 
     public Optional<List<T>> find(Map<String, Object> query) {

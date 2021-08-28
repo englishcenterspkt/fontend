@@ -23,6 +23,7 @@ public class User implements Serializable {
     ObjectId _id;
     private String name;
     private Long create_date;
+    private String type;
     @Builder.Default
     private Boolean is_deleted = false;
 }
