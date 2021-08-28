@@ -2,13 +2,13 @@ package com.utils;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
 import com.mongodb.BasicDBObject;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientSettings;
 import com.mongodb.client.AggregateIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import com.utils.enums.MongodbEnum;
 import eu.dozd.mongo.MongoMapper;
 import org.bson.Document;
 import org.bson.codecs.configuration.CodecRegistries;
@@ -21,10 +21,10 @@ public class MongoDBConnection<T> {
     private final MongoCollection<T> mongoCollection;
 
     public MongoDBConnection(String name, Class<T> tClass) {
-        MongoClient mongoClient = new MongoClient(System.getProperty("host_db"), Integer.parseInt(System.getProperty("port_db", "27017")));
+        MongoClient mongoClient = new MongoClient(System.getProperty("mongodb"));
         CodecRegistry codecRegistry = CodecRegistries.fromRegistries(MongoClientSettings.getDefaultCodecRegistry(),
                 CodecRegistries.fromProviders(MongoMapper.getProviders()));
-        MongoDatabase mongoDatabase = mongoClient.getDatabase("english_center_db").withCodecRegistry(codecRegistry);
+        MongoDatabase mongoDatabase = mongoClient.getDatabase(MongodbEnum.database_name).withCodecRegistry(codecRegistry);
         mongoCollection = mongoDatabase.getCollection(name, tClass);
     }
 
@@ -44,7 +44,7 @@ public class MongoDBConnection<T> {
         }
     }
 
-    public Optional<T> update (String id, T t) {
+    public Optional<T> update(String id, T t) {
         try {
             Document data = this.buildQuerySet(t);
             Map<String, Object> query = new HashMap<>();
@@ -55,7 +55,7 @@ public class MongoDBConnection<T> {
         }
     }
 
-    public Optional<Boolean> update (Map<String, Object> query, Map<String, Object> data) {
+    public Optional<Boolean> update(Map<String, Object> query, Map<String, Object> data) {
         try {
             return Optional.of(mongoCollection.updateMany(new Document(query), new Document(data)).getModifiedCount() > 0);
         } catch (Exception e) {
@@ -63,7 +63,7 @@ public class MongoDBConnection<T> {
         }
     }
 
-    public Optional<Boolean> delete (String id) {
+    public Optional<Boolean> delete(String id) {
         try {
             Map<String, Object> query = new HashMap<>();
             query.put("_id", new ObjectId(id));
@@ -91,8 +91,9 @@ public class MongoDBConnection<T> {
         return mongoCollection.aggregate(new ArrayList<>(basicDBObjects), Document.class).allowDiskUse(true);
     }
 
-    private Document buildQuerySet (T t) {
-        TypeReference<HashMap<String, Object>> typeRef = new TypeReference<HashMap<String, Object>>() {};
+    private Document buildQuerySet(T t) {
+        TypeReference<HashMap<String, Object>> typeRef = new TypeReference<HashMap<String, Object>>() {
+        };
         ObjectMapper objectMapper = new ObjectMapper();
         Map<String, Object> data = objectMapper.convertValue(t, typeRef);
         Document queryItem = new Document();

@@ -2,6 +2,7 @@ package com.model.auth.application;
 
 import com.model.auth.Auth;
 import com.utils.MongoDBConnection;
+import com.utils.enums.MongodbEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -15,7 +16,7 @@ public class AuthApplication implements IAuthApplication {
 
     @Autowired
     public AuthApplication() {
-        mongoDBConnection = new MongoDBConnection<>("auth", Auth.class);
+        mongoDBConnection = new MongoDBConnection<>(MongodbEnum.collection_auth, Auth.class);
     }
 
     @Override

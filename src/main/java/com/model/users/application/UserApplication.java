@@ -2,10 +2,10 @@ package com.model.users.application;
 
 import com.model.users.User;
 import com.model.users.command.CommandAddUser;
-import com.utils.ExceptionEnum;
+import com.utils.enums.ExceptionEnum;
 import com.utils.MongoDBConnection;
+import com.utils.enums.MongodbEnum;
 import org.apache.commons.lang3.StringUtils;
-import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -19,7 +19,7 @@ public class UserApplication implements IUserApplication {
 
     @Autowired
     public UserApplication() {
-        mongoDBConnection = new MongoDBConnection<>("user", User.class);
+        mongoDBConnection = new MongoDBConnection<>(MongodbEnum.collection_user, User.class);
     }
 
     @Override

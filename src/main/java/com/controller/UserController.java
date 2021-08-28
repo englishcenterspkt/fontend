@@ -15,12 +15,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Component
-@RestController
+@RestController(value = "/user")
 public class UserController extends ResponseUtils {
     @Autowired
     private IUserApplication userApplication;
 
-    @RequestMapping(value = "/get", method = RequestMethod.GET)
+    @RequestMapping(value = "/user/get", method = RequestMethod.GET)
     public Map<String, Object> root() {
         try {
             return this.outJson(9999, null, userApplication.find(new HashMap<>()).orElse(null));
@@ -29,7 +29,7 @@ public class UserController extends ResponseUtils {
         }
     }
 
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    @RequestMapping(value = "/user/add", method = RequestMethod.POST)
     public Map<String, Object> add(@RequestBody CommandAddUser command) {
         try {
             return this.outJson(9999, null, userApplication.add(command).orElse(null));
