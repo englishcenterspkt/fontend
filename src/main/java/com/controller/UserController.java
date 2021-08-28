@@ -3,7 +3,6 @@ package com.controller;
 import com.model.users.application.IUserApplication;
 import com.model.users.command.CommandAddUser;
 import com.utils.ResponseUtils;
-import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestBody;

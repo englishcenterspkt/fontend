@@ -2,8 +2,8 @@ package com.model.users.application;
 
 import com.model.users.User;
 import com.model.users.command.CommandAddUser;
-import com.utils.enums.ExceptionEnum;
 import com.utils.MongoDBConnection;
+import com.utils.enums.ExceptionEnum;
 import com.utils.enums.MongodbEnum;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +30,7 @@ public class UserApplication implements IUserApplication {
 
     @Override
     public Optional<User> add(CommandAddUser command) throws Exception {
-        if (StringUtils.isBlank(command.getName())) {
+        if (StringUtils.isAnyBlank(command.getName(), command.getEmail(), command.getPassword())) {
             throw new Exception(ExceptionEnum.param_not_null);
         }
         User user = User.builder()

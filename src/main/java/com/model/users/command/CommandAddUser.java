@@ -11,5 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CommandAddUser {
     private String name;
+    private String email;
+    private String password;
 }
 

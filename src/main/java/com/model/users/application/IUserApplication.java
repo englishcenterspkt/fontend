@@ -2,7 +2,6 @@ package com.model.users.application;
 
 import com.model.users.User;
 import com.model.users.command.CommandAddUser;
-import org.bson.Document;
 
 import java.util.List;
 import java.util.Map;

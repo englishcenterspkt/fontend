@@ -22,8 +22,5 @@ public class Auth implements Serializable {
     @Id
     ObjectId _id;
     private String user_id;
-    private String role;
     private String jwt;
-    private Long create_date;
-    private Long expiration_date;
 }
