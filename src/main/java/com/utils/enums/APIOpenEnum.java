@@ -1,0 +1,11 @@
+package com.utils.enums;
+
+import java.util.Arrays;
+import java.util.List;
+
+public class APIOpenEnum {
+    public final static List<String> apiOpen = Arrays.asList(
+            "/user/add",
+            "/user/login"
+    );
+}

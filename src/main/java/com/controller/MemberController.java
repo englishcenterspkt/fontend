@@ -1,7 +1,8 @@
 package com.controller;
 
-import com.model.users.application.IUserApplication;
-import com.model.users.command.CommandAddUser;
+import com.model.member.application.IMemberApplication;
+import com.model.member.command.CommandAddMember;
+import com.model.member.command.CommandLogin;
 import com.utils.ResponseUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -15,9 +16,9 @@ import java.util.Map;
 
 @Component
 @RestController(value = "/user")
-public class UserController extends ResponseUtils {
+public class MemberController extends ResponseUtils {
     @Autowired
-    private IUserApplication userApplication;
+    private IMemberApplication userApplication;
 
     @RequestMapping(value = "/user/get", method = RequestMethod.GET)
     public Map<String, Object> root() {
@@ -29,9 +30,18 @@ public class UserController extends ResponseUtils {
     }
 
     @RequestMapping(value = "/user/add", method = RequestMethod.POST)
-    public Map<String, Object> add(@RequestBody CommandAddUser command) {
+    public Map<String, Object> add(@RequestBody CommandAddMember command) {
         try {
             return this.outJson(9999, null, userApplication.add(command).orElse(null));
+        } catch (Throwable throwable) {
+            return this.outJson(-9999, throwable.getMessage(), null);
+        }
+    }
+
+    @RequestMapping(value = "/user/login", method = RequestMethod.GET)
+    public Map<String, Object> login(@RequestBody CommandLogin command) {
+        try {
+            return this.outJson(9999, null, userApplication.login(command).orElse(null));
         } catch (Throwable throwable) {
             return this.outJson(-9999, throwable.getMessage(), null);
         }

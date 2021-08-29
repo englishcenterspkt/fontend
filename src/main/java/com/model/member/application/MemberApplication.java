@@ -1,0 +1,90 @@
+package com.model.member.application;
+
+import com.model.auth.application.IAuthApplication;
+import com.model.member.Member;
+import com.model.member.command.CommandAddMember;
+import com.model.member.command.CommandLogin;
+import com.utils.HashUtils;
+import com.utils.MongoDBConnection;
+import com.utils.enums.ExceptionEnum;
+import com.utils.enums.MongodbEnum;
+import org.apache.commons.lang3.StringUtils;
+import org.bson.types.ObjectId;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+
+@Component
+public class MemberApplication implements IMemberApplication {
+    public final MongoDBConnection<Member> mongoDBConnection;
+    @Autowired
+    private IAuthApplication authApplication;
+
+    @Autowired
+    public MemberApplication() {
+        mongoDBConnection = new MongoDBConnection<>(MongodbEnum.collection_member, Member.class);
+    }
+
+    @Override
+    public Optional<List<Member>> find(Map<String, Object> query) {
+        query.put("is_deleted", false);
+        return mongoDBConnection.find(query);
+    }
+
+    @Override
+    public Optional<Member> add(CommandAddMember command) throws Exception {
+        if (StringUtils.isAnyBlank(command.getName(), command.getEmail(), command.getPassword())) {
+            throw new Exception(ExceptionEnum.param_not_null);
+        }
+        Map<String, Object> query = new HashMap<>();
+        query.put("is_deleted", false);
+        query.put("email", command.getEmail());
+        long count = mongoDBConnection.count(query).orElse(0L);
+        if (count > 0) {
+            throw new Exception(ExceptionEnum.member_exist);
+        }
+        Member member = Member.builder()
+                .create_date(System.currentTimeMillis())
+                .name(command.getName())
+                .email(command.getEmail())
+                .password(HashUtils.getPasswordMD5(command.getPassword()))
+                .type(command.getType() != null ? command.getType() : Member.MemberType.STUDENT)
+                .build();
+        return mongoDBConnection.insert(member);
+    }
+
+    @Override
+    public Optional<String> login(CommandLogin command) throws Exception{
+        if (StringUtils.isAnyBlank(command.getUsername(), command.getPassword())) {
+            throw new Exception(ExceptionEnum.param_not_null);
+        }
+        String hashPass = HashUtils.getPasswordMD5(command.getPassword());
+        Optional<Member> member = this.getByEmail(command.username);
+        if (!member.isPresent()) {
+            throw new Exception(ExceptionEnum.member_not_exist);
+        }
+        if (hashPass.equals(member.get().getPassword())) {
+            return authApplication.generateToken(member.get());
+        }
+        throw new Exception(ExceptionEnum.password_incorrect);
+    }
+
+    private Optional<Member> getByEmail(String email) {
+        Map<String, Object> query = new HashMap<>();
+        query.put("is_deleted", false);
+        query.put("email", email);
+        return mongoDBConnection.findOne(query);
+    }
+
+    @Override
+    public Optional<Member> getById(String id) {
+        Map<String, Object> query = new HashMap<>();
+        query.put("is_deleted", false);
+        query.put("_id", new ObjectId(id));
+        return mongoDBConnection.findOne(query);
+    }
+}

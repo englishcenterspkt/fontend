@@ -3,7 +3,7 @@ package com.model.auth.application;
 import com.google.gson.Gson;
 import com.model.auth.Auth;
 import com.model.auth.command.CommandJwt;
-import com.model.users.User;
+import com.model.member.Member;
 import com.utils.MongoDBConnection;
 import com.utils.enums.MongodbEnum;
 import io.jsonwebtoken.Jwts;
@@ -33,13 +33,21 @@ public class AuthApplication implements IAuthApplication {
         query.put("jwt", jwt);
         long count = mongoDBConnection.count(query).orElse(0L);
         if (count > 0) {
-            return Optional.of(Boolean.TRUE);
+            Optional<CommandJwt> commandJwt = this.decodeJwt(jwt);
+            if (commandJwt.isPresent()) {
+                long now = System.currentTimeMillis();
+                if (now > commandJwt.get().getExpiration_date()) {
+                    this.clearToken(commandJwt.get().getUser_id());
+                } else {
+                    return Optional.of(Boolean.TRUE);
+                }
+            }
         }
         return Optional.of(Boolean.FALSE);
     }
 
     @Override
-    public Optional<String> generateToken(User user) {
+    public Optional<String> generateToken(Member member) {
         long now = System.currentTimeMillis();
         Map<String, Object> header = new HashMap<>();
         header.put("alg", "HS256");
@@ -48,8 +56,8 @@ public class AuthApplication implements IAuthApplication {
         CommandJwt commandJwt = CommandJwt.builder()
                 .create_date(now)
                 .expiration_date(now + JWT_EXPIRATION)
-                .user_id(user.get_id().toString())
-                .role(user.getType())
+                .user_id(member.get_id().toString())
+                .role(member.getType())
                 .build();
         String result = Jwts.builder()
                 .setHeader(header)
@@ -58,7 +66,7 @@ public class AuthApplication implements IAuthApplication {
                 .compact();
         Auth auth = Auth.builder()
                 .jwt(result)
-                .user_id(user.get_id().toHexString())
+                .user_id(member.get_id().toHexString())
                 .build();
         mongoDBConnection.insert(auth);
         return Optional.of(result);
@@ -72,5 +80,11 @@ public class AuthApplication implements IAuthApplication {
         } catch (Exception e) {
             return Optional.empty();
         }
+    }
+
+    private void clearToken(String userId) {
+        Map<String, Object> query = new HashMap<>();
+        query.put("user_id", userId);
+        mongoDBConnection.drop(query);
     }
 }

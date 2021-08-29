@@ -1,4 +1,4 @@
-package com.model.users.command;
+package com.model.member.command;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,9 +9,10 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CommandAddUser {
+public class CommandAddMember {
     private String name;
     private String email;
     private String password;
+    private String type;
 }
 

@@ -12,6 +12,7 @@ import org.bson.Document;
 import org.bson.codecs.configuration.CodecRegistries;
 import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.types.ObjectId;
+import org.springframework.util.CollectionUtils;
 
 import java.util.*;
 
@@ -33,6 +34,18 @@ public class MongoDBConnection<T> {
     public Optional<List<T>> find(Map<String, Object> query) {
         try {
             return Optional.of(mongoCollection.find(new Document(query)).into(new ArrayList<>()));
+        } catch (Exception e) {
+            return Optional.empty();
+        }
+    }
+
+    public Optional<T> findOne(Map<String, Object> query) {
+        try {
+            List<T> list = mongoCollection.find(new Document(query)).skip(0).limit(1).into(new ArrayList<>());
+            if (CollectionUtils.isEmpty(list)) {
+                return Optional.empty();
+            }
+            return Optional.of(list.get(0));
         } catch (Exception e) {
             return Optional.empty();
         }
@@ -91,6 +104,10 @@ public class MongoDBConnection<T> {
 
     public AggregateIterable<Document> aggregate(List<BasicDBObject> basicDBObjects) {
         return mongoCollection.aggregate(new ArrayList<>(basicDBObjects), Document.class).allowDiskUse(true);
+    }
+
+    public void drop(Map<String, Object> query) {
+        mongoCollection.deleteMany(new Document(query)).getDeletedCount();
     }
 
     private Document buildQuerySet(T t) {

@@ -1,4 +1,4 @@
-package com.model.users;
+package com.model.member;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
@@ -17,7 +17,7 @@ import java.io.Serializable;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class User implements Serializable {
+public class Member implements Serializable {
     @JsonSerialize(using = ToStringSerializer.class)
     @Id
     ObjectId _id;
@@ -28,4 +28,11 @@ public class User implements Serializable {
     private String password;
     @Builder.Default
     private Boolean is_deleted = false;
+
+    public static class MemberType {
+        public final static String ADMIN = "admin";
+        public final static String STUDENT = "student";
+        public final static String TEACHER = "teacher";
+        public final static String RECEPTIONIST = "receptionist";
+    }
 }
