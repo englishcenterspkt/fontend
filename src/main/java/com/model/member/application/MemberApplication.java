@@ -3,8 +3,6 @@ package com.model.member.application;
 import com.model.auth.application.IAuthApplication;
 import com.model.member.Member;
 import com.model.member.command.CommandAddMember;
-import com.model.member.command.CommandLogin;
-import com.utils.HashUtils;
 import com.utils.MongoDBConnection;
 import com.utils.enums.ExceptionEnum;
 import com.utils.enums.MongodbEnum;
@@ -51,26 +49,14 @@ public class MemberApplication implements IMemberApplication {
                 .create_date(System.currentTimeMillis())
                 .name(command.getName())
                 .email(command.getEmail())
-                .password(HashUtils.getPasswordMD5(command.getPassword()))
                 .type(command.getType() != null ? command.getType() : Member.MemberType.STUDENT)
                 .build();
-        return mongoDBConnection.insert(member);
-    }
-
-    @Override
-    public Optional<String> login(CommandLogin command) throws Exception{
-        if (StringUtils.isAnyBlank(command.getUsername(), command.getPassword())) {
-            throw new Exception(ExceptionEnum.param_not_null);
+        Optional<Member> optional = mongoDBConnection.insert(member);
+        if (optional.isPresent()) {
+            authApplication.add(optional.get(), command.getPassword());
+            return optional;
         }
-        String hashPass = HashUtils.getPasswordMD5(command.getPassword());
-        Optional<Member> member = this.getByEmail(command.username);
-        if (!member.isPresent()) {
-            throw new Exception(ExceptionEnum.member_not_exist);
-        }
-        if (hashPass.equals(member.get().getPassword())) {
-            return authApplication.generateToken(member.get());
-        }
-        throw new Exception(ExceptionEnum.password_incorrect);
+        return Optional.empty();
     }
 
     private Optional<Member> getByEmail(String email) {

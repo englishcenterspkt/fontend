@@ -21,6 +21,8 @@ public class Auth implements Serializable {
     @JsonSerialize(using = ToStringSerializer.class)
     @Id
     ObjectId _id;
-    private String user_id;
+    private String member_id;
+    private String username;
+    private String password;
     private String jwt;
 }

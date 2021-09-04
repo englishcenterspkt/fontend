@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public abstract class ResponseUtils {
-    protected Map<String, Object> outJson(Integer code, String message, Object object) {
+    protected String outJson(Integer code, String message, Object object) {
         Map<String, Object> result = new HashMap<>();
         if (code != null) {
             result.put("code", code);
@@ -17,6 +17,6 @@ public abstract class ResponseUtils {
         if (object != null) {
             result.put("payload", object);
         }
-        return result;
+        return JsonUtils.objectToJson(result);
     }
 }

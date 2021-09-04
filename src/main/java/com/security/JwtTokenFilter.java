@@ -1,8 +1,9 @@
 package com.security;
 
+import com.model.auth.Auth;
 import com.model.auth.application.IAuthApplication;
+import com.utils.JsonUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -14,6 +15,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Optional;
 
 public class JwtTokenFilter extends OncePerRequestFilter {
 
@@ -29,10 +31,13 @@ public class JwtTokenFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
         String token = this.resolveToken(httpServletRequest);
         try {
-            if (StringUtils.isNotBlank(token) && authApplication.checkJwt(token).orElse(false)) {
-                UserDetails userDetails = myUserDetails.loadUserByUsername(token);
-                Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
-                SecurityContextHolder.getContext().setAuthentication(authentication);
+            if (StringUtils.isNotBlank(token)) {
+                Optional<Auth> auth = authApplication.checkJwt(token);
+                if (auth.isPresent()) {
+                    UserDetails userDetails = myUserDetails.loadUserByUsername(JsonUtils.objectToJson(auth.get()));
+                    Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
+                    SecurityContextHolder.getContext().setAuthentication(authentication);
+                }
             }
         } catch (Exception ex) {
             SecurityContextHolder.clearContext();

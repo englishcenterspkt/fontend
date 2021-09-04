@@ -25,7 +25,6 @@ public class Member implements Serializable {
     private Long create_date;
     private String type;
     private String email;
-    private String password;
     @Builder.Default
     private Boolean is_deleted = false;
 

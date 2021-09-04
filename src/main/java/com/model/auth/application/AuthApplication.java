@@ -3,11 +3,16 @@ package com.model.auth.application;
 import com.google.gson.Gson;
 import com.model.auth.Auth;
 import com.model.auth.command.CommandJwt;
+import com.model.auth.command.CommandLogin;
 import com.model.member.Member;
+import com.model.member.application.IMemberApplication;
+import com.utils.HashUtils;
 import com.utils.MongoDBConnection;
+import com.utils.enums.ExceptionEnum;
 import com.utils.enums.MongodbEnum;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -18,6 +23,8 @@ import java.util.Optional;
 @Component
 public class AuthApplication implements IAuthApplication {
     public final MongoDBConnection<Auth> mongoDBConnection;
+    @Autowired
+    private IMemberApplication memberApplication;
 
     private final String JWT_SECRET = "UUhuhdadyh9*&^777687";
     private final long JWT_EXPIRATION = 30 * 60 * 1000;
@@ -28,26 +35,38 @@ public class AuthApplication implements IAuthApplication {
     }
 
     @Override
-    public Optional<Boolean> checkJwt(String jwt) throws Exception {
-        Map<String, Object> query = new HashMap<>();
-        query.put("jwt", jwt);
-        long count = mongoDBConnection.count(query).orElse(0L);
-        if (count > 0) {
-            Optional<CommandJwt> commandJwt = this.decodeJwt(jwt);
-            if (commandJwt.isPresent()) {
-                long now = System.currentTimeMillis();
-                if (now > commandJwt.get().getExpiration_date()) {
-                    this.clearToken(commandJwt.get().getUser_id());
-                } else {
-                    return Optional.of(Boolean.TRUE);
-                }
-            }
-        }
-        return Optional.of(Boolean.FALSE);
+    public Optional<Auth> add(Member member, String password) throws Exception {
+        Auth auth = Auth.builder()
+                .member_id(member.get_id().toHexString())
+                .password(HashUtils.getPasswordMD5(password))
+                .username(member.getEmail())
+                .build();
+        return mongoDBConnection.insert(auth);
     }
 
     @Override
-    public Optional<String> generateToken(Member member) {
+    public Optional<Auth> checkJwt(String jwt) throws Exception {
+        Map<String, Object> query = new HashMap<>();
+        query.put("jwt", jwt);
+        Optional<Auth> auth = mongoDBConnection.findOne(query);
+        if (auth.isPresent()) {
+            Optional<CommandJwt> commandJwt = this.decodeJwt(auth.get().getJwt());
+            if (commandJwt.isPresent()) {
+                long now = System.currentTimeMillis();
+                if (now < commandJwt.get().getExpiration_date()) {
+                    return auth;
+                }
+            }
+        }
+        return Optional.empty();
+    }
+
+    private Optional<Auth> generateToken(Auth auth) throws Exception{
+        Optional<Member> optional = memberApplication.getById(auth.getMember_id());
+        if (!optional.isPresent()) {
+            throw new Exception(ExceptionEnum.member_not_exist);
+        }
+        Member member = optional.get();
         long now = System.currentTimeMillis();
         Map<String, Object> header = new HashMap<>();
         header.put("alg", "HS256");
@@ -59,17 +78,36 @@ public class AuthApplication implements IAuthApplication {
                 .user_id(member.get_id().toString())
                 .role(member.getType())
                 .build();
-        String result = Jwts.builder()
+        String jwt = Jwts.builder()
                 .setHeader(header)
                 .setPayload(new Gson().toJson(commandJwt))
                 .signWith(SignatureAlgorithm.HS512, JWT_SECRET)
                 .compact();
-        Auth auth = Auth.builder()
-                .jwt(result)
-                .user_id(member.get_id().toHexString())
-                .build();
-        mongoDBConnection.insert(auth);
-        return Optional.of(result);
+        auth.setJwt(jwt);
+        mongoDBConnection.update(auth.get_id().toHexString(), auth);
+        return Optional.of(auth);
+    }
+
+    @Override
+    public Optional<String> login(CommandLogin command) throws Exception {
+        if (StringUtils.isAnyBlank(command.getUsername(), command.getPassword())) {
+            throw new Exception(ExceptionEnum.param_not_null);
+        }
+        Map<String, Object> query = new HashMap<>();
+        query.put("username", command.getUsername());
+        Optional<Auth> auth = mongoDBConnection.findOne(query);
+        if (!auth.isPresent()) {
+            throw new Exception(ExceptionEnum.member_not_exist);
+        }
+        String hashPass = HashUtils.getPasswordMD5(command.getPassword());
+        if (!hashPass.equals(auth.get().getPassword())) {
+            throw new Exception(ExceptionEnum.password_incorrect);
+        }
+        Optional<Auth> optional = this.generateToken(auth.get());
+        if (!optional.isPresent()) {
+            throw new Exception(ExceptionEnum.password_incorrect);
+        }
+        return Optional.of(optional.get().getJwt());
     }
 
     @Override
