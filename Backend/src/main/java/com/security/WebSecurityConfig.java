@@ -1,8 +1,6 @@
 package com.security;
 
-import com.model.auth.application.IAuthApplication;
 import com.utils.enums.APIOpenEnum;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -14,10 +12,6 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-
-    @Autowired
-    private IAuthApplication authApplication;
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
@@ -27,6 +21,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         //nếu người dùng truyên cập mà k đủ quyền
         http.exceptionHandling().accessDeniedPage("/login");
         // Apply JWT
-        http.apply(new JwtTokenFilterConfigurer(authApplication));
+        http.apply(new JwtTokenFilterConfigurer());
     }
 }

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Member from "../../service/MemberService";
+import Auth from "../../service/AuthService";
 
 class Login extends Component {
   componentDidMount() {
