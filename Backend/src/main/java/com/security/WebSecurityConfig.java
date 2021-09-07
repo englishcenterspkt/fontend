@@ -6,7 +6,12 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.Arrays;
+import java.util.Collections;
 
 @Configuration
 @EnableWebSecurity
@@ -14,13 +19,30 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable();
-        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        http.cors().configurationSource(new PermissiveCorsConfigurationSource()).and().csrf().disable();
         http.authorizeRequests().antMatchers(APIOpenEnum.apiOpen.toArray(new String[0])).permitAll();
         http.authorizeRequests().anyRequest().authenticated();
         //nếu người dùng truyên cập mà k đủ quyền
         http.exceptionHandling().accessDeniedPage("/login");
         // Apply JWT
         http.apply(new JwtTokenFilterConfigurer());
+    }
+
+    private static class PermissiveCorsConfigurationSource implements CorsConfigurationSource {
+        @Override
+        public CorsConfiguration getCorsConfiguration(final HttpServletRequest request) {
+            final CorsConfiguration configuration = new CorsConfiguration();
+            configuration.setAllowCredentials(true);
+            configuration.setAllowedOrigins(Collections.singletonList("http://localhost:3000/"));
+            configuration.setAllowedHeaders(Arrays.asList(
+                    "Content-Type",
+                    "X-Requested-With",
+                    "accept",
+                    "Origin",
+                    "Access-Control-Request-Method",
+                    "Access-Control-Request-Headers",
+                    "Authorization"));
+            return configuration;
+        }
     }
 }
