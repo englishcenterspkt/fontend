@@ -5,13 +5,11 @@ import com.model.auth.command.CommandLogin;
 import com.utils.ResponseUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Component
 @RestController(value = "/auth")
+@CrossOrigin(origins = "http://localhost:3000/")
 public class AuthController extends ResponseUtils {
     @Autowired
     private IAuthApplication authApplication;
