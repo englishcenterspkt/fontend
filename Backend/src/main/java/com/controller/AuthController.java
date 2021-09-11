@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 
 @Component
 @RestController(value = "/auth")
-@CrossOrigin(origins = "http://localhost:3000/")
 public class AuthController extends ResponseUtils {
     @Autowired
     private IAuthApplication authApplication;

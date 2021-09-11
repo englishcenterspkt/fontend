@@ -1,11 +1,30 @@
 import React, { Component } from "react";
-import Auth from "../../service/AuthService"
+import Auth from "../../service/AuthService";
+import Member from "../../service/MemberService";
 
 class Login extends Component {
-  onSubmitLogin = function() {
-    console.log("abc");
+  constructor(props) {
+    super(props);
+    this.state = {
+      username: "",
+      password: ""
+    }
+    
+    this.onSubmitLogin = this.onSubmitLogin.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
+  handleChange(event) {
+    this.setState({[event.target.id]: event.target.value});
+  }
+
+  onSubmitLogin(e) {
+    e.preventDefault();
+    console.log(this.state.username);
+    Auth.login(document.getElementById("username").value, document.getElementById("password").value).then(
+      console.log(Response)
+    )
+  }
 
   render() {
     return (
@@ -25,17 +44,21 @@ class Login extends Component {
                         <input
                           type="email"
                           className="form-control form-control-user"
-                          id="exampleInputEmail"
+                          id="username"
                           aria-describedby="emailHelp"
                           placeholder="Enter Email Address..."
+                          value={this.state.username}
+                          onChange={this.handleChange}
                         />
                       </div>
                       <div className="form-group">
                         <input
                           type="password"
                           className="form-control form-control-user"
-                          id="exampleInputPassword"
+                          id="password"
                           placeholder="Password"
+                          value={this.state.password}
+                          onChange={this.handleChange}
                         />
                       </div>
                       <div className="form-group">
@@ -54,7 +77,7 @@ class Login extends Component {
                         </div>
                       </div>
                       <button
-                        onClick={this.onSubmitLogin()}
+                        onClick={this.onSubmitLogin}
                         className="btn btn-primary btn-user btn-block"
                       >
                         Login

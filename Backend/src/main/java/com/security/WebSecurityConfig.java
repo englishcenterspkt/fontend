@@ -19,7 +19,8 @@ import java.util.Collections;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.cors().configurationSource(new PermissiveCorsConfigurationSource()).and().csrf().disable();
+        http.cors().configurationSource(new PermissiveCorsConfigurationSource());
+        http.csrf().disable();
         http.authorizeRequests().antMatchers(APIOpenEnum.apiOpen.toArray(new String[0])).permitAll();
         http.authorizeRequests().anyRequest().authenticated();
         //nếu người dùng truyên cập mà k đủ quyền
@@ -34,6 +35,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             final CorsConfiguration configuration = new CorsConfiguration();
             configuration.setAllowCredentials(true);
             configuration.setAllowedOrigins(Collections.singletonList("http://localhost:3000/"));
+            configuration.setAllowedMethods(Arrays.asList(
+                    "GET",
+                    "POST",
+                    "PUT",
+                    "DELETE"
+            ));
             configuration.setAllowedHeaders(Arrays.asList(
                     "Content-Type",
                     "X-Requested-With",
