@@ -1,32 +1,52 @@
 import React, { Component } from "react";
+import { Redirect } from "react-router-dom";
 import Auth from "../../service/AuthService";
-import Member from "../../service/MemberService";
+import Cookies from 'universal-cookie';
 
 class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
       username: "",
-      password: ""
-    }
-    
+      password: "",
+      loggedInUser: null,
+    };
+
     this.onSubmitLogin = this.onSubmitLogin.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
 
   handleChange(event) {
-    this.setState({[event.target.id]: event.target.value});
+    this.setState({ [event.target.id]: event.target.value });
   }
 
   onSubmitLogin(e) {
     e.preventDefault();
-    console.log(this.state.username);
-    Auth.login(document.getElementById("username").value, document.getElementById("password").value).then(
-      console.log(Response)
-    )
+    Auth.login(this.state.username, this.state.password).then((Response) => {
+      if (Response.data.code !== -9999) {
+        const cookies = new Cookies();
+        cookies.set("token", Response.data.payload, { path: "/" });
+        console.log(2);
+        this.setState({ loggedInUser: true });
+      }
+    });
   }
 
   render() {
+    if (this.state.loggedInUser !== null) {
+      // neu da login thi Redirect
+      return (
+        console.log(1),
+        <Redirect
+          to={{
+            pathname: "/admin",
+            state: {
+              from: this.state,
+            },
+          }}
+        />
+      );
+    }
     return (
       <div className="row justify-content-center">
         <div className="col-xl-10 col-lg-12 col-md-9">
