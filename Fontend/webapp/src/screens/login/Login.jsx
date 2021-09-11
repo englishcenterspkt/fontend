@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import Auth from "../../service/AuthService";
-import Cookies from 'universal-cookie';
+import Cookies from "universal-cookie";
 
 class Login extends Component {
   constructor(props) {
@@ -37,14 +37,16 @@ class Login extends Component {
       // neu da login thi Redirect
       return (
         console.log(1),
-        <Redirect
-          to={{
-            pathname: "/admin",
-            state: {
-              from: this.state,
-            },
-          }}
-        />
+        (
+          <Redirect
+            to={{
+              pathname: "/admin",
+              state: {
+                from: this.state,
+              },
+            }}
+          />
+        )
       );
     }
     return (
