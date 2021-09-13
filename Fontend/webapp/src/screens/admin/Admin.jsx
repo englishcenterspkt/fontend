@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Member from "../../service/MemberService";
-import BasicToast from "../../components/BasicToast";
-import { ToastContainer } from "react-toastify";
+import NotifyCation from "../../components/NotifyCation";
+import AdminNavbar from "../../components/Navbars/AdminNavbar"
 
 class Admin extends Component {
   componentDidMount() {
@@ -10,12 +10,7 @@ class Admin extends Component {
   render() {
     return (
       <div>
-        <h1>Hello StackBlitz!</h1>
-        <button onClick={e=>{
-            BasicToast.showNoti("nammmmmmmmmm");
-        }}>
-            a
-        </button>
+        <AdminNavbar/>
       </div>
     );
   }

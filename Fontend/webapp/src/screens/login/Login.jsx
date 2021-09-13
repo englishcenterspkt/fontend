@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import Auth from "../../service/AuthService";
 import Cookies from "universal-cookie";
+import NotifyCation from "../../components/NotifyCation";
+import Footer from "../../components/Footer/Footer";
 
 class Login extends Component {
   constructor(props) {
@@ -28,6 +30,8 @@ class Login extends Component {
         cookies.set("token", Response.data.payload, { path: "/" });
         console.log(2);
         this.setState({ loggedInUser: true });
+      } else {
+        NotifyCation.showNotification(Response.data.message);
       }
     });
   }
@@ -136,6 +140,7 @@ class Login extends Component {
             </div>
           </div>
         </div>
+        <Footer />
       </div>
     );
   }

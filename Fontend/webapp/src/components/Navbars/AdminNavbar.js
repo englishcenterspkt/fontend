@@ -16,196 +16,102 @@
 
 */
 import React, { Component } from "react";
-import { useLocation } from "react-router-dom";
-import { Navbar, Container, Nav, Dropdown, Button } from "react-bootstrap";
+// import { useLocation } from "react-router-dom";
+// import { Navbar, Container, Nav, Dropdown, Button } from "react-bootstrap";
 
-import routes from "routes.js";
+// import routes from "routes.js";
 
 function Header() {
-  const location = useLocation();
-  const mobileSidebarToggle = (e) => {
-    e.preventDefault();
-    document.documentElement.classList.toggle("nav-open");
-    var node = document.createElement("div");
-    node.id = "bodyClick";
-    node.onclick = function () {
-      this.parentElement.removeChild(this);
-      document.documentElement.classList.toggle("nav-open");
-    };
-    document.body.appendChild(node);
-  };
-
-  const getBrandText = () => {
-    for (let i = 0; i < routes.length; i++) {
-      if (location.pathname.indexOf(routes[i].layout + routes[i].path) !== -1) {
-        return routes[i].name;
-      }
-    }
-    return "Brand";
-  };
-  return (
-    <Navbar bg="light" expand="lg">
-      <Container fluid>
-        <div className="d-flex justify-content-center align-items-center ml-2 ml-lg-0">
-          <Button
-            variant="dark"
-            className="d-lg-none btn-fill d-flex justify-content-center align-items-center rounded-circle p-2"
-            onClick={mobileSidebarToggle}
-          >
-            <i className="fas fa-ellipsis-v"></i>
-          </Button>
-          <Navbar.Brand
-            href="#home"
-            onClick={(e) => e.preventDefault()}
-            className="mr-2"
-          >
-            {getBrandText()}
-          </Navbar.Brand>
-        </div>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" className="mr-2">
-          <span className="navbar-toggler-bar burger-lines"></span>
-          <span className="navbar-toggler-bar burger-lines"></span>
-          <span className="navbar-toggler-bar burger-lines"></span>
-        </Navbar.Toggle>
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="nav mr-auto" navbar>
-            <Nav.Item>
-              <Nav.Link
-                data-toggle="dropdown"
-                href="#pablo"
-                onClick={(e) => e.preventDefault()}
-                className="m-0"
-              >
-                <i className="nc-icon nc-palette"></i>
-                <span className="d-lg-none ml-1">Dashboard</span>
-              </Nav.Link>
-            </Nav.Item>
-            <Dropdown as={Nav.Item}>
-              <Dropdown.Toggle
-                as={Nav.Link}
-                data-toggle="dropdown"
-                id="dropdown-67443507"
-                variant="default"
-                className="m-0"
-              >
-                <i className="nc-icon nc-planet"></i>
-                <span className="notification">5</span>
-                <span className="d-lg-none ml-1">Notification</span>
-              </Dropdown.Toggle>
-              <Dropdown.Menu>
-                <Dropdown.Item
-                  href="#pablo"
-                  onClick={(e) => e.preventDefault()}
-                >
-                  Notification 1
-                </Dropdown.Item>
-                <Dropdown.Item
-                  href="#pablo"
-                  onClick={(e) => e.preventDefault()}
-                >
-                  Notification 2
-                </Dropdown.Item>
-                <Dropdown.Item
-                  href="#pablo"
-                  onClick={(e) => e.preventDefault()}
-                >
-                  Notification 3
-                </Dropdown.Item>
-                <Dropdown.Item
-                  href="#pablo"
-                  onClick={(e) => e.preventDefault()}
-                >
-                  Notification 4
-                </Dropdown.Item>
-                <Dropdown.Item
-                  href="#pablo"
-                  onClick={(e) => e.preventDefault()}
-                >
-                  Another notification
-                </Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
-            <Nav.Item>
-              <Nav.Link
-                className="m-0"
-                href="#pablo"
-                onClick={(e) => e.preventDefault()}
-              >
-                <i className="nc-icon nc-zoom-split"></i>
-                <span className="d-lg-block"> Search</span>
-              </Nav.Link>
-            </Nav.Item>
-          </Nav>
-          <Nav className="ml-auto" navbar>
-            <Nav.Item>
-              <Nav.Link
-                className="m-0"
-                href="#pablo"
-                onClick={(e) => e.preventDefault()}
-              >
-                <span className="no-icon">Account</span>
-              </Nav.Link>
-            </Nav.Item>
-            <Dropdown as={Nav.Item}>
-              <Dropdown.Toggle
-                aria-expanded={false}
-                aria-haspopup={true}
-                as={Nav.Link}
-                data-toggle="dropdown"
-                id="navbarDropdownMenuLink"
-                variant="default"
-                className="m-0"
-              >
-                <span className="no-icon">Dropdown</span>
-              </Dropdown.Toggle>
-              <Dropdown.Menu aria-labelledby="navbarDropdownMenuLink">
-                <Dropdown.Item
-                  href="#pablo"
-                  onClick={(e) => e.preventDefault()}
-                >
-                  Action
-                </Dropdown.Item>
-                <Dropdown.Item
-                  href="#pablo"
-                  onClick={(e) => e.preventDefault()}
-                >
-                  Another action
-                </Dropdown.Item>
-                <Dropdown.Item
-                  href="#pablo"
-                  onClick={(e) => e.preventDefault()}
-                >
-                  Something
-                </Dropdown.Item>
-                <Dropdown.Item
-                  href="#pablo"
-                  onClick={(e) => e.preventDefault()}
-                >
-                  Something else here
-                </Dropdown.Item>
-                <div className="divider"></div>
-                <Dropdown.Item
-                  href="#pablo"
-                  onClick={(e) => e.preventDefault()}
-                >
-                  Separated link
-                </Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
-            <Nav.Item>
-              <Nav.Link
-                className="m-0"
-                href="#pablo"
-                onClick={(e) => e.preventDefault()}
-              >
-                <span className="no-icon">Log out</span>
-              </Nav.Link>
-            </Nav.Item>
-          </Nav>
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
-  );
+      return (
+  
+        <ul className="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+          <a className="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+            <div className="sidebar-brand-icon rotate-n-15">
+              <i className="fas fa-laugh-wink" />
+            </div>
+            <div className="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
+          </a>
+          <hr className="sidebar-divider my-0" />
+          <li className="nav-item active">
+            <a className="nav-link" href="index.html">
+              <i className="fas fa-fw fa-tachometer-alt" />
+              <span>Dashboard</span></a>
+          </li>
+          <hr className="sidebar-divider" />
+          <div className="sidebar-heading">
+            Interface
+          </div>
+          <li className="nav-item">
+            <a className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+              <i className="fas fa-fw fa-cog" />
+              <span>Components</span>
+            </a>
+            <div id="collapseTwo" className="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+              <div className="bg-white py-2 collapse-inner rounded">
+                <h6 className="collapse-header">Custom Components:</h6>
+                <a className="collapse-item" href="buttons.html">Buttons</a>
+                <a className="collapse-item" href="cards.html">Cards</a>
+              </div>
+            </div>
+          </li>
+          <li className="nav-item">
+            <a className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
+              <i className="fas fa-fw fa-wrench" />
+              <span>Utilities</span>
+            </a>
+            <div id="collapseUtilities" className="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+              <div className="bg-white py-2 collapse-inner rounded">
+                <h6 className="collapse-header">Custom Utilities:</h6>
+                <a className="collapse-item" href="utilities-color.html">Colors</a>
+                <a className="collapse-item" href="utilities-border.html">Borders</a>
+                <a className="collapse-item" href="utilities-animation.html">Animations</a>
+                <a className="collapse-item" href="utilities-other.html">Other</a>
+              </div>
+            </div>
+          </li>
+          <hr className="sidebar-divider" />
+          <div className="sidebar-heading">
+            Addons
+          </div>
+          <li className="nav-item">
+            <a className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
+              <i className="fas fa-fw fa-folder" />
+              <span>Pages</span>
+            </a>
+            <div id="collapsePages" className="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+              <div className="bg-white py-2 collapse-inner rounded">
+                <h6 className="collapse-header">Login Screens:</h6>
+                <a className="collapse-item" href="login.html">Login</a>
+                <a className="collapse-item" href="register.html">Register</a>
+                <a className="collapse-item" href="forgot-password.html">Forgot Password</a>
+                <div className="collapse-divider" />
+                <h6 className="collapse-header">Other Pages:</h6>
+                <a className="collapse-item" href="404.html">404 Page</a>
+                <a className="collapse-item" href="blank.html">Blank Page</a>
+              </div>
+            </div>
+          </li>
+          <li className="nav-item">
+            <a className="nav-link" href="charts.html">
+              <i className="fas fa-fw fa-chart-area" />
+              <span>Charts</span></a>
+          </li>
+          <li className="nav-item">
+            <a className="nav-link" href="tables.html">
+              <i className="fas fa-fw fa-table" />
+              <span>Tables</span></a>
+          </li>
+          <hr className="sidebar-divider d-none d-md-block" />
+          <div className="text-center d-none d-md-inline">
+            <button className="rounded-circle border-0" id="sidebarToggle" />
+          </div>
+          <div className="sidebar-card d-none d-lg-flex">
+            <img className="sidebar-card-illustration mb-2" src="img/undraw_rocket.svg" alt="..." />
+            <p className="text-center mb-2"><strong>SB Admin Pro</strong> is packed with premium features, components, and more!</p>
+            <a className="btn btn-success btn-sm" href="https://startbootstrap.com/theme/sb-admin-pro">Upgrade to Pro!</a>
+          </div>
+        </ul>
+      );
 }
 
 export default Header;
