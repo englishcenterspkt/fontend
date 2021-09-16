@@ -10,20 +10,20 @@ function Sidebar() {
         </div>
         <ul className="sidebar-menu">
           <li className="menu-header">Thống kê</li>
-          <li>
+          <li className="active">
             <a href="/admin" className="nav-link no-dropdown">
               <i className="fas fa-fire" />
               <span>Tổng quan</span>
             </a>
           </li>
-          <li className="nav-item dropdown active">
+          <li className="nav-item dropdown">
             <a href="/admin" className="nav-link has-dropdown">
               <i className="fas fa-fire" />
               <span>Xuất báo cáo</span>
             </a>
             <ul className="dropdown-menu">
               <li>
-                <a className="nav-link" href="index-0.html">
+                <a className="nav-link" href="/admin/abc">
                   Theo Học viên
                 </a>
               </li>

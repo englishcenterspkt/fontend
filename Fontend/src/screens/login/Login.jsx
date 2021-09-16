@@ -23,7 +23,6 @@ class Login extends Component {
 
   onSubmitLogin(e) {
     e.preventDefault();
-    console.log("nam");
     Auth.login(this.state.username, this.state.password).then((Response) => {
       if (Response.data.code !== -9999) {
         const cookies = new Cookies();

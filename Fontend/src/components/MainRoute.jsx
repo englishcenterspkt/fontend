@@ -17,6 +17,9 @@ export default function MainRoute() {
           <Route path="/admin">
             <Admin />
           </Route>
+          <Route path="/admin/abc">
+            <Admin />
+          </Route>
         </Switch>
       </>
     </Router>
