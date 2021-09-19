@@ -13,7 +13,6 @@ class Admin extends Component {
   }
 
   renderSwitch() {
-    console.log(window.location.pathname);
     switch (window.location.pathname) {
       case "/admin":
         return <Dashboard></Dashboard>;
@@ -25,7 +24,7 @@ class Admin extends Component {
   render() {
     return (
       <div>
-        <Navbar></Navbar>
+        <Navbar index={window.location.pathname}></Navbar>
         {this.renderSwitch()}
       </div>
     );
