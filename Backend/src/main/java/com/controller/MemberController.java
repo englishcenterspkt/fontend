@@ -1,14 +1,13 @@
 package com.controller;
 
+import com.model.auth.command.CommandJwt;
 import com.model.member.application.IMemberApplication;
 import com.model.member.command.CommandAddMember;
+import com.model.member.command.CommandSearchMember;
 import com.utils.ResponseUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 
@@ -22,6 +21,18 @@ public class MemberController extends ResponseUtils {
     public String get() {
         try {
             return this.outJson(9999, null, userApplication.find(new HashMap<>()).orElse(null));
+        } catch (Throwable throwable) {
+            return this.outJson(-9999, throwable.getMessage(), null);
+        }
+    }
+
+    @RequestMapping(value = "/member/get_list", method = RequestMethod.GET)
+    public String getList(@RequestBody CommandSearchMember command, @RequestParam Integer page, @RequestParam Integer size, @RequestHeader String Authorization) {
+        try {
+            command.setPage(page);
+            command.setSize(size);
+            command.setMember_type(this.getMemberType(Authorization));
+            return this.outJson(9999, null, userApplication.getList(command).orElse(null));
         } catch (Throwable throwable) {
             return this.outJson(-9999, throwable.getMessage(), null);
         }

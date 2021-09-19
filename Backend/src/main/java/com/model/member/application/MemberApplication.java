@@ -3,7 +3,9 @@ package com.model.member.application;
 import com.model.auth.application.IAuthApplication;
 import com.model.member.Member;
 import com.model.member.command.CommandAddMember;
+import com.model.member.command.CommandSearchMember;
 import com.utils.MongoDBConnection;
+import com.utils.Paging;
 import com.utils.enums.ExceptionEnum;
 import com.utils.enums.MongodbEnum;
 import org.apache.commons.lang3.StringUtils;
@@ -31,6 +33,20 @@ public class MemberApplication implements IMemberApplication {
     public Optional<List<Member>> find(Map<String, Object> query) {
         query.put("is_deleted", false);
         return mongoDBConnection.find(query);
+    }
+
+
+
+    @Override
+    public Optional<Paging<Member>> getList(CommandSearchMember command) throws Exception {
+        if (!Member.MemberType.ADMIN.equals(command.getMember_type())) {
+            throw new Exception(ExceptionEnum.member_type_deny);
+        }
+        Map<String, Object> query = new HashMap<>();
+        Map<String, Object> sort = new HashMap<>();
+        sort.put(command.getField_sort(), command.getIs_acs() ? 1 : -1);
+        query.put("is_deleted", false);
+        return mongoDBConnection.find(query, sort, command.getPage(), command.getSize());
     }
 
     @Override

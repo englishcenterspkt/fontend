@@ -5,4 +5,5 @@ public class ExceptionEnum {
     public static final String member_exist = "member_exist";
     public static final String member_not_exist = "member_not_exist";
     public static final String password_incorrect = "password_incorrect";
+    public static final String member_type_deny = "member_type_deny";
 }

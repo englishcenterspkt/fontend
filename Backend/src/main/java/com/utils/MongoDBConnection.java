@@ -51,14 +51,6 @@ public class MongoDBConnection<T> {
         }
     }
 
-    public Optional<List<T>> find(Map<String, Object> query, Map<String, Object> sort, Integer page, Integer size) {
-        try {
-            return Optional.of(mongoCollection.find(new Document(query)).sort(new Document()).skip((page - 1) * size).limit(size).into(new ArrayList<>()));
-        } catch (Exception e) {
-            return Optional.empty();
-        }
-    }
-
     public Optional<T> update(String id, T t) {
         try {
             Document data = this.buildQuerySet(t);
@@ -108,6 +100,55 @@ public class MongoDBConnection<T> {
 
     public void drop(Map<String, Object> query) {
         mongoCollection.deleteMany(new Document(query)).getDeletedCount();
+    }
+
+    public Optional<Paging<T>> find(Map<String, Object> query, Map<String, Object> sort, int page, int size) {
+        try {
+            long count = mongoCollection.count(new Document(query));
+            if (count > 0) {
+                List<T> list = mongoCollection.find(new Document(query)).sort(new Document(sort)).skip((page - 1) * size).limit(size).into(new ArrayList<>());
+                Paging<T> result = Paging.<T>builder()
+                        .items(list)
+                        .curren_page(page)
+                        .page_size(size)
+                        .total_items((int) count)
+                        .build();
+                if (count % size > 0) {
+                    result.setTotal_pages((int) (count / size) + 1);
+                } else {
+                    result.setTotal_pages((int) (count / size));
+                }
+                if (result.getCurren_page() < result.getTotal_pages()) {
+                    result.setNext_page(result.getCurren_page() + 1);
+                    result.setHas_next(true);
+                } else {
+                    result.setNext_page(result.getCurren_page());
+                    result.setHas_next(false);
+                }
+                if (result.getCurren_page() > 1) {
+                    result.setPrevious_page(result.getCurren_page() - 1);
+                    result.setHas_previous(true);
+                } else {
+                    result.setPrevious_page(result.getCurren_page());
+                    result.setHas_previous(false);
+                }
+                return Optional.of(result);
+            } else {
+                throw new Exception();
+            }
+        } catch (Exception e) {
+            return Optional.of(Paging.<T>builder()
+                    .items(new ArrayList<>())
+                    .next_page(1)
+                    .curren_page(1)
+                    .has_next(false)
+                    .has_previous(false)
+                    .page_size(size)
+                    .previous_page(1)
+                    .total_items(0)
+                    .total_pages(0)
+                    .build());
+        }
     }
 
     private Document buildQuerySet(T t) {

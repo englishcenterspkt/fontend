@@ -1,11 +1,19 @@
 package com.utils;
 
+import com.model.auth.application.IAuthApplication;
+import com.model.auth.command.CommandJwt;
+import com.model.member.command.CommandSearchMember;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 public abstract class ResponseUtils {
+    @Autowired
+    private IAuthApplication authApplication;
+
     protected String outJson(Integer code, String message, Object object) {
         Map<String, Object> result = new HashMap<>();
         if (code != null) {
@@ -18,5 +26,10 @@ public abstract class ResponseUtils {
             result.put("payload", object);
         }
         return JsonUtils.objectToJson(result);
+    }
+
+    protected String getMemberType(String token) {
+        Optional<CommandJwt> commandJwt = authApplication.decodeJwt(token.substring(7));
+        return commandJwt.map(CommandJwt::getRole).orElse(null);
     }
 }
