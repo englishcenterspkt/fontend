@@ -26,9 +26,12 @@ class Sidebar extends Component {
               </a>
             </li>
             <li className="menu-header">Quản lý</li>
-            <li>
-              <a className="nav-link" href="forms-advanced-form.html">
-                <i className="far fa-square" /> <span>Học viên</span>
+            <li
+              className={this.props.index === "/admin/student" ? "active" : ""}
+            >
+              <a href="/admin/student" className="nav-link no-dropdown">
+                <i className="fas fa-fire" />
+                <span>Học viên</span>
               </a>
             </li>
             <li>
