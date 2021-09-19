@@ -19,34 +19,11 @@ class Sidebar extends Component {
                 <span>Tổng quan</span>
               </a>
             </li>
-            <li
-              className={
-                this.props.index === "/admin/abc" ||
-                this.props.index === "/admin/abcd"
-                  ? "active"
-                  : "nav-item dropdown"
-              }
-            >
-              <a href="/admin" className="nav-link has-dropdown">
+            <li className={this.props.index === "/admin/abc" ? "active" : ""}>
+              <a href="/admin/abc" className="nav-link no-dropdown">
                 <i className="fas fa-fire" />
                 <span>Xuất báo cáo</span>
               </a>
-              <ul className="dropdown-menu">
-                <li
-                  className={this.props.index === "/admin/abc" ? "active" : ""}
-                >
-                  <a className="nav-link" href="/admin/abc">
-                    Theo Học viên
-                  </a>
-                </li>
-                <li
-                  className={this.props.index === "/admin/abcd" ? "active" : ""}
-                >
-                  <a className="nav-link" href="/admin/abcd">
-                    Theo doanh thu
-                  </a>
-                </li>
-              </ul>
             </li>
             <li className="menu-header">Quản lý</li>
             <li>
