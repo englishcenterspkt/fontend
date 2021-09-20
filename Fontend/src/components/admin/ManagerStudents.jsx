@@ -1,11 +1,14 @@
 import React, { Component } from "react";
 import Member from "../../service/MemberService";
 import NotifyCation from "../../components/NotifyCation";
+import AddEditStudent from "./AddEditStudent";
+import Modal from "react-bootstrap4-modal";
 
 class ManagerStudents extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      show_add: false,
       students: [
         {
           _id: 1,
@@ -13,6 +16,8 @@ class ManagerStudents extends Component {
         },
       ],
     };
+
+    this.onClickAdd = this.onClickAdd.bind(this);
   }
 
   parseDate(timestamp) {
@@ -34,16 +39,24 @@ class ManagerStudents extends Component {
     });
   }
 
+  onClickAdd() {
+    this.setState({ show_add: !this.state.show_add });
+  }
+
   render() {
     return (
       <div className="main-content">
+        <AddEditStudent show_add={this.state.show_add} />
         <section className="section">
           <div className="section-header">
             <h1>Học viên</h1>
-            <div class="section-header-breadcrumb">
-              <div class="breadcrumb-item">
-                <a href="/admin/student/add" class="btn btn-icon btn-primary">
-                  <i class="fas fa-plus"></i>
+            <div className="section-header-breadcrumb">
+              <div className="breadcrumb-item">
+                <a
+                  onClick={this.onClickAdd}
+                  className="btn btn-icon btn-primary"
+                >
+                  <i className="fas fa-plus"></i>
                 </a>
               </div>
             </div>
