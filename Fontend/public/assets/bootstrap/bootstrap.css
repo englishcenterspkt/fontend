@@ -582,7 +582,7 @@ pre code {
   overflow-y: scroll;
 }
 
-.container {
+/* .container {
   width: 100%;
   padding-right: 15px;
   padding-left: 15px;
@@ -654,7 +654,7 @@ pre code {
   .container {
     max-width: 1900px;
   }
-}
+} */
 
 .container-fluid {
   width: 100%;

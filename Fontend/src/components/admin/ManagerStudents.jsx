@@ -46,7 +46,6 @@ class ManagerStudents extends Component {
   render() {
     return (
       <div className="main-content">
-        <AddEditStudent show_add={this.state.show_add} />
         <section className="section">
           <div className="section-header">
             <h1>Học viên</h1>
@@ -62,6 +61,7 @@ class ManagerStudents extends Component {
             </div>
           </div>
           <div className="section-body">
+            <AddEditStudent show_add={this.state.show_add} />
             <div className="row">
               <div className="col-12">
                 <div className="card">
