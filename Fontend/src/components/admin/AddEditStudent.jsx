@@ -25,10 +25,23 @@ class AddEditStudent extends Component {
             left: 0,
           }}
         >
-          <div className="card">
+          <div
+            className="card"
+            style={{
+              marginRight: "50px",
+              marginLeft: "50px",
+              marginTop: "50px",
+            }}
+          >
             <form className="needs-validation" noValidate>
               <div className="card-header">
                 <h4>Thông tin học viên</h4>
+                <a
+                  onClick={() => this.props.close_modal()}
+                  className="btn btn-icon btn-primary"
+                >
+                  <i className="fas fa-plus"></i>
+                </a>
               </div>
               <div className="card-body">
                 <div className="form-group">

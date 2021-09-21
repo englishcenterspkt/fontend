@@ -61,7 +61,10 @@ class ManagerStudents extends Component {
             </div>
           </div>
           <div className="section-body">
-            <AddEditStudent show_add={this.state.show_add} />
+            <AddEditStudent
+              show_add={this.state.show_add}
+              close_modal={this.onClickAdd}
+            />
             <div className="row">
               <div className="col-12">
                 <div className="card">
