@@ -27,7 +27,6 @@ class Login extends Component {
       if (Response.data.code !== -9999) {
         const cookies = new Cookies();
         cookies.set("token", Response.data.payload, { path: "/" });
-        console.log(2);
         this.setState({ loggedInUser: true });
       } else {
         NotifyCation.showNotification(Response.data.message);

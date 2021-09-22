@@ -2,22 +2,28 @@ import React, { Component } from "react";
 import Member from "../../service/MemberService";
 import NotifyCation from "../../components/NotifyCation";
 import AddEditStudent from "./AddEditStudent";
-import Modal from "react-bootstrap4-modal";
 
 class ManagerStudents extends Component {
   constructor(props) {
     super(props);
     this.state = {
       show_add: false,
-      students: [
-        {
-          _id: 1,
-          email: "nam",
-        },
-      ],
+      students: [],
+      total_pages: 0,
+      current_page: 0,
+      has_previous: false,
+      has_next: false,
+      page: 1,
+      size: 5,
+      previous_page: 1,
+      next_page: 1,
     };
 
     this.onClickAdd = this.onClickAdd.bind(this);
+    this.reload = this.reload.bind(this);
+    this.onChangePage = this.onChangePage.bind(this);
+    this.previousPage = this.previousPage.bind(this);
+    this.nextPage = this.nextPage.bind(this);
   }
 
   parseDate(timestamp) {
@@ -29,14 +35,40 @@ class ManagerStudents extends Component {
   }
 
   componentDidMount() {
-    Member.getMembers().then((Response) => {
+    this.reload();
+  }
+
+  reload() {
+    Member.getMembers(this.state.page, this.state.size).then((Response) => {
       if (Response.data.code !== -9999) {
-        this.setState({ students: Response.data.payload });
-        console.log(this.state.students);
+        this.setState({
+          students: Response.data.payload.items,
+          total_pages: Response.data.payload.total_pages,
+          current_page: Response.data.payload.current_page,
+          has_next: Response.data.payload.has_next,
+          has_previous: Response.data.payload.has_previous,
+          next_page: Response.data.payload.next_page,
+          previous_page: Response.data.payload.previous_page,
+        });
       } else {
         NotifyCation.showNotification(Response.data.message);
       }
     });
+  }
+
+  onChangePage(event) {
+    this.state.page = event.target.attributes.value.value;
+    this.reload();
+  }
+
+  previousPage(event) {
+    this.state.page = this.state.previous_page;
+    this.reload();
+  }
+
+  nextPage(event) {
+    this.state.page = this.state.next_page;
+    this.reload();
   }
 
   onClickAdd() {
@@ -64,6 +96,7 @@ class ManagerStudents extends Component {
             <AddEditStudent
               show_add={this.state.show_add}
               close_modal={this.onClickAdd}
+              reload={this.reload}
             />
             <div className="row">
               <div className="col-12">
@@ -116,6 +149,58 @@ class ManagerStudents extends Component {
                         </tbody>
                       </table>
                     </div>
+                  </div>
+                  <div className="card-footer text-right">
+                    <nav className="d-inline-block">
+                      <ul className="pagination mb-0">
+                        <li
+                          className={
+                            this.state.has_previous
+                              ? "page-item"
+                              : "page-item disabled"
+                          }
+                          onClick={
+                            this.state.has_previous ? this.previousPage : null
+                          }
+                        >
+                          <a className="page-link" tabindex="-1">
+                            <i className="fas fa-chevron-left"></i>
+                          </a>
+                        </li>
+                        {Array.from(Array(this.state.total_pages), (e, i) => {
+                          return (
+                            <li
+                              className={
+                                this.state.current_page === i + 1
+                                  ? "page-item active"
+                                  : "page-item"
+                              }
+                            >
+                              <a
+                                className="page-link"
+                                onClick={this.onChangePage}
+                                value={i + 1}
+                              >
+                                {i + 1}{" "}
+                                <span className="sr-only">(current)</span>
+                              </a>
+                            </li>
+                          );
+                        })}
+                        <li
+                          className={
+                            this.state.has_next
+                              ? "page-item"
+                              : "page-item disabled"
+                          }
+                          onClick={this.state.has_next ? this.nextPage : null}
+                        >
+                          <a className="page-link">
+                            <i className="fas fa-chevron-right"></i>
+                          </a>
+                        </li>
+                      </ul>
+                    </nav>
                   </div>
                 </div>
               </div>

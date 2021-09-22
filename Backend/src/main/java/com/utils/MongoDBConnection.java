@@ -109,7 +109,7 @@ public class MongoDBConnection<T> {
                 List<T> list = mongoCollection.find(new Document(query)).sort(new Document(sort)).skip((page - 1) * size).limit(size).into(new ArrayList<>());
                 Paging<T> result = Paging.<T>builder()
                         .items(list)
-                        .curren_page(page)
+                        .current_page(page)
                         .page_size(size)
                         .total_items((int) count)
                         .build();
@@ -118,18 +118,18 @@ public class MongoDBConnection<T> {
                 } else {
                     result.setTotal_pages((int) (count / size));
                 }
-                if (result.getCurren_page() < result.getTotal_pages()) {
-                    result.setNext_page(result.getCurren_page() + 1);
+                if (result.getCurrent_page() < result.getTotal_pages()) {
+                    result.setNext_page(result.getCurrent_page() + 1);
                     result.setHas_next(true);
                 } else {
-                    result.setNext_page(result.getCurren_page());
+                    result.setNext_page(result.getCurrent_page());
                     result.setHas_next(false);
                 }
-                if (result.getCurren_page() > 1) {
-                    result.setPrevious_page(result.getCurren_page() - 1);
+                if (result.getCurrent_page() > 1) {
+                    result.setPrevious_page(result.getCurrent_page() - 1);
                     result.setHas_previous(true);
                 } else {
-                    result.setPrevious_page(result.getCurren_page());
+                    result.setPrevious_page(result.getCurrent_page());
                     result.setHas_previous(false);
                 }
                 return Optional.of(result);
@@ -140,7 +140,7 @@ public class MongoDBConnection<T> {
             return Optional.of(Paging.<T>builder()
                     .items(new ArrayList<>())
                     .next_page(1)
-                    .curren_page(1)
+                    .current_page(1)
                     .has_next(false)
                     .has_previous(false)
                     .page_size(size)

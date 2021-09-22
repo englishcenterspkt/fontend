@@ -18,7 +18,7 @@ public class Paging<T> implements Serializable {
     private List<T> items;
     private Integer next_page;
     private Integer previous_page;
-    private Integer curren_page;
+    private Integer current_page;
     private Integer page_size;
     private Integer total_pages;
     private Integer total_items;

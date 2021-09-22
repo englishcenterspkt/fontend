@@ -26,7 +26,7 @@ public class MemberController extends ResponseUtils {
         }
     }
 
-    @RequestMapping(value = "/member/get_list", method = RequestMethod.GET)
+    @PostMapping(value = "/member/get_list")
     public String getList(@RequestBody CommandSearchMember command, @RequestParam Integer page, @RequestParam Integer size, @RequestHeader String Authorization) {
         try {
             command.setPage(page);

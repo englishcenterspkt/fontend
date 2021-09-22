@@ -35,8 +35,6 @@ public class MemberApplication implements IMemberApplication {
         return mongoDBConnection.find(query);
     }
 
-
-
     @Override
     public Optional<Paging<Member>> getList(CommandSearchMember command) throws Exception {
         if (!Member.MemberType.ADMIN.equals(command.getMember_type())) {
