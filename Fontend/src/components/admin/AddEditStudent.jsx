@@ -38,87 +38,86 @@ class AddEditStudent extends Component {
 
   render() {
     return (
-      <div hidden={!this.props.show_add}>
+      <div
+        hidden={!this.props.show_add}
+        style={{
+          position: "fixed",
+          zIndex: "998",
+          top: 0,
+          left: 0,
+          width: "100vw",
+          height: "100vh",
+          display: "flex",
+          alignItems: "center",
+          flexDirection: "row",
+          justifyContent: "center",
+        }}
+      >
         <div
           style={{
-            backgroundColor: "black",
+            backgroundColor: "rgba(34, 34, 34, 0.5)",
             zIndex: "999",
-            position: "fixed",
-            top: 0,
-            left: 0,
-            width: "100%",
-            height: "100%",
-            opacity: "0.5",
+            width: "100vw",
+            height: "100vh",
+            position: "absolute",
           }}
+          onClick={() => this.props.close_modal()}
         ></div>
         <div
-          className="main-content"
+          className="modal-content"
           style={{
             zIndex: "1000",
-            position: "fixed",
-            top: 0,
-            left: 0,
+            width: "30%",
           }}
         >
-          <div
-            className="card"
-            style={{
-              marginRight: "50px",
-              marginLeft: "50px",
-              marginTop: "50px",
-            }}
-          >
-            <form className="needs-validation" noValidate>
-              <div className="card-header">
-                <h4>Thông tin học viên</h4>
-                <a onClick={() => this.props.close_modal()}>
-                  <i class="fas fa-times"></i>
-                </a>
+          <form className="needs-validation" noValidate>
+            <div className="modal-header">
+              <h4>Thông tin học viên</h4>
+              <a onClick={() => this.props.close_modal()}>
+                <i class="fas fa-times"></i>
+              </a>
+            </div>
+            <div className="modal-body">
+              <div className="form-group">
+                <label>Họ và tên</label>
+                <input
+                  id="name"
+                  type="text"
+                  className="form-control"
+                  onChange={this.handleChange}
+                  required
+                />
+                <div className="invalid-feedback">What's your name?</div>
               </div>
-              <div className="card-body">
-                <div className="form-group">
-                  <label>Họ và tên</label>
-                  <input
-                    id="name"
-                    type="text"
-                    className="form-control"
-                    onChange={this.handleChange}
-                    required
-                  />
-                  <div className="invalid-feedback">What's your name?</div>
-                </div>
-                <div className="form-group">
-                  <label>Email</label>
-                  <input
-                    id="email"
-                    type="email"
-                    className="form-control"
-                    onChange={this.handleChange}
-                    required
-                  />
-                  <div className="invalid-feedback">
-                    Oh no! Email is invalid.
-                  </div>
-                </div>
-                <div className="form-group">
-                  <label>Mật khẩu</label>
-                  <input
-                    id="password"
-                    type="password"
-                    className="form-control"
-                    onChange={this.handleChange}
-                    required
-                  />
-                  <div className="valid-feedback">Good job!</div>
-                </div>
+              <div className="form-group">
+                <label>Email</label>
+                <input
+                  id="email"
+                  type="email"
+                  className="form-control"
+                  onChange={this.handleChange}
+                  required
+                />
+                <div className="invalid-feedback">Oh no! Email is invalid.</div>
               </div>
-              <div className="card-footer text-right">
-                <button className="btn btn-primary" onClick={this.onSubmit}>
-                  Submit
-                </button>
+              <div className="form-group">
+                <label>Mật khẩu</label>
+                <input
+                  id="password"
+                  type="password"
+                  className="form-control"
+                  onChange={this.handleChange}
+                  required
+                />
+                <div className="valid-feedback">Good job!</div>
               </div>
-            </form>
-          </div>
+            </div>
+            <div className="modal-footer text-right">
+              <button className="btn btn-primary" onClick={this.onSubmit}>
+                Submit
+              </button>
+            </div>
+          </form>
         </div>
       </div>
     );
