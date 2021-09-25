@@ -36,6 +36,21 @@ class AddEditStudent extends Component {
     });
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.student !== null) {
+      this.setState({
+        name: nextProps.student.name,
+        email: nextProps.student.email,
+      });
+    } else {
+      this.setState({
+        name: "",
+        email: "",
+        password: "",
+      });
+    }
+  }
+
   render() {
     return (
       <div
@@ -86,6 +101,7 @@ class AddEditStudent extends Component {
                   className="form-control"
                   onChange={this.handleChange}
                   required
+                  value={this.state.name}
                 />
                 <div className="invalid-feedback">What's your name?</div>
               </div>
@@ -97,10 +113,14 @@ class AddEditStudent extends Component {
                   className="form-control"
                   onChange={this.handleChange}
                   required
+                  value={this.state.email}
                 />
                 <div className="invalid-feedback">Oh no! Email is invalid.</div>
               </div>
-              <div className="form-group">
+              <div
+                className="form-group"
+                hidden={this.props.student !== null ? true : false}
+              >
                 <label>Mật khẩu</label>
                 <input
                   id="password"
@@ -108,6 +128,7 @@ class AddEditStudent extends Component {
                   className="form-control"
                   onChange={this.handleChange}
                   required
+                  value={this.state.password}
                 />
                 <div className="valid-feedback">Good job!</div>
               </div>
