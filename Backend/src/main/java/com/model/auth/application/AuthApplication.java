@@ -27,7 +27,7 @@ public class AuthApplication implements IAuthApplication {
     private IMemberApplication memberApplication;
 
     private final String JWT_SECRET = "UUhuhdadyh9*&^777687";
-    private final long JWT_EXPIRATION = 30 * 60 * 1000;
+    private final long JWT_EXPIRATION = 24 * 60 * 60 * 1000;
 
     @Autowired
     public AuthApplication() {

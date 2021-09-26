@@ -17,6 +17,7 @@ class ManagerStudents extends Component {
       size: 5,
       previous_page: 1,
       next_page: 1,
+      student: null,
     };
 
     this.onClickAdd = this.onClickAdd.bind(this);
@@ -73,11 +74,14 @@ class ManagerStudents extends Component {
   }
 
   onClickAdd() {
-    this.setState({ show_add: !this.state.show_add });
+    this.setState({ show_add: !this.state.show_add, student: null });
   }
 
   showEdit(event) {
-    console.log(event);
+    this.setState({
+      student: JSON.parse(event.currentTarget.getAttribute("data-item")),
+      show_add: !this.state.show_add,
+    });
   }
 
   render() {
@@ -138,7 +142,7 @@ class ManagerStudents extends Component {
                               return (
                                 <tr
                                   key={student._id}
-                                  value={index}
+                                  data-item={JSON.stringify(student)}
                                   onClick={this.showEdit}
                                 >
                                   <th>{index + 1}</th>
@@ -215,6 +219,7 @@ class ManagerStudents extends Component {
           show_add={this.state.show_add}
           close_modal={this.onClickAdd}
           reload={this.reload}
+          student={this.state.student}
         />
       </React.Fragment>
     );
