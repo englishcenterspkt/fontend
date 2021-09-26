@@ -15,11 +15,12 @@ class MemberService {
     });
   }
 
-  addMember(name, email, password) {
+  addMember(name, email, password, avatar) {
     return axios.post(`${INSTRUCTOR_API_URL}/add`, {
       name: name,
       email: email,
       password: password,
+      avatar: avatar,
     });
   }
 }

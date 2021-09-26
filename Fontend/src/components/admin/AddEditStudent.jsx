@@ -10,6 +10,8 @@ class AddEditStudent extends Component {
       name: "",
       email: "",
       password: "",
+      file: "",
+      image_preview_url: "",
     };
 
     this.onSubmit = this.onSubmit.bind(this);
@@ -22,10 +24,12 @@ class AddEditStudent extends Component {
 
   onSubmit(e) {
     e.preventDefault();
+    console.log(this.state.file);
     MemberService.addMember(
       this.state.name,
       this.state.email,
-      this.state.password
+      this.state.password,
+      this.state.avatar
     ).then((Response) => {
       if (Response.data.code !== -9999) {
         this.props.close_modal();
@@ -49,6 +53,22 @@ class AddEditStudent extends Component {
         password: "",
       });
     }
+  }
+
+  _handleImageChange(e) {
+    e.preventDefault();
+
+    let reader = new FileReader();
+    let file = e.target.files[0];
+
+    reader.onloadend = () => {
+      this.setState({
+        file: file,
+        image_preview_url: reader.result,
+      });
+    };
+
+    reader.readAsDataURL(file);
   }
 
   render() {
@@ -93,6 +113,32 @@ class AddEditStudent extends Component {
               </a>
             </div>
             <div className="modal-body">
+              <div className="form-group">
+                <label
+                  htmlFor="up-image-0"
+                  className="form-control-label d-inline-block w-100"
+                >
+                  <img
+                    id="img-upload-0"
+                    className="img-thumbnail"
+                    src={
+                      this.state.image_preview_url !== ""
+                        ? this.state.image_preview_url
+                        : "https://drive.google.com/uc?export=view&id=19qwocvG0W0ZFcrjopZ60UVEItXZq_a0F"
+                    }
+                  />
+                </label>
+                <div className="custom-file">
+                  <input
+                    type="file"
+                    className="custom-file-input"
+                    id="up-image-0"
+                    name="up-image-0"
+                    accept="image/*"
+                    onChange={(e) => this._handleImageChange(e)}
+                  />
+                </div>
+              </div>
               <div className="form-group">
                 <label>Họ và tên</label>
                 <input
