@@ -102,7 +102,7 @@ class AddEditStudent extends Component {
           className="modal-content"
           style={{
             zIndex: "1000",
-            width: "30%",
+            width: "60%",
           }}
         >
           <form className="needs-validation" noValidate>
@@ -112,7 +112,140 @@ class AddEditStudent extends Component {
                 <i class="fas fa-times"></i>
               </a>
             </div>
-            <div className="modal-body">
+            <div
+              className="modal-body"
+              style={{ height: "700px", "overflow-y": "scroll" }}
+            >
+              <div className="form-group">
+                <label
+                  htmlFor="up-image-0"
+                  className="form-control-label d-inline-block w-100"
+                >
+                  <img
+                    id="img-upload-0"
+                    className="img-thumbnail"
+                    src={
+                      this.state.image_preview_url !== ""
+                        ? this.state.image_preview_url
+                        : "https://drive.google.com/uc?export=view&id=19qwocvG0W0ZFcrjopZ60UVEItXZq_a0F"
+                    }
+                  />
+                </label>
+                <div className="custom-file">
+                  <input
+                    type="file"
+                    className="custom-file-input"
+                    id="up-image-0"
+                    name="up-image-0"
+                    accept="image/*"
+                    onChange={(e) => this._handleImageChange(e)}
+                  />
+                </div>
+              </div>
+              <div className="form-group">
+                <label
+                  htmlFor="up-image-0"
+                  className="form-control-label d-inline-block w-100"
+                >
+                  <img
+                    id="img-upload-0"
+                    className="img-thumbnail"
+                    src={
+                      this.state.image_preview_url !== ""
+                        ? this.state.image_preview_url
+                        : "https://drive.google.com/uc?export=view&id=19qwocvG0W0ZFcrjopZ60UVEItXZq_a0F"
+                    }
+                  />
+                </label>
+                <div className="custom-file">
+                  <input
+                    type="file"
+                    className="custom-file-input"
+                    id="up-image-0"
+                    name="up-image-0"
+                    accept="image/*"
+                    onChange={(e) => this._handleImageChange(e)}
+                  />
+                </div>
+              </div>
+              <div className="form-group">
+                <label
+                  htmlFor="up-image-0"
+                  className="form-control-label d-inline-block w-100"
+                >
+                  <img
+                    id="img-upload-0"
+                    className="img-thumbnail"
+                    src={
+                      this.state.image_preview_url !== ""
+                        ? this.state.image_preview_url
+                        : "https://drive.google.com/uc?export=view&id=19qwocvG0W0ZFcrjopZ60UVEItXZq_a0F"
+                    }
+                  />
+                </label>
+                <div className="custom-file">
+                  <input
+                    type="file"
+                    className="custom-file-input"
+                    id="up-image-0"
+                    name="up-image-0"
+                    accept="image/*"
+                    onChange={(e) => this._handleImageChange(e)}
+                  />
+                </div>
+              </div>
+              <div className="form-group">
+                <label
+                  htmlFor="up-image-0"
+                  className="form-control-label d-inline-block w-100"
+                >
+                  <img
+                    id="img-upload-0"
+                    className="img-thumbnail"
+                    src={
+                      this.state.image_preview_url !== ""
+                        ? this.state.image_preview_url
+                        : "https://drive.google.com/uc?export=view&id=19qwocvG0W0ZFcrjopZ60UVEItXZq_a0F"
+                    }
+                  />
+                </label>
+                <div className="custom-file">
+                  <input
+                    type="file"
+                    className="custom-file-input"
+                    id="up-image-0"
+                    name="up-image-0"
+                    accept="image/*"
+                    onChange={(e) => this._handleImageChange(e)}
+                  />
+                </div>
+              </div>
+              <div className="form-group">
+                <label
+                  htmlFor="up-image-0"
+                  className="form-control-label d-inline-block w-100"
+                >
+                  <img
+                    id="img-upload-0"
+                    className="img-thumbnail"
+                    src={
+                      this.state.image_preview_url !== ""
+                        ? this.state.image_preview_url
+                        : "https://drive.google.com/uc?export=view&id=19qwocvG0W0ZFcrjopZ60UVEItXZq_a0F"
+                    }
+                  />
+                </label>
+                <div className="custom-file">
+                  <input
+                    type="file"
+                    className="custom-file-input"
+                    id="up-image-0"
+                    name="up-image-0"
+                    accept="image/*"
+                    onChange={(e) => this._handleImageChange(e)}
+                  />
+                </div>
+              </div>
               <div className="form-group">
                 <label
                   htmlFor="up-image-0"
