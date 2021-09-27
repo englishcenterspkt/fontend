@@ -4,6 +4,7 @@ import com.model.auth.application.IAuthApplication;
 import com.model.member.Member;
 import com.model.member.command.CommandAddMember;
 import com.model.member.command.CommandSearchMember;
+import com.model.member.command.CommandUpdateMember;
 import com.utils.MongoDBConnection;
 import com.utils.Paging;
 import com.utils.enums.ExceptionEnum;
@@ -87,5 +88,24 @@ public class MemberApplication implements IMemberApplication {
         query.put("is_deleted", false);
         query.put("_id", new ObjectId(id));
         return mongoDBConnection.findOne(query);
+    }
+
+    @Override
+    public Optional<Member> update(CommandUpdateMember command) throws Exception {
+        if (StringUtils.isAnyBlank(command.getRole(), command.getId())) {
+            throw new Exception(ExceptionEnum.param_not_null);
+        }
+        if (!Member.MemberType.ADMIN.equals(command.getRole())) {
+            throw new Exception(ExceptionEnum.member_type_deny);
+        }
+        Optional<Member> optional = this.getById(command.getId());
+        if (!optional.isPresent()) {
+            throw new Exception(ExceptionEnum.member_not_exist);
+        }
+        Member member = optional.get();
+        if (StringUtils.isNotBlank(command.getName())) {
+            member.setName(command.getName());
+        }
+        return mongoDBConnection.update(member.get_id().toHexString(), member);
     }
 }

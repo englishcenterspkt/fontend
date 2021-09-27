@@ -23,6 +23,20 @@ class MemberService {
       avatar: avatar,
     });
   }
+
+  updateMember(id, name) {
+    return axios({
+      method: "PUT",
+      url: `${INSTRUCTOR_API_URL}/update/`,
+      data: {
+        id: id,
+        name: name,
+      },
+      headers: {
+        Authorization: `Bearer ${cookies.get("token")}`,
+      },
+    });
+  }
 }
 
 export default new MemberService();

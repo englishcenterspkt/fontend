@@ -24,20 +24,34 @@ class AddEditStudent extends Component {
 
   onSubmit(e) {
     e.preventDefault();
-    console.log(this.state.file);
-    MemberService.addMember(
-      this.state.name,
-      this.state.email,
-      this.state.password,
-      this.state.avatar
-    ).then((Response) => {
-      if (Response.data.code !== -9999) {
-        this.props.close_modal();
-        this.props.reload();
-      } else {
-        NotifyCation.showNotification(Response.data.message);
-      }
-    });
+    if (this.props.student === null) {
+      MemberService.addMember(
+        this.state.name,
+        this.state.email,
+        this.state.password,
+        this.state.avatar
+      ).then((Response) => {
+        if (Response.data.code !== -9999) {
+          NotifyCation.showNotification("success_add");
+          this.props.close_modal();
+          this.props.reload();
+        } else {
+          NotifyCation.showNotification(Response.data.message);
+        }
+      });
+    } else {
+      MemberService.updateMember(this.props.student._id, this.state.name).then(
+        (Response) => {
+          if (Response.data.code !== -9999) {
+            NotifyCation.showNotification("success_update");
+            this.props.close_modal();
+            this.props.reload();
+          } else {
+            NotifyCation.showNotification(Response.data.message);
+          }
+        }
+      );
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -116,136 +130,7 @@ class AddEditStudent extends Component {
               className="modal-body"
               style={{ height: "700px", "overflow-y": "scroll" }}
             >
-              <div className="form-group">
-                <label
-                  htmlFor="up-image-0"
-                  className="form-control-label d-inline-block w-100"
-                >
-                  <img
-                    id="img-upload-0"
-                    className="img-thumbnail"
-                    src={
-                      this.state.image_preview_url !== ""
-                        ? this.state.image_preview_url
-                        : "https://drive.google.com/uc?export=view&id=19qwocvG0W0ZFcrjopZ60UVEItXZq_a0F"
-                    }
-                  />
-                </label>
-                <div className="custom-file">
-                  <input
-                    type="file"
-                    className="custom-file-input"
-                    id="up-image-0"
-                    name="up-image-0"
-                    accept="image/*"
-                    onChange={(e) => this._handleImageChange(e)}
-                  />
-                </div>
-              </div>
-              <div className="form-group">
-                <label
-                  htmlFor="up-image-0"
-                  className="form-control-label d-inline-block w-100"
-                >
-                  <img
-                    id="img-upload-0"
-                    className="img-thumbnail"
-                    src={
-                      this.state.image_preview_url !== ""
-                        ? this.state.image_preview_url
-                        : "https://drive.google.com/uc?export=view&id=19qwocvG0W0ZFcrjopZ60UVEItXZq_a0F"
-                    }
-                  />
-                </label>
-                <div className="custom-file">
-                  <input
-                    type="file"
-                    className="custom-file-input"
-                    id="up-image-0"
-                    name="up-image-0"
-                    accept="image/*"
-                    onChange={(e) => this._handleImageChange(e)}
-                  />
-                </div>
-              </div>
-              <div className="form-group">
-                <label
-                  htmlFor="up-image-0"
-                  className="form-control-label d-inline-block w-100"
-                >
-                  <img
-                    id="img-upload-0"
-                    className="img-thumbnail"
-                    src={
-                      this.state.image_preview_url !== ""
-                        ? this.state.image_preview_url
-                        : "https://drive.google.com/uc?export=view&id=19qwocvG0W0ZFcrjopZ60UVEItXZq_a0F"
-                    }
-                  />
-                </label>
-                <div className="custom-file">
-                  <input
-                    type="file"
-                    className="custom-file-input"
-                    id="up-image-0"
-                    name="up-image-0"
-                    accept="image/*"
-                    onChange={(e) => this._handleImageChange(e)}
-                  />
-                </div>
-              </div>
-              <div className="form-group">
-                <label
-                  htmlFor="up-image-0"
-                  className="form-control-label d-inline-block w-100"
-                >
-                  <img
-                    id="img-upload-0"
-                    className="img-thumbnail"
-                    src={
-                      this.state.image_preview_url !== ""
-                        ? this.state.image_preview_url
-                        : "https://drive.google.com/uc?export=view&id=19qwocvG0W0ZFcrjopZ60UVEItXZq_a0F"
-                    }
-                  />
-                </label>
-                <div className="custom-file">
-                  <input
-                    type="file"
-                    className="custom-file-input"
-                    id="up-image-0"
-                    name="up-image-0"
-                    accept="image/*"
-                    onChange={(e) => this._handleImageChange(e)}
-                  />
-                </div>
-              </div>
-              <div className="form-group">
-                <label
-                  htmlFor="up-image-0"
-                  className="form-control-label d-inline-block w-100"
-                >
-                  <img
-                    id="img-upload-0"
-                    className="img-thumbnail"
-                    src={
-                      this.state.image_preview_url !== ""
-                        ? this.state.image_preview_url
-                        : "https://drive.google.com/uc?export=view&id=19qwocvG0W0ZFcrjopZ60UVEItXZq_a0F"
-                    }
-                  />
-                </label>
-                <div className="custom-file">
-                  <input
-                    type="file"
-                    className="custom-file-input"
-                    id="up-image-0"
-                    name="up-image-0"
-                    accept="image/*"
-                    onChange={(e) => this._handleImageChange(e)}
-                  />
-                </div>
-              </div>
+              <div className="form-group"></div>
               <div className="form-group">
                 <label
                   htmlFor="up-image-0"
