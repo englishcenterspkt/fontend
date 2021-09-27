@@ -22,6 +22,14 @@ class Notification extends Component {
         vn: "Người dùng này đã tồn tại!",
         type: "info",
       },
+      success_add: {
+        vn: "Thêm thành công",
+        type: "success",
+      },
+      success_update: {
+        vn: "Chỉnh sửa thành công",
+        type: "success",
+      },
     };
   }
   showNotification(message) {

@@ -3,6 +3,7 @@ package com.model.member.application;
 import com.model.member.Member;
 import com.model.member.command.CommandAddMember;
 import com.model.member.command.CommandSearchMember;
+import com.model.member.command.CommandUpdateMember;
 import com.utils.Paging;
 
 import java.util.List;
@@ -17,4 +18,6 @@ public interface IMemberApplication {
     Optional<Member> add(CommandAddMember command) throws Exception;
 
     Optional<Member> getById(String id);
+
+    Optional<Member> update(CommandUpdateMember command) throws Exception;
 }

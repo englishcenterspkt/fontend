@@ -4,6 +4,7 @@ import com.model.auth.command.CommandJwt;
 import com.model.member.application.IMemberApplication;
 import com.model.member.command.CommandAddMember;
 import com.model.member.command.CommandSearchMember;
+import com.model.member.command.CommandUpdateMember;
 import com.utils.ResponseUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -42,6 +43,16 @@ public class MemberController extends ResponseUtils {
     public String add(@RequestBody CommandAddMember command) {
         try {
             return this.outJson(9999, null, userApplication.add(command).orElse(null));
+        } catch (Throwable throwable) {
+            return this.outJson(-9999, throwable.getMessage(), null);
+        }
+    }
+
+    @PutMapping(value = "/member/update")
+    public String update(@RequestBody CommandUpdateMember command, @RequestHeader String Authorization) {
+        try {
+            command.setRole(this.getMemberType(Authorization));
+            return this.outJson(9999, null, userApplication.update(command));
         } catch (Throwable throwable) {
             return this.outJson(-9999, throwable.getMessage(), null);
         }
