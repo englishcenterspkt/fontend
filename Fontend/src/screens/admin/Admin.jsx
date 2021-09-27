@@ -4,10 +4,6 @@ import Dashboard from "../../components/admin/Dashboard";
 import Dashboard2 from "../../components/admin/Dashboard2";
 import ManagerStudents from "../../components/admin/ManagerStudents";
 class Admin extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   renderSwitch() {
     switch (window.location.pathname) {
       case "/admin/abc":

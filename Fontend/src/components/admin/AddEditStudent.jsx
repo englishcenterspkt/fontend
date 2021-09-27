@@ -122,9 +122,12 @@ class AddEditStudent extends Component {
           <form className="needs-validation" noValidate>
             <div className="modal-header">
               <h4>Thông tin học viên</h4>
-              <a onClick={() => this.props.close_modal()}>
-                <i class="fas fa-times"></i>
-              </a>
+              <button
+                className="btn btn-link"
+                onClick={() => this.props.close_modal()}
+              >
+                <i className="fas fa-times"></i>
+              </button>
             </div>
             <div
               className="modal-body"
@@ -138,6 +141,7 @@ class AddEditStudent extends Component {
                 >
                   <img
                     id="img-upload-0"
+                    alt="avatar"
                     className="img-thumbnail"
                     src={
                       this.state.image_preview_url !== ""

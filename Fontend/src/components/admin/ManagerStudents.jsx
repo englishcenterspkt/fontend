@@ -93,12 +93,12 @@ class ManagerStudents extends Component {
               <h1>Học viên</h1>
               <div className="section-header-breadcrumb">
                 <div className="breadcrumb-item">
-                  <a
+                  <button
                     onClick={this.onClickAdd}
                     className="btn btn-icon btn-primary"
                   >
                     <i className="fas fa-plus"></i>
-                  </a>
+                  </button>
                 </div>
               </div>
             </div>
@@ -170,9 +170,9 @@ class ManagerStudents extends Component {
                               this.state.has_previous ? this.previousPage : null
                             }
                           >
-                            <a className="page-link" tabindex="-1">
+                            <button className="page-link" tabindex="-1">
                               <i className="fas fa-chevron-left"></i>
-                            </a>
+                            </button>
                           </li>
                           {Array.from(Array(this.state.total_pages), (e, i) => {
                             return (
@@ -183,14 +183,14 @@ class ManagerStudents extends Component {
                                     : "page-item"
                                 }
                               >
-                                <a
+                                <button
                                   className="page-link"
                                   onClick={this.onChangePage}
                                   value={i + 1}
                                 >
                                   {i + 1}{" "}
                                   <span className="sr-only">(current)</span>
-                                </a>
+                                </button>
                               </li>
                             );
                           })}
@@ -202,9 +202,9 @@ class ManagerStudents extends Component {
                             }
                             onClick={this.state.has_next ? this.nextPage : null}
                           >
-                            <a className="page-link">
+                            <button className="page-link">
                               <i className="fas fa-chevron-right"></i>
-                            </a>
+                            </button>
                           </li>
                         </ul>
                       </nav>
