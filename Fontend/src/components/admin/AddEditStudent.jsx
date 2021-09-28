@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import MemberService from "../../service/MemberService";
 import NotifyCation from "../NotifyCation";
-
+import ImageUpload from "../ImageUpload";
 class AddEditStudent extends Component {
   constructor(props) {
     super(props);
@@ -10,10 +10,9 @@ class AddEditStudent extends Component {
       name: "",
       email: "",
       password: "",
-      file: "",
-      image_preview_url: "",
     };
 
+    this.child = React.createRef();
     this.onSubmit = this.onSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
@@ -28,13 +27,19 @@ class AddEditStudent extends Component {
       MemberService.addMember(
         this.state.name,
         this.state.email,
-        this.state.password,
-        this.state.avatar
+        this.state.password
       ).then((Response) => {
         if (Response.data.code !== -9999) {
           NotifyCation.showNotification("success_add");
           this.props.close_modal();
           this.props.reload();
+          await this.child.current.handleUpload();
+          console.log(this.child.current.state.url);
+          MemberService.updateMember(
+            Response.data.payload._id,
+            null,
+            this.child.current.state.url
+          );
         } else {
           NotifyCation.showNotification(Response.data.message);
         }
@@ -67,22 +72,6 @@ class AddEditStudent extends Component {
         password: "",
       });
     }
-  }
-
-  _handleImageChange(e) {
-    e.preventDefault();
-
-    let reader = new FileReader();
-    let file = e.target.files[0];
-
-    reader.onloadend = () => {
-      this.setState({
-        file: file,
-        image_preview_url: reader.result,
-      });
-    };
-
-    reader.readAsDataURL(file);
   }
 
   render() {
@@ -135,31 +124,7 @@ class AddEditStudent extends Component {
             >
               <div className="form-group"></div>
               <div className="form-group">
-                <label
-                  htmlFor="up-image-0"
-                  className="form-control-label d-inline-block w-100"
-                >
-                  <img
-                    id="img-upload-0"
-                    alt="avatar"
-                    className="img-thumbnail"
-                    src={
-                      this.state.image_preview_url !== ""
-                        ? this.state.image_preview_url
-                        : "https://drive.google.com/uc?export=view&id=19qwocvG0W0ZFcrjopZ60UVEItXZq_a0F"
-                    }
-                  />
-                </label>
-                <div className="custom-file">
-                  <input
-                    type="file"
-                    className="custom-file-input"
-                    id="up-image-0"
-                    name="up-image-0"
-                    accept="image/*"
-                    onChange={(e) => this._handleImageChange(e)}
-                  />
-                </div>
+                <ImageUpload ref={this.child} />
               </div>
               <div className="form-group">
                 <label>Họ và tên</label>
