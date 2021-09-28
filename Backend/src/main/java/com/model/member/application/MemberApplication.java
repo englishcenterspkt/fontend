@@ -106,6 +106,9 @@ public class MemberApplication implements IMemberApplication {
         if (StringUtils.isNotBlank(command.getName())) {
             member.setName(command.getName());
         }
+        if (StringUtils.isNotBlank(command.getAvatar())) {
+            member.setAvatar(command.getAvatar());
+        }
         return mongoDBConnection.update(member.get_id().toHexString(), member);
     }
 }

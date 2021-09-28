@@ -15,22 +15,22 @@ class MemberService {
     });
   }
 
-  addMember(name, email, password, avatar) {
+  addMember(name, email, password) {
     return axios.post(`${INSTRUCTOR_API_URL}/add`, {
       name: name,
       email: email,
       password: password,
-      avatar: avatar,
     });
   }
 
-  updateMember(id, name) {
+  updateMember(id, name, avatar) {
     return axios({
       method: "PUT",
       url: `${INSTRUCTOR_API_URL}/update/`,
       data: {
         id: id,
         name: name,
+        avatar: avatar,
       },
       headers: {
         Authorization: `Bearer ${cookies.get("token")}`,
