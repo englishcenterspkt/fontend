@@ -32,14 +32,7 @@ class AddEditStudent extends Component {
         if (Response.data.code !== -9999) {
           NotifyCation.showNotification("success_add");
           this.props.close_modal();
-          this.props.reload();
-          await this.child.current.handleUpload();
-          console.log(this.child.current.state.url);
-          MemberService.updateMember(
-            Response.data.payload._id,
-            null,
-            this.child.current.state.url
-          );
+          this.child.current.handleUpload(Response.data.payload._id);
         } else {
           NotifyCation.showNotification(Response.data.message);
         }
@@ -120,11 +113,19 @@ class AddEditStudent extends Component {
             </div>
             <div
               className="modal-body"
-              style={{ height: "700px", "overflow-y": "scroll" }}
+              style={{ height: "700px", overflowY: "scroll" }}
             >
               <div className="form-group"></div>
               <div className="form-group">
-                <ImageUpload ref={this.child} />
+                <ImageUpload
+                  ref={this.child}
+                  reload={this.props.reload}
+                  url={
+                    this.props.student !== null
+                      ? this.props.student.avatar
+                      : null
+                  }
+                />
               </div>
               <div className="form-group">
                 <label>Họ và tên</label>
