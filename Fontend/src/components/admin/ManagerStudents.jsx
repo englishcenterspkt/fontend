@@ -157,10 +157,11 @@ class ManagerStudents extends Component {
                         </table>
                       </div>
                     </div>
-                    <div className="card-footer text-right">
+                    <div className="card-footer">
                       <nav className="d-inline-block">
                         <ul className="pagination mb-0">
                           <li
+                            key="previous"
                             className={
                               this.state.has_previous
                                 ? "page-item"
@@ -178,6 +179,7 @@ class ManagerStudents extends Component {
                             if (i < 5) {
                               return (
                                 <li
+                                  key={i + 1}
                                   className={
                                     this.state.current_page === i + 1
                                       ? "page-item active"
@@ -197,6 +199,7 @@ class ManagerStudents extends Component {
                             }
                           })}
                           <li
+                            key="next"
                             className={
                               this.state.has_next
                                 ? "page-item"
@@ -210,6 +213,7 @@ class ManagerStudents extends Component {
                           </li>
                         </ul>
                       </nav>
+                      <h1>nam</h1>
                     </div>
                   </div>
                 </div>

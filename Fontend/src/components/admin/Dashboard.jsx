@@ -15,7 +15,7 @@ class Dashboard extends Component {
                       <a
                         className="font-weight-600 dropdown-toggle"
                         data-toggle="dropdown"
-                        href="#"
+                        href="# "
                         id="orders-month"
                       >
                         August
@@ -23,62 +23,62 @@ class Dashboard extends Component {
                       <ul className="dropdown-menu dropdown-menu-sm">
                         <li className="dropdown-title">Select Month</li>
                         <li>
-                          <a href="#" className="dropdown-item">
+                          <a href="# " className="dropdown-item">
                             January
                           </a>
                         </li>
                         <li>
-                          <a href="#" className="dropdown-item">
+                          <a href="# " className="dropdown-item">
                             February
                           </a>
                         </li>
                         <li>
-                          <a href="#" className="dropdown-item">
+                          <a href="# " className="dropdown-item">
                             March
                           </a>
                         </li>
                         <li>
-                          <a href="#" className="dropdown-item">
+                          <a href="# " className="dropdown-item">
                             April
                           </a>
                         </li>
                         <li>
-                          <a href="#" className="dropdown-item">
+                          <a href="# " className="dropdown-item">
                             May
                           </a>
                         </li>
                         <li>
-                          <a href="#" className="dropdown-item">
+                          <a href="# " className="dropdown-item">
                             June
                           </a>
                         </li>
                         <li>
-                          <a href="#" className="dropdown-item">
+                          <a href="# " className="dropdown-item">
                             July
                           </a>
                         </li>
                         <li>
-                          <a href="#" className="dropdown-item active">
+                          <a href="# " className="dropdown-item active">
                             August
                           </a>
                         </li>
                         <li>
-                          <a href="#" className="dropdown-item">
+                          <a href="# " className="dropdown-item">
                             September
                           </a>
                         </li>
                         <li>
-                          <a href="#" className="dropdown-item">
+                          <a href="# " className="dropdown-item">
                             October
                           </a>
                         </li>
                         <li>
-                          <a href="#" className="dropdown-item">
+                          <a href="# " className="dropdown-item">
                             November
                           </a>
                         </li>
                         <li>
-                          <a href="#" className="dropdown-item">
+                          <a href="# " className="dropdown-item">
                             December
                           </a>
                         </li>
@@ -161,7 +161,7 @@ class Dashboard extends Component {
                   <h4>Top 5 Products</h4>
                   <div className="card-header-action dropdown">
                     <a
-                      href="#"
+                      href="# "
                       data-toggle="dropdown"
                       className="btn btn-danger dropdown-toggle"
                     >
@@ -170,22 +170,22 @@ class Dashboard extends Component {
                     <ul className="dropdown-menu dropdown-menu-sm dropdown-menu-right">
                       <li className="dropdown-title">Select Period</li>
                       <li>
-                        <a href="#" className="dropdown-item">
+                        <a href="# " className="dropdown-item">
                           Today
                         </a>
                       </li>
                       <li>
-                        <a href="#" className="dropdown-item">
+                        <a href="# " className="dropdown-item">
                           Week
                         </a>
                       </li>
                       <li>
-                        <a href="#" className="dropdown-item active">
+                        <a href="# " className="dropdown-item active">
                           Month
                         </a>
                       </li>
                       <li>
-                        <a href="#" className="dropdown-item">
+                        <a href="# " className="dropdown-item">
                           This Year
                         </a>
                       </li>
@@ -195,7 +195,7 @@ class Dashboard extends Component {
                 <div className="card-body" id="top-5-scroll">
                   <ul className="list-unstyled list-unstyled-border">
                     <li className="media">
-                      <img
+                      <image
                         className="mr-3 rounded"
                         width={55}
                         src="../assets/img/products/product-3-50.png"
@@ -227,7 +227,7 @@ class Dashboard extends Component {
                       </div>
                     </li>
                     <li className="media">
-                      <img
+                      <image
                         className="mr-3 rounded"
                         width={55}
                         src="../assets/img/products/product-4-50.png"
@@ -259,7 +259,7 @@ class Dashboard extends Component {
                       </div>
                     </li>
                     <li className="media">
-                      <img
+                      <image
                         className="mr-3 rounded"
                         width={55}
                         src="../assets/img/products/product-1-50.png"
@@ -291,7 +291,7 @@ class Dashboard extends Component {
                       </div>
                     </li>
                     <li className="media">
-                      <img
+                      <image
                         className="mr-3 rounded"
                         width={55}
                         src="../assets/img/products/product-3-50.png"
@@ -323,7 +323,7 @@ class Dashboard extends Component {
                       </div>
                     </li>
                     <li className="media">
-                      <img
+                      <image
                         className="mr-3 rounded"
                         width={55}
                         src="../assets/img/products/product-5-50.png"
@@ -389,7 +389,7 @@ class Dashboard extends Component {
                     <div>
                       <div className="product-item pb-3">
                         <div className="product-image">
-                          <img
+                          <image
                             alt="image"
                             src="../assets/img/products/product-4-50.png"
                             className="img-fluid"
@@ -406,7 +406,7 @@ class Dashboard extends Component {
                           </div>
                           <div className="text-muted text-small">67 Sales</div>
                           <div className="product-cta">
-                            <a href="#" className="btn btn-primary">
+                            <a href="# " className="btn btn-primary">
                               Detail
                             </a>
                           </div>
@@ -416,7 +416,7 @@ class Dashboard extends Component {
                     <div>
                       <div className="product-item">
                         <div className="product-image">
-                          <img
+                          <image
                             alt="image"
                             src="../assets/img/products/product-3-50.png"
                             className="img-fluid"
@@ -433,7 +433,7 @@ class Dashboard extends Component {
                           </div>
                           <div className="text-muted text-small">86 Sales</div>
                           <div className="product-cta">
-                            <a href="#" className="btn btn-primary">
+                            <a href="# " className="btn btn-primary">
                               Detail
                             </a>
                           </div>
@@ -443,7 +443,7 @@ class Dashboard extends Component {
                     <div>
                       <div className="product-item">
                         <div className="product-image">
-                          <img
+                          <image
                             alt="image"
                             src="../assets/img/products/product-1-50.png"
                             className="img-fluid"
@@ -460,7 +460,7 @@ class Dashboard extends Component {
                           </div>
                           <div className="text-muted text-small">63 Sales</div>
                           <div className="product-cta">
-                            <a href="#" className="btn btn-primary">
+                            <a href="# " className="btn btn-primary">
                               Detail
                             </a>
                           </div>
@@ -482,7 +482,7 @@ class Dashboard extends Component {
                       <div className="text-title mb-2">July</div>
                       <ul className="list-unstyled list-unstyled-border list-unstyled-noborder mb-0">
                         <li className="media">
-                          <img
+                          <image
                             className="img-fluid mt-1 img-shadow"
                             src="../node_modules/flag-icon-css/flags/4x3/id.svg"
                             alt="image"
@@ -497,7 +497,7 @@ class Dashboard extends Component {
                           </div>
                         </li>
                         <li className="media">
-                          <img
+                          <image
                             className="img-fluid mt-1 img-shadow"
                             src="../node_modules/flag-icon-css/flags/4x3/my.svg"
                             alt="image"
@@ -512,7 +512,7 @@ class Dashboard extends Component {
                           </div>
                         </li>
                         <li className="media">
-                          <img
+                          <image
                             className="img-fluid mt-1 img-shadow"
                             src="../node_modules/flag-icon-css/flags/4x3/us.svg"
                             alt="image"
@@ -532,7 +532,7 @@ class Dashboard extends Component {
                       <div className="text-title mb-2">August</div>
                       <ul className="list-unstyled list-unstyled-border list-unstyled-noborder mb-0">
                         <li className="media">
-                          <img
+                          <image
                             className="img-fluid mt-1 img-shadow"
                             src="../node_modules/flag-icon-css/flags/4x3/id.svg"
                             alt="image"
@@ -547,7 +547,7 @@ class Dashboard extends Component {
                           </div>
                         </li>
                         <li className="media">
-                          <img
+                          <image
                             className="img-fluid mt-1 img-shadow"
                             src="../node_modules/flag-icon-css/flags/4x3/ps.svg"
                             alt="image"
@@ -562,7 +562,7 @@ class Dashboard extends Component {
                           </div>
                         </li>
                         <li className="media">
-                          <img
+                          <image
                             className="img-fluid mt-1 img-shadow"
                             src="../node_modules/flag-icon-css/flags/4x3/de.svg"
                             alt="image"
@@ -589,7 +589,7 @@ class Dashboard extends Component {
                 <div className="card-header">
                   <h4>Invoices</h4>
                   <div className="card-header-action">
-                    <a href="#" className="btn btn-danger">
+                    <a href="# " className="btn btn-danger">
                       View More <i className="fas fa-chevron-right" />
                     </a>
                   </div>
@@ -607,7 +607,7 @@ class Dashboard extends Component {
                         </tr>
                         <tr>
                           <td>
-                            <a href="#">INV-87239</a>
+                            <a href="# ">INV-87239</a>
                           </td>
                           <td className="font-weight-600">Kusnadi</td>
                           <td>
@@ -615,14 +615,14 @@ class Dashboard extends Component {
                           </td>
                           <td>July 19, 2018</td>
                           <td>
-                            <a href="#" className="btn btn-primary">
+                            <a href="# " className="btn btn-primary">
                               Detail
                             </a>
                           </td>
                         </tr>
                         <tr>
                           <td>
-                            <a href="#">INV-48574</a>
+                            <a href="# ">INV-48574</a>
                           </td>
                           <td className="font-weight-600">Hasan Basri</td>
                           <td>
@@ -630,14 +630,14 @@ class Dashboard extends Component {
                           </td>
                           <td>July 21, 2018</td>
                           <td>
-                            <a href="#" className="btn btn-primary">
+                            <a href="# " className="btn btn-primary">
                               Detail
                             </a>
                           </td>
                         </tr>
                         <tr>
                           <td>
-                            <a href="#">INV-76824</a>
+                            <a href="# ">INV-76824</a>
                           </td>
                           <td className="font-weight-600">Muhamad Nuruzzaki</td>
                           <td>
@@ -645,14 +645,14 @@ class Dashboard extends Component {
                           </td>
                           <td>July 22, 2018</td>
                           <td>
-                            <a href="#" className="btn btn-primary">
+                            <a href="# " className="btn btn-primary">
                               Detail
                             </a>
                           </td>
                         </tr>
                         <tr>
                           <td>
-                            <a href="#">INV-84990</a>
+                            <a href="# ">INV-84990</a>
                           </td>
                           <td className="font-weight-600">Agung Ardiansyah</td>
                           <td>
@@ -660,14 +660,14 @@ class Dashboard extends Component {
                           </td>
                           <td>July 22, 2018</td>
                           <td>
-                            <a href="#" className="btn btn-primary">
+                            <a href="# " className="btn btn-primary">
                               Detail
                             </a>
                           </td>
                         </tr>
                         <tr>
                           <td>
-                            <a href="#">INV-87320</a>
+                            <a href="# ">INV-87320</a>
                           </td>
                           <td className="font-weight-600">
                             Ardian Rahardiansyah
@@ -677,7 +677,7 @@ class Dashboard extends Component {
                           </td>
                           <td>July 28, 2018</td>
                           <td>
-                            <a href="#" className="btn btn-primary">
+                            <a href="# " className="btn btn-primary">
                               Detail
                             </a>
                           </td>
@@ -699,7 +699,7 @@ class Dashboard extends Component {
                 </div>
                 <div className="card-body p-0">
                   <div className="tickets-list">
-                    <a href="#" className="ticket-item">
+                    <a href="# " className="ticket-item">
                       <div className="ticket-title">
                         <h4>My order hasn't arrived yet</h4>
                       </div>
@@ -709,7 +709,7 @@ class Dashboard extends Component {
                         <div className="text-primary">1 min ago</div>
                       </div>
                     </a>
-                    <a href="#" className="ticket-item">
+                    <a href="# " className="ticket-item">
                       <div className="ticket-title">
                         <h4>Please cancel my order</h4>
                       </div>
@@ -719,7 +719,7 @@ class Dashboard extends Component {
                         <div>2 hours ago</div>
                       </div>
                     </a>
-                    <a href="#" className="ticket-item">
+                    <a href="# " className="ticket-item">
                       <div className="ticket-title">
                         <h4>Do you see my mother?</h4>
                       </div>

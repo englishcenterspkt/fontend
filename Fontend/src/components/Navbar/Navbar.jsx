@@ -11,7 +11,7 @@ class Navbar extends Component {
             <ul className="navbar-nav mr-3">
               <li>
                 <a
-                  href="#"
+                  href="# "
                   data-toggle="sidebar"
                   className="nav-link nav-link-lg"
                 >
@@ -20,7 +20,7 @@ class Navbar extends Component {
               </li>
               <li>
                 <a
-                  href="#"
+                  href="# "
                   data-toggle="search"
                   className="nav-link nav-link-lg d-sm-none"
                 >
@@ -43,27 +43,27 @@ class Navbar extends Component {
               <div className="search-result">
                 <div className="search-header">Histories</div>
                 <div className="search-item">
-                  <a href="#">How to hack NASA using CSS</a>
-                  <a href="#" className="search-close">
+                  <a href="# ">How to hack NASA using CSS</a>
+                  <a href="# " className="search-close">
                     <i className="fas fa-times" />
                   </a>
                 </div>
                 <div className="search-item">
-                  <a href="#">Kodinger.com</a>
-                  <a href="#" className="search-close">
+                  <a href="# ">Kodinger.com</a>
+                  <a href="# " className="search-close">
                     <i className="fas fa-times" />
                   </a>
                 </div>
                 <div className="search-item">
-                  <a href="#">#Stisla</a>
-                  <a href="#" className="search-close">
+                  <a href="# ">#Stisla</a>
+                  <a href="# " className="search-close">
                     <i className="fas fa-times" />
                   </a>
                 </div>
                 <div className="search-header">Result</div>
                 <div className="search-item">
-                  <a href="#">
-                    <img
+                  <a href="# ">
+                    <image
                       className="mr-3 rounded"
                       width={30}
                       src="../assets/img/products/product-3-50.png"
@@ -73,8 +73,8 @@ class Navbar extends Component {
                   </a>
                 </div>
                 <div className="search-item">
-                  <a href="#">
-                    <img
+                  <a href="# ">
+                    <image
                       className="mr-3 rounded"
                       width={30}
                       src="../assets/img/products/product-2-50.png"
@@ -84,8 +84,8 @@ class Navbar extends Component {
                   </a>
                 </div>
                 <div className="search-item">
-                  <a href="#">
-                    <img
+                  <a href="# ">
+                    <image
                       className="mr-3 rounded"
                       width={30}
                       src="../assets/img/products/product-1-50.png"
@@ -96,7 +96,7 @@ class Navbar extends Component {
                 </div>
                 <div className="search-header">Projects</div>
                 <div className="search-item">
-                  <a href="#">
+                  <a href="# ">
                     <div className="search-icon bg-danger text-white mr-3">
                       <i className="fas fa-code" />
                     </div>
@@ -104,7 +104,7 @@ class Navbar extends Component {
                   </a>
                 </div>
                 <div className="search-item">
-                  <a href="#">
+                  <a href="# ">
                     <div className="search-icon bg-primary text-white mr-3">
                       <i className="fas fa-laptop" />
                     </div>
@@ -117,7 +117,7 @@ class Navbar extends Component {
           <ul className="navbar-nav navbar-right">
             <li className="dropdown dropdown-list-toggle">
               <a
-                href="#"
+                href="# "
                 data-toggle="dropdown"
                 className="nav-link nav-link-lg message-toggle beep"
               >
@@ -127,13 +127,13 @@ class Navbar extends Component {
                 <div className="dropdown-header">
                   Messages
                   <div className="float-right">
-                    <a href="#">Mark All As Read</a>
+                    <a href="# ">Mark All As Read</a>
                   </div>
                 </div>
                 <div className="dropdown-list-content dropdown-list-message">
-                  <a href="#" className="dropdown-item dropdown-item-unread">
+                  <a href="# " className="dropdown-item dropdown-item-unread">
                     <div className="dropdown-item-avatar">
-                      <img
+                      <image
                         alt="image"
                         src="../assets/img/avatar/avatar-1.png"
                         className="rounded-circle"
@@ -146,9 +146,9 @@ class Navbar extends Component {
                       <div className="time">10 Hours Ago</div>
                     </div>
                   </a>
-                  <a href="#" className="dropdown-item dropdown-item-unread">
+                  <a href="# " className="dropdown-item dropdown-item-unread">
                     <div className="dropdown-item-avatar">
-                      <img
+                      <image
                         alt="image"
                         src="../assets/img/avatar/avatar-2.png"
                         className="rounded-circle"
@@ -162,9 +162,9 @@ class Navbar extends Component {
                       <div className="time">12 Hours Ago</div>
                     </div>
                   </a>
-                  <a href="#" className="dropdown-item dropdown-item-unread">
+                  <a href="# " className="dropdown-item dropdown-item-unread">
                     <div className="dropdown-item-avatar">
-                      <img
+                      <image
                         alt="image"
                         src="../assets/img/avatar/avatar-3.png"
                         className="rounded-circle"
@@ -180,9 +180,9 @@ class Navbar extends Component {
                       <div className="time">12 Hours Ago</div>
                     </div>
                   </a>
-                  <a href="#" className="dropdown-item">
+                  <a href="# " className="dropdown-item">
                     <div className="dropdown-item-avatar">
-                      <img
+                      <image
                         alt="image"
                         src="../assets/img/avatar/avatar-4.png"
                         className="rounded-circle"
@@ -197,9 +197,9 @@ class Navbar extends Component {
                       <div className="time">16 Hours Ago</div>
                     </div>
                   </a>
-                  <a href="#" className="dropdown-item">
+                  <a href="# " className="dropdown-item">
                     <div className="dropdown-item-avatar">
-                      <img
+                      <image
                         alt="image"
                         src="../assets/img/avatar/avatar-5.png"
                         className="rounded-circle"
@@ -216,7 +216,7 @@ class Navbar extends Component {
                   </a>
                 </div>
                 <div className="dropdown-footer text-center">
-                  <a href="#">
+                  <a href="# ">
                     View All <i className="fas fa-chevron-right" />
                   </a>
                 </div>
@@ -224,7 +224,7 @@ class Navbar extends Component {
             </li>
             <li className="dropdown dropdown-list-toggle">
               <a
-                href="#"
+                href="# "
                 data-toggle="dropdown"
                 className="nav-link notification-toggle nav-link-lg beep"
               >
@@ -234,11 +234,11 @@ class Navbar extends Component {
                 <div className="dropdown-header">
                   Notifications
                   <div className="float-right">
-                    <a href="#">Mark All As Read</a>
+                    <a href="# ">Mark All As Read</a>
                   </div>
                 </div>
                 <div className="dropdown-list-content dropdown-list-icons">
-                  <a href="#" className="dropdown-item dropdown-item-unread">
+                  <a href="# " className="dropdown-item dropdown-item-unread">
                     <div className="dropdown-item-icon bg-primary text-white">
                       <i className="fas fa-code" />
                     </div>
@@ -247,7 +247,7 @@ class Navbar extends Component {
                       <div className="time text-primary">2 Min Ago</div>
                     </div>
                   </a>
-                  <a href="#" className="dropdown-item">
+                  <a href="# " className="dropdown-item">
                     <div className="dropdown-item-icon bg-info text-white">
                       <i className="far fa-user" />
                     </div>
@@ -256,7 +256,7 @@ class Navbar extends Component {
                       <div className="time">10 Hours Ago</div>
                     </div>
                   </a>
-                  <a href="#" className="dropdown-item">
+                  <a href="# " className="dropdown-item">
                     <div className="dropdown-item-icon bg-success text-white">
                       <i className="fas fa-check" />
                     </div>
@@ -266,7 +266,7 @@ class Navbar extends Component {
                       <div className="time">12 Hours Ago</div>
                     </div>
                   </a>
-                  <a href="#" className="dropdown-item">
+                  <a href="# " className="dropdown-item">
                     <div className="dropdown-item-icon bg-danger text-white">
                       <i className="fas fa-exclamation-triangle" />
                     </div>
@@ -275,7 +275,7 @@ class Navbar extends Component {
                       <div className="time">17 Hours Ago</div>
                     </div>
                   </a>
-                  <a href="#" className="dropdown-item">
+                  <a href="# " className="dropdown-item">
                     <div className="dropdown-item-icon bg-info text-white">
                       <i className="fas fa-bell" />
                     </div>
@@ -286,7 +286,7 @@ class Navbar extends Component {
                   </a>
                 </div>
                 <div className="dropdown-footer text-center">
-                  <a href="#">
+                  <a href="# ">
                     View All <i className="fas fa-chevron-right" />
                   </a>
                 </div>
@@ -294,11 +294,11 @@ class Navbar extends Component {
             </li>
             <li className="dropdown">
               <a
-                href="#"
+                href="# "
                 data-toggle="dropdown"
                 className="nav-link dropdown-toggle nav-link-lg nav-link-user"
               >
-                <img
+                <image
                   alt="image"
                   src="../assets/img/avatar/avatar-1.png"
                   className="rounded-circle mr-1"
@@ -328,7 +328,7 @@ class Navbar extends Component {
                   <i className="fas fa-cog" /> Settings
                 </a>
                 <div className="dropdown-divider" />
-                <a href="#" className="dropdown-item has-icon text-danger">
+                <a href="# " className="dropdown-item has-icon text-danger">
                   <i className="fas fa-sign-out-alt" /> Logout
                 </a>
               </div>
