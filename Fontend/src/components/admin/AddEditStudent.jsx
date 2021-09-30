@@ -123,7 +123,7 @@ class AddEditStudent extends Component {
                   url={
                     this.props.student !== null
                       ? this.props.student.avatar
-                      : null
+                      : "https://firebasestorage.googleapis.com/v0/b/englishcenter-bd4ab.appspot.com/o/images%2Favatar-1.png?alt=media&token=1e9f3c81-c00e-40fb-9be1-6b292d0582c6"
                   }
                 />
               </div>

@@ -46,26 +46,15 @@ class ImageUpload extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.url !== null) {
-      this.setState({
-        url: nextProps.url,
-      });
-    } else {
-      if (this.state.url === "") {
-        this.setState({
-          url: "https://firebasestorage.googleapis.com/v0/b/englishcenter-bd4ab.appspot.com/o/images%2Favatar-1.png?alt=media&token=1e9f3c81-c00e-40fb-9be1-6b292d0582c6",
-        });
-      }
-    }
+    this.setState({
+      url: nextProps.url,
+    });
   }
 
   render() {
     return (
-      <div>
-        <label
-          htmlFor="up-image-0"
-          className="form-control-label d-inline-block w-100"
-        >
+      <div className="text-center">
+        <label htmlFor="up-image-0" className="col-6">
           <img
             id="img-upload-0"
             alt="avatar"

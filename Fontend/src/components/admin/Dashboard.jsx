@@ -195,7 +195,7 @@ class Dashboard extends Component {
                 <div className="card-body" id="top-5-scroll">
                   <ul className="list-unstyled list-unstyled-border">
                     <li className="media">
-                      <image
+                      <img
                         className="mr-3 rounded"
                         width={55}
                         src="../assets/img/products/product-3-50.png"
@@ -227,7 +227,7 @@ class Dashboard extends Component {
                       </div>
                     </li>
                     <li className="media">
-                      <image
+                      <img
                         className="mr-3 rounded"
                         width={55}
                         src="../assets/img/products/product-4-50.png"
@@ -259,7 +259,7 @@ class Dashboard extends Component {
                       </div>
                     </li>
                     <li className="media">
-                      <image
+                      <img
                         className="mr-3 rounded"
                         width={55}
                         src="../assets/img/products/product-1-50.png"
@@ -291,7 +291,7 @@ class Dashboard extends Component {
                       </div>
                     </li>
                     <li className="media">
-                      <image
+                      <img
                         className="mr-3 rounded"
                         width={55}
                         src="../assets/img/products/product-3-50.png"
@@ -323,7 +323,7 @@ class Dashboard extends Component {
                       </div>
                     </li>
                     <li className="media">
-                      <image
+                      <img
                         className="mr-3 rounded"
                         width={55}
                         src="../assets/img/products/product-5-50.png"
@@ -389,8 +389,8 @@ class Dashboard extends Component {
                     <div>
                       <div className="product-item pb-3">
                         <div className="product-image">
-                          <image
-                            alt="image"
+                          <img
+                            alt="avatar"
                             src="../assets/img/products/product-4-50.png"
                             className="img-fluid"
                           />
@@ -416,8 +416,8 @@ class Dashboard extends Component {
                     <div>
                       <div className="product-item">
                         <div className="product-image">
-                          <image
-                            alt="image"
+                          <img
+                            alt="avatar"
                             src="../assets/img/products/product-3-50.png"
                             className="img-fluid"
                           />
@@ -443,8 +443,8 @@ class Dashboard extends Component {
                     <div>
                       <div className="product-item">
                         <div className="product-image">
-                          <image
-                            alt="image"
+                          <img
+                            alt="avatar"
                             src="../assets/img/products/product-1-50.png"
                             className="img-fluid"
                           />
@@ -482,10 +482,10 @@ class Dashboard extends Component {
                       <div className="text-title mb-2">July</div>
                       <ul className="list-unstyled list-unstyled-border list-unstyled-noborder mb-0">
                         <li className="media">
-                          <image
+                          <img
                             className="img-fluid mt-1 img-shadow"
                             src="../node_modules/flag-icon-css/flags/4x3/id.svg"
-                            alt="image"
+                            alt="avatar"
                             width={40}
                           />
                           <div className="media-body ml-3">
@@ -497,10 +497,10 @@ class Dashboard extends Component {
                           </div>
                         </li>
                         <li className="media">
-                          <image
+                          <img
                             className="img-fluid mt-1 img-shadow"
                             src="../node_modules/flag-icon-css/flags/4x3/my.svg"
-                            alt="image"
+                            alt="avatar"
                             width={40}
                           />
                           <div className="media-body ml-3">
@@ -512,10 +512,10 @@ class Dashboard extends Component {
                           </div>
                         </li>
                         <li className="media">
-                          <image
+                          <img
                             className="img-fluid mt-1 img-shadow"
                             src="../node_modules/flag-icon-css/flags/4x3/us.svg"
-                            alt="image"
+                            alt="avatar"
                             width={40}
                           />
                           <div className="media-body ml-3">
@@ -532,10 +532,10 @@ class Dashboard extends Component {
                       <div className="text-title mb-2">August</div>
                       <ul className="list-unstyled list-unstyled-border list-unstyled-noborder mb-0">
                         <li className="media">
-                          <image
+                          <img
                             className="img-fluid mt-1 img-shadow"
                             src="../node_modules/flag-icon-css/flags/4x3/id.svg"
-                            alt="image"
+                            alt="avatar"
                             width={40}
                           />
                           <div className="media-body ml-3">
@@ -547,10 +547,10 @@ class Dashboard extends Component {
                           </div>
                         </li>
                         <li className="media">
-                          <image
+                          <img
                             className="img-fluid mt-1 img-shadow"
                             src="../node_modules/flag-icon-css/flags/4x3/ps.svg"
-                            alt="image"
+                            alt="avatar"
                             width={40}
                           />
                           <div className="media-body ml-3">
@@ -562,10 +562,10 @@ class Dashboard extends Component {
                           </div>
                         </li>
                         <li className="media">
-                          <image
+                          <img
                             className="img-fluid mt-1 img-shadow"
                             src="../node_modules/flag-icon-css/flags/4x3/de.svg"
-                            alt="image"
+                            alt="avatar"
                             width={40}
                           />
                           <div className="media-body ml-3">

@@ -9,8 +9,9 @@ class ManagerStudents extends Component {
     this.state = {
       show_add: false,
       students: [],
-      total_pages: 0,
-      current_page: 0,
+      total_pages: 1,
+      total_items: 0,
+      current_page: 1,
       has_previous: false,
       has_next: false,
       page: 1,
@@ -51,6 +52,7 @@ class ManagerStudents extends Component {
           has_previous: Response.data.payload.has_previous,
           next_page: Response.data.payload.next_page,
           previous_page: Response.data.payload.previous_page,
+          total_items: Response.data.payload.total_items,
         });
       } else {
         NotifyCation.showNotification(Response.data.message);
@@ -82,6 +84,30 @@ class ManagerStudents extends Component {
       student: JSON.parse(event.currentTarget.getAttribute("data-item")),
       show_add: !this.state.show_add,
     });
+  }
+
+  getPageShow() {
+    if (this.state.current_page - 2 < 1) {
+      return this.range(
+        1,
+        this.state.total_pages > 5 ? 5 : this.state.total_pages
+      );
+    }
+    if (this.state.current_page + 2 > this.state.total_pages) {
+      return this.range(
+        this.state.total_pages - 5 > 1 ? this.state.total_pages - 4 : 1,
+        this.state.total_pages
+      );
+    }
+    return this.range(this.state.current_page - 2, this.state.current_page + 2);
+  }
+
+  range(a, b) {
+    const result = [];
+    for (var i = a; i <= b; i++) {
+      result.push(i);
+    }
+    return result;
   }
 
   render() {
@@ -175,28 +201,26 @@ class ManagerStudents extends Component {
                               <i className="fas fa-chevron-left"></i>
                             </button>
                           </li>
-                          {Array.from(Array(this.state.total_pages), (e, i) => {
-                            if (i < 5) {
-                              return (
-                                <li
-                                  key={i + 1}
-                                  className={
-                                    this.state.current_page === i + 1
-                                      ? "page-item active"
-                                      : "page-item"
-                                  }
+                          {Array.from(this.getPageShow(), (e, i) => {
+                            return (
+                              <li
+                                key={e}
+                                className={
+                                  this.state.current_page === e
+                                    ? "page-item active"
+                                    : "page-item"
+                                }
+                              >
+                                <button
+                                  className="page-link"
+                                  onClick={this.onChangePage}
+                                  value={e}
                                 >
-                                  <button
-                                    className="page-link"
-                                    onClick={this.onChangePage}
-                                    value={i + 1}
-                                  >
-                                    {i + 1}{" "}
-                                    <span className="sr-only">(current)</span>
-                                  </button>
-                                </li>
-                              );
-                            }
+                                  {e}
+                                  <span className="sr-only">(current)</span>
+                                </button>
+                              </li>
+                            );
                           })}
                           <li
                             key="next"
@@ -213,7 +237,33 @@ class ManagerStudents extends Component {
                           </li>
                         </ul>
                       </nav>
-                      <h1>nam</h1>
+                      <div className="float-right">
+                        <button
+                          type="button"
+                          class="btn btn-secondary dropdown-toggle"
+                          data-toggle="dropdown"
+                          aria-haspopup="true"
+                          aria-expanded="false"
+                        >
+                          5 dòng mỗi trang
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-right">
+                          <button class="dropdown-item" type="button">
+                            5 dòng mỗi trang
+                          </button>
+                          <button class="dropdown-item" type="button">
+                            10 dòng mỗi trang
+                          </button>
+                          <button class="dropdown-item" type="button">
+                            20 dòng mỗi trang
+                          </button>
+                        </div>
+                      </div>
+                      <div className="float-right">
+                        <button type="button" class="btn btn-secondary">
+                          {this.state.total_items}
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
