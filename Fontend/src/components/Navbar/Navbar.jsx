@@ -63,7 +63,7 @@ class Navbar extends Component {
                 <div className="search-header">Result</div>
                 <div className="search-item">
                   <a href="# ">
-                    <image
+                    <img
                       className="mr-3 rounded"
                       width={30}
                       src="../assets/img/products/product-3-50.png"
@@ -74,7 +74,7 @@ class Navbar extends Component {
                 </div>
                 <div className="search-item">
                   <a href="# ">
-                    <image
+                    <img
                       className="mr-3 rounded"
                       width={30}
                       src="../assets/img/products/product-2-50.png"
@@ -85,7 +85,7 @@ class Navbar extends Component {
                 </div>
                 <div className="search-item">
                   <a href="# ">
-                    <image
+                    <img
                       className="mr-3 rounded"
                       width={30}
                       src="../assets/img/products/product-1-50.png"
@@ -133,9 +133,9 @@ class Navbar extends Component {
                 <div className="dropdown-list-content dropdown-list-message">
                   <a href="# " className="dropdown-item dropdown-item-unread">
                     <div className="dropdown-item-avatar">
-                      <image
-                        alt="image"
-                        src="../assets/img/avatar/avatar-1.png"
+                      <img
+                        alt="avatar"
+                        src="https://firebasestorage.googleapis.com/v0/b/englishcenter-bd4ab.appspot.com/o/images%2Favatar-1.png?alt=media&token=1e9f3c81-c00e-40fb-9be1-6b292d0582c6"
                         className="rounded-circle"
                       />
                       <div className="is-online" />
@@ -148,8 +148,8 @@ class Navbar extends Component {
                   </a>
                   <a href="# " className="dropdown-item dropdown-item-unread">
                     <div className="dropdown-item-avatar">
-                      <image
-                        alt="image"
+                      <img
+                        alt="avatar"
                         src="../assets/img/avatar/avatar-2.png"
                         className="rounded-circle"
                       />
@@ -164,8 +164,8 @@ class Navbar extends Component {
                   </a>
                   <a href="# " className="dropdown-item dropdown-item-unread">
                     <div className="dropdown-item-avatar">
-                      <image
-                        alt="image"
+                      <img
+                        alt="avatar"
                         src="../assets/img/avatar/avatar-3.png"
                         className="rounded-circle"
                       />
@@ -182,8 +182,8 @@ class Navbar extends Component {
                   </a>
                   <a href="# " className="dropdown-item">
                     <div className="dropdown-item-avatar">
-                      <image
-                        alt="image"
+                      <img
+                        alt="avatar"
                         src="../assets/img/avatar/avatar-4.png"
                         className="rounded-circle"
                       />
@@ -199,8 +199,8 @@ class Navbar extends Component {
                   </a>
                   <a href="# " className="dropdown-item">
                     <div className="dropdown-item-avatar">
-                      <image
-                        alt="image"
+                      <img
+                        alt="avatar"
                         src="../assets/img/avatar/avatar-5.png"
                         className="rounded-circle"
                       />
@@ -298,8 +298,8 @@ class Navbar extends Component {
                 data-toggle="dropdown"
                 className="nav-link dropdown-toggle nav-link-lg nav-link-user"
               >
-                <image
-                  alt="image"
+                <img
+                  alt="avatar"
                   src="../assets/img/avatar/avatar-1.png"
                   className="rounded-circle mr-1"
                 />
