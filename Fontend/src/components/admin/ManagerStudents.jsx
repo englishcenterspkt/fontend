@@ -141,7 +141,7 @@ class ManagerStudents extends Component {
                             {this.state.students.map((student, index) => {
                               return (
                                 <tr
-                                  key={student._id}
+                                  key={index + 1}
                                   data-item={JSON.stringify(student)}
                                   onClick={this.showEdit}
                                 >
@@ -170,29 +170,31 @@ class ManagerStudents extends Component {
                               this.state.has_previous ? this.previousPage : null
                             }
                           >
-                            <button className="page-link" tabindex="-1">
+                            <button className="page-link" tabIndex="-1">
                               <i className="fas fa-chevron-left"></i>
                             </button>
                           </li>
                           {Array.from(Array(this.state.total_pages), (e, i) => {
-                            return (
-                              <li
-                                className={
-                                  this.state.current_page === i + 1
-                                    ? "page-item active"
-                                    : "page-item"
-                                }
-                              >
-                                <button
-                                  className="page-link"
-                                  onClick={this.onChangePage}
-                                  value={i + 1}
+                            if (i < 5) {
+                              return (
+                                <li
+                                  className={
+                                    this.state.current_page === i + 1
+                                      ? "page-item active"
+                                      : "page-item"
+                                  }
                                 >
-                                  {i + 1}{" "}
-                                  <span className="sr-only">(current)</span>
-                                </button>
-                              </li>
-                            );
+                                  <button
+                                    className="page-link"
+                                    onClick={this.onChangePage}
+                                    value={i + 1}
+                                  >
+                                    {i + 1}{" "}
+                                    <span className="sr-only">(current)</span>
+                                  </button>
+                                </li>
+                              );
+                            }
                           })}
                           <li
                             className={
