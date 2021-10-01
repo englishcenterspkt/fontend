@@ -2,7 +2,13 @@ import React, { Component } from "react";
 import Member from "../../service/MemberService";
 import NotifyCation from "../../components/NotifyCation";
 import AddEditStudent from "./AddEditStudent";
+import UpDownButton from "../UpDownButton";
 
+// const key = new Map();
+// key.set("_id", "ID");
+// key.set("name", "Họ và tên");
+
+const key = { _id: "ID", name: "Họ và tên", create_date: "Ngày tạo" };
 class ManagerStudents extends Component {
   constructor(props) {
     super(props);
@@ -14,11 +20,12 @@ class ManagerStudents extends Component {
       current_page: 1,
       has_previous: false,
       has_next: false,
-      page: 1,
       size: 5,
       previous_page: 1,
       next_page: 1,
       student: null,
+      is_asc: true,
+      field: "ID",
     };
 
     this.onClickAdd = this.onClickAdd.bind(this);
@@ -27,6 +34,8 @@ class ManagerStudents extends Component {
     this.previousPage = this.previousPage.bind(this);
     this.nextPage = this.nextPage.bind(this);
     this.showEdit = this.showEdit.bind(this);
+    this.changeSize = this.changeSize.bind(this);
+    this.onChangeSort = this.onChangeSort.bind(this);
   }
 
   parseDate(timestamp) {
@@ -41,8 +50,17 @@ class ManagerStudents extends Component {
     this.reload();
   }
 
+  getKeyByValue() {
+    return Object.keys(key).find((i) => key[i] === this.state.field);
+  }
+
   reload() {
-    Member.getMembers(this.state.page, this.state.size).then((Response) => {
+    Member.getMembers(
+      this.state.current_page,
+      this.state.size,
+      this.getKeyByValue(),
+      this.state.is_asc
+    ).then((Response) => {
       if (Response.data.code !== -9999) {
         this.setState({
           students: Response.data.payload.items,
@@ -61,17 +79,17 @@ class ManagerStudents extends Component {
   }
 
   onChangePage(event) {
-    this.state.page = event.target.attributes.value.value;
+    this.state.current_page = event.target.attributes.value.value;
     this.reload();
   }
 
   previousPage(event) {
-    this.state.page = this.state.previous_page;
+    this.state.current_page = this.state.previous_page;
     this.reload();
   }
 
   nextPage(event) {
-    this.state.page = this.state.next_page;
+    this.state.current_page = this.state.next_page;
     this.reload();
   }
 
@@ -108,6 +126,22 @@ class ManagerStudents extends Component {
       result.push(i);
     }
     return result;
+  }
+
+  changeSize(e) {
+    const s = e.target.attributes.value.value;
+    this.state.current_page =
+      parseInt(
+        (this.state.current_page * this.state.size - (this.state.size - 1)) / s
+      ) + 1;
+    this.state.size = s;
+    this.reload();
+  }
+
+  onChangeSort(e) {
+    this.state.is_asc = !this.state.is_asc;
+    this.state.field = e.target.innerText;
+    this.reload();
   }
 
   render() {
@@ -153,14 +187,32 @@ class ManagerStudents extends Component {
                     </div>
                     <div className="card-body p-0">
                       <div className="table-responsive">
-                        <table className="table table-hover">
+                        <table className="table table-hover table-striped">
                           <thead>
                             <tr>
                               <th>STT</th>
-                              <th>ID</th>
-                              <th>Họ và tên</th>
+                              <th onClick={this.onChangeSort}>
+                                <UpDownButton
+                                  asc={this.state.is_asc}
+                                  col_name={key._id}
+                                  select_field={this.state.field}
+                                />
+                              </th>
+                              <th onClick={this.onChangeSort}>
+                                <UpDownButton
+                                  asc={this.state.is_asc}
+                                  col_name={key.name}
+                                  select_field={this.state.field}
+                                />
+                              </th>
                               <th>Email</th>
-                              <th>Ngày tạo</th>
+                              <th onClick={this.onChangeSort}>
+                                <UpDownButton
+                                  asc={this.state.is_asc}
+                                  col_name={key.create_date}
+                                  select_field={this.state.field}
+                                />
+                              </th>
                             </tr>
                           </thead>
                           <tbody>
@@ -240,28 +292,49 @@ class ManagerStudents extends Component {
                       <div className="float-right">
                         <button
                           type="button"
-                          class="btn btn-secondary dropdown-toggle"
+                          className="btn btn-light dropdown-toggle"
                           data-toggle="dropdown"
                           aria-haspopup="true"
                           aria-expanded="false"
                         >
-                          5 dòng mỗi trang
+                          {this.state.size + " dòng mỗi trang"}
                         </button>
-                        <div class="dropdown-menu dropdown-menu-right">
-                          <button class="dropdown-item" type="button">
+                        <div
+                          className="dropdown-menu"
+                          style={{ width: "auto" }}
+                        >
+                          <button
+                            className="btn btn-outline-secondary dropdown-item"
+                            type="button"
+                            value="5"
+                            onClick={this.changeSize}
+                          >
                             5 dòng mỗi trang
                           </button>
-                          <button class="dropdown-item" type="button">
+                          <button
+                            className="btn btn-outline-secondary dropdown-item"
+                            type="button"
+                            value="10"
+                            onClick={this.changeSize}
+                          >
                             10 dòng mỗi trang
                           </button>
-                          <button class="dropdown-item" type="button">
+                          <button
+                            className="btn btn-outline-secondary dropdown-item"
+                            type="button"
+                            value="20"
+                            onClick={this.changeSize}
+                          >
                             20 dòng mỗi trang
                           </button>
                         </div>
                       </div>
-                      <div className="float-right">
-                        <button type="button" class="btn btn-secondary">
-                          {this.state.total_items}
+                      <div
+                        className="float-right"
+                        style={{ marginRight: "5px" }}
+                      >
+                        <button type="button" className="btn btn-light">
+                          {"Tổng học viên: " + this.state.total_items}
                         </button>
                       </div>
                     </div>
