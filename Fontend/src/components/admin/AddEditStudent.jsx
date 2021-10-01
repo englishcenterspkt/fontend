@@ -33,6 +33,7 @@ class AddEditStudent extends Component {
           NotifyCation.showNotification("success_add");
           this.props.close_modal();
           this.child.current.handleUpload(Response.data.payload._id);
+          this.props.reload();
         } else {
           NotifyCation.showNotification(Response.data.message);
         }
