@@ -1,6 +1,6 @@
 import React from "react";
-import Login from "../screens/login/Login";
-import Admin from "../screens/admin/Admin";
+import Login from "./Login";
+import Admin from "./Admin";
 import { ToastContainer } from "react-toastify";
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";

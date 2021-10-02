@@ -1,5 +1,5 @@
 import "./App.css";
-import MainRoute from "./components/MainRoute";
+import MainRoute from "./screens/MainRoute";
 import React from "react";
 import "react-toastify/dist/ReactToastify.css";
 

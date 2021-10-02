@@ -1,11 +1,6 @@
-import { Column } from "rc-table";
 import React, { Component } from "react";
 
 class UpDownButton extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return (
       <div className="d-flex flex-row">

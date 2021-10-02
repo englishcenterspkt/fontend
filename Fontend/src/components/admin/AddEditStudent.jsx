@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import MemberService from "../../service/MemberService";
-import NotifyCation from "../NotifyCation";
-import ImageUpload from "../ImageUpload";
+import NotifyCation from "../common/NotifyCation";
+import ImageUpload from "../common/ImageUpload";
+import { handleInput } from "../common/Utils";
 class AddEditStudent extends Component {
   constructor(props) {
     super(props);
@@ -14,12 +15,12 @@ class AddEditStudent extends Component {
 
     this.child = React.createRef();
     this.onSubmit = this.onSubmit.bind(this);
-    this.handleChange = this.handleChange.bind(this);
+    this.handleInput = handleInput.bind(this);
   }
 
-  handleChange(event) {
-    this.setState({ [event.target.id]: event.target.value });
-  }
+  // handleChange(event) {
+  //   this.setState({ [event.target.id]: event.target.value });
+  // }
 
   onSubmit(e) {
     e.preventDefault();
@@ -134,7 +135,7 @@ class AddEditStudent extends Component {
                   id="name"
                   type="text"
                   className="form-control"
-                  onChange={this.handleChange}
+                  onChange={this.handleInput}
                   required
                   value={this.state.name}
                 />
@@ -146,7 +147,7 @@ class AddEditStudent extends Component {
                   id="email"
                   type="email"
                   className="form-control"
-                  onChange={this.handleChange}
+                  onChange={this.handleInput}
                   required
                   value={this.state.email}
                 />
@@ -161,7 +162,7 @@ class AddEditStudent extends Component {
                   id="password"
                   type="password"
                   className="form-control"
-                  onChange={this.handleChange}
+                  onChange={this.handleInput}
                   required
                   value={this.state.password}
                 />

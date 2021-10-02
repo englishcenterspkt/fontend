@@ -1,12 +1,20 @@
 import React, { Component } from "react";
 import Member from "../../service/MemberService";
-import NotifyCation from "../../components/NotifyCation";
+import NotifyCation from "../common/NotifyCation";
 import AddEditStudent from "./AddEditStudent";
-import UpDownButton from "../UpDownButton";
-
-// const key = new Map();
-// key.set("_id", "ID");
-// key.set("name", "Họ và tên");
+import UpDownButton from "../common/UpDownButton";
+import {
+  parseDate,
+  getKeyByValue,
+  onChangePage,
+  previousPage,
+  nextPage,
+  changeSize,
+  onSort,
+  getPageShow,
+  showAdd,
+  showEdit,
+} from "../common/Utils";
 
 const key = { _id: "ID", name: "Họ và tên", create_date: "Ngày tạo" };
 class ManagerStudents extends Component {
@@ -23,42 +31,31 @@ class ManagerStudents extends Component {
       size: 5,
       previous_page: 1,
       next_page: 1,
-      student: null,
+      item: null,
       is_asc: true,
       field: "ID",
     };
 
-    this.onClickAdd = this.onClickAdd.bind(this);
     this.reload = this.reload.bind(this);
-    this.onChangePage = this.onChangePage.bind(this);
-    this.previousPage = this.previousPage.bind(this);
-    this.nextPage = this.nextPage.bind(this);
-    this.showEdit = this.showEdit.bind(this);
-    this.changeSize = this.changeSize.bind(this);
-    this.onChangeSort = this.onChangeSort.bind(this);
-  }
-
-  parseDate(timestamp) {
-    return new Intl.DateTimeFormat("en-US", {
-      year: "numeric",
-      month: "2-digit",
-      day: "2-digit",
-    }).format(timestamp);
+    this.showAdd = showAdd.bind(this);
+    this.onChangePage = onChangePage.bind(this);
+    this.previousPage = previousPage.bind(this);
+    this.nextPage = nextPage.bind(this);
+    this.showEdit = showEdit.bind(this);
+    this.changeSize = changeSize.bind(this);
+    this.onChangeSort = onSort.bind(this);
+    this.getPageShow = getPageShow.bind(this);
   }
 
   componentDidMount() {
     this.reload();
   }
 
-  getKeyByValue() {
-    return Object.keys(key).find((i) => key[i] === this.state.field);
-  }
-
   reload() {
     Member.getMembers(
       this.state.current_page,
       this.state.size,
-      this.getKeyByValue(),
+      getKeyByValue(key, this.state.field),
       this.state.is_asc
     ).then((Response) => {
       if (Response.data.code !== -9999) {
@@ -78,72 +75,6 @@ class ManagerStudents extends Component {
     });
   }
 
-  onChangePage(event) {
-    this.state.current_page = event.target.attributes.value.value;
-    this.reload();
-  }
-
-  previousPage(event) {
-    this.state.current_page = this.state.previous_page;
-    this.reload();
-  }
-
-  nextPage(event) {
-    this.state.current_page = this.state.next_page;
-    this.reload();
-  }
-
-  onClickAdd() {
-    this.setState({ show_add: !this.state.show_add, student: null });
-  }
-
-  showEdit(event) {
-    this.setState({
-      student: JSON.parse(event.currentTarget.getAttribute("data-item")),
-      show_add: !this.state.show_add,
-    });
-  }
-
-  getPageShow() {
-    if (this.state.current_page - 2 < 1) {
-      return this.range(
-        1,
-        this.state.total_pages > 5 ? 5 : this.state.total_pages
-      );
-    }
-    if (this.state.current_page + 2 > this.state.total_pages) {
-      return this.range(
-        this.state.total_pages - 5 > 1 ? this.state.total_pages - 4 : 1,
-        this.state.total_pages
-      );
-    }
-    return this.range(this.state.current_page - 2, this.state.current_page + 2);
-  }
-
-  range(a, b) {
-    const result = [];
-    for (var i = a; i <= b; i++) {
-      result.push(i);
-    }
-    return result;
-  }
-
-  changeSize(e) {
-    const s = e.target.attributes.value.value;
-    this.state.current_page =
-      parseInt(
-        (this.state.current_page * this.state.size - (this.state.size - 1)) / s
-      ) + 1;
-    this.state.size = s;
-    this.reload();
-  }
-
-  onChangeSort(e) {
-    this.state.is_asc = !this.state.is_asc;
-    this.state.field = e.target.innerText;
-    this.reload();
-  }
-
   render() {
     return (
       <React.Fragment>
@@ -154,7 +85,7 @@ class ManagerStudents extends Component {
               <div className="section-header-breadcrumb">
                 <div className="breadcrumb-item">
                   <button
-                    onClick={this.onClickAdd}
+                    onClick={this.showAdd}
                     className="btn btn-icon btn-primary"
                   >
                     <i className="fas fa-plus"></i>
@@ -227,7 +158,7 @@ class ManagerStudents extends Component {
                                   <td>{student._id}</td>
                                   <td>{student.name}</td>
                                   <td>{student.email}</td>
-                                  <td>{this.parseDate(student.create_date)}</td>
+                                  <td>{parseDate(student.create_date)}</td>
                                 </tr>
                               );
                             })}
@@ -346,9 +277,9 @@ class ManagerStudents extends Component {
         </div>
         <AddEditStudent
           show_add={this.state.show_add}
-          close_modal={this.onClickAdd}
+          close_modal={this.showAdd}
           reload={this.reload}
-          student={this.state.student}
+          student={this.state.item}
         />
       </React.Fragment>
     );

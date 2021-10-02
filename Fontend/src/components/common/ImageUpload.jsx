@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { storage } from "../firebase";
-import MemberService from "../service/MemberService";
+import { storage } from "./firebase/Config";
+import MemberService from "../../service/MemberService";
 
 class ImageUpload extends Component {
   constructor(props) {
@@ -9,8 +9,10 @@ class ImageUpload extends Component {
       image: null,
       url: "",
     };
+
     this.handleUpload = this.handleUpload.bind(this);
   }
+
   handleUpload(id) {
     const { image } = this.state;
     const uploadTask = storage.ref(`images/${id}.png`).put(image);
@@ -46,9 +48,11 @@ class ImageUpload extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({
-      url: nextProps.url,
-    });
+    if (this.state.url === "") {
+      this.setState({
+        url: nextProps.url,
+      });
+    }
   }
 
   render() {
