@@ -27,7 +27,9 @@ class AddEditStudent extends Component {
         this.state.password
       ).then((Response) => {
         if (Response.data.code !== -9999) {
-          this.child.current.handleUpload(Response.data.payload._id);
+          this.child.current.handleUpload(
+            "avatar-" + Response.data.payload._id
+          );
           NotifyCation.showNotification("success_add");
           this.props.reload();
           this.props.close_modal();
@@ -53,38 +55,12 @@ class AddEditStudent extends Component {
 
   render() {
     return (
-      <div
-        hidden={!this.props.show_add}
-        style={{
-          position: "fixed",
-          zIndex: "998",
-          top: 0,
-          left: 0,
-          width: "100vw",
-          height: "100vh",
-          display: "flex",
-          alignItems: "center",
-          flexDirection: "row",
-          justifyContent: "center",
-        }}
-      >
+      <div hidden={!this.props.show_add} className="custom-css-001">
         <div
-          style={{
-            backgroundColor: "rgba(34, 34, 34, 0.5)",
-            zIndex: "999",
-            width: "100vw",
-            height: "100vh",
-            position: "absolute",
-          }}
+          className="custom-css-002"
           onClick={() => this.props.close_modal()}
         ></div>
-        <div
-          className="modal-content"
-          style={{
-            zIndex: "1000",
-            width: "60%",
-          }}
-        >
+        <div className="modal-content custom-css-003">
           <form className="needs-validation" noValidate>
             <div className="modal-header">
               <h4>Thông tin học viên</h4>
@@ -95,10 +71,7 @@ class AddEditStudent extends Component {
                 <i className="fas fa-times"></i>
               </button>
             </div>
-            <div
-              className="modal-body"
-              style={{ height: "700px", overflowY: "scroll" }}
-            >
+            <div className="modal-body custom-css-004">
               <div className="form-group"></div>
               <div className="form-group">
                 <ImageUpload ref={this.child} url={this.props.student.avatar} />

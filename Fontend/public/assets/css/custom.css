@@ -1,15 +1,46 @@
 /**
  *
- * You can write your CSS code here, DO NOT touch the default JavaScript file
+ * You can write your CSS code here; DO NOT touch the default JavaScript file
  * because it will make it harder for you to update.
  * 
  */
 
 /*# sourceMappingURL=custom.css.map */
 
-.modal-custom {
-  z-index: 100;
+.custom-css-001 {
   position: fixed;
+  z-index: 998;
   top: 0;
   left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.custom-css-002 {
+  background-color: rgba(34, 34, 34, 0.5);
+  z-index: 999;
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+}
+
+.custom-css-003 {
+  z-index: 1000;
+  width: 60%;
+}
+
+.custom-css-004 {
+  height: 700px;
+  overflow-y: scroll;
+}
+
+.custom-css-005 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0 8px;
 }

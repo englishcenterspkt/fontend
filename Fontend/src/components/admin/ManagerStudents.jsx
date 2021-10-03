@@ -15,6 +15,10 @@ import {
   showAdd,
   showEdit,
 } from "../common/Utils";
+import Select from "react-select";
+import makeAnimated from "react-select/animated";
+
+const animatedComponents = makeAnimated();
 
 const key = { _id: "ID", name: "Họ và tên", create_date: "Ngày tạo" };
 class ManagerStudents extends Component {
@@ -98,32 +102,13 @@ class ManagerStudents extends Component {
                 <div className="col-12">
                   <div className="card">
                     <div className="card-header">
-                      {/* <div className="col form-group">
-                        <label
-                          htmlFor="categories"
-                          className="form-control-label"
-                        >
-                          Ngành hàng
-                        </label>
-                        <div>
-                          <select
-                            className="form-control"
-                            name="categories"
-                            id="categories"
-                            multiple
-                            rows={5}
-                          >
-                            <option value={1}>USA</option>
-                            <option value={2}>Germany</option>
-                            <option value={3}>France</option>
-                            <option value={3}>Poland</option>
-                            <option value={3}>Japan</option>
-                          </select>
-                        </div>
-                        <small className="error-input text-danger">
-                          Vui lòng chọn ngành hàng
-                        </small>
-                      </div> */}
+                      <Select
+                        closeMenuOnSelect={false}
+                        components={animatedComponents}
+                        defaultValue={[]}
+                        isMulti
+                        options={["abc", "123", "xyz"]}
+                      />
                       {/* <div className="card-header-form">
                         <form>
                           <div className="input-group">
