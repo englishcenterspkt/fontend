@@ -27,7 +27,9 @@ class AddEditStudent extends Component {
         this.state.password
       ).then((Response) => {
         if (Response.data.code !== -9999) {
-          this.child.current.handleUpload(Response.data.payload._id);
+          this.child.current.handleUpload(
+            "avatar-" + Response.data.payload._id
+          );
           NotifyCation.showNotification("success_add");
           this.props.reload();
           this.props.close_modal();

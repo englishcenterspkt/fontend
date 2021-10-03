@@ -9,16 +9,15 @@ class ImageUpload extends Component {
 
     this.handleUpload = this.handleUpload.bind(this);
     this.getImageURL = getImageURL.bind(this);
-    console.log(this.state.file);
   }
 
   componentDidMount() {
     this.getImageURL();
   }
 
-  handleUpload(id) {
+  handleUpload(name) {
     const { image } = this.state;
-    storage.ref(`avatar/${id}.png`).put(image);
+    storage.ref(`images/${name}.png`).put(image);
   }
 
   _handleImageChange(e) {
@@ -26,7 +25,6 @@ class ImageUpload extends Component {
     if (e.target.files.length > 0) {
       let reader = new FileReader();
       let file = e.target.files[0];
-      file = new File();
       reader.onloadend = () => {
         this.setState({
           image: file,
