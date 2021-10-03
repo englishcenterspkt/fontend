@@ -38,35 +38,19 @@ class Notification extends Component {
     } else {
       switch (this.state[message].type) {
         case "info":
-          toast.error(this.state[message].vn);
+          toast.info(this.state[message].vn);
           break;
         case "warn":
-          toast.error(this.state[message].vn);
+          toast.warn(this.state[message].vn);
           break;
         case "success":
-          toast.error(this.state[message].vn);
+          toast.success(this.state[message].vn);
           break;
         default:
           toast.error(this.state[message].vn);
       }
     }
   }
-
-  showError = () => {
-    toast.error("ERROR Notification");
-  };
-
-  showSuccess = () => {
-    toast.success("Success Notification");
-  };
-
-  showInfo = () => {
-    toast.info("Info Notification");
-  };
-
-  showWarn = () => {
-    toast.warn("Warn Notification");
-  };
 }
 
 export default new Notification();

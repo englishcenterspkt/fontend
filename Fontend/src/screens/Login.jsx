@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
-import Auth from "../../service/AuthService";
+import Auth from "../service/AuthService";
 import Cookies from "universal-cookie";
-import NotifyCation from "../../components/NotifyCation";
+import NotifyCation from "../components/common/NotifyCation";
+import { handleInput } from "../components/common/Utils";
 
 class Login extends Component {
   constructor(props) {
@@ -14,11 +15,7 @@ class Login extends Component {
     };
 
     this.onSubmitLogin = this.onSubmitLogin.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-  }
-
-  handleChange(event) {
-    this.setState({ [event.target.id]: event.target.value });
+    this.handleInput = handleInput.bind(this);
   }
 
   onSubmitLogin(e) {
@@ -77,9 +74,9 @@ class Login extends Component {
                           name="email"
                           tabIndex={1}
                           required
-                          autofocus
+                          autoFocus
                           value={this.state.username}
-                          onChange={this.handleChange}
+                          onChange={this.handleInput}
                         />
                         <div className="invalid-feedback">
                           Please fill in your email
@@ -107,7 +104,7 @@ class Login extends Component {
                           tabIndex={2}
                           required
                           value={this.state.password}
-                          onChange={this.handleChange}
+                          onChange={this.handleInput}
                         />
                         <div className="invalid-feedback">
                           please fill in your password

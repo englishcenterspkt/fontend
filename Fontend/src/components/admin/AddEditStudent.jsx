@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import MemberService from "../../service/MemberService";
-import NotifyCation from "../NotifyCation";
-import ImageUpload from "../ImageUpload";
+import NotifyCation from "../common/NotifyCation";
+import ImageUpload from "../common/ImageUpload";
+import { handleInput } from "../common/Utils";
 class AddEditStudent extends Component {
   constructor(props) {
     super(props);
@@ -14,26 +15,22 @@ class AddEditStudent extends Component {
 
     this.child = React.createRef();
     this.onSubmit = this.onSubmit.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-  }
-
-  handleChange(event) {
-    this.setState({ [event.target.id]: event.target.value });
+    this.handleInput = handleInput.bind(this);
   }
 
   onSubmit(e) {
     e.preventDefault();
-    if (this.props.student === null) {
+    if (this.props.student._id === -1) {
       MemberService.addMember(
         this.state.name,
         this.state.email,
         this.state.password
       ).then((Response) => {
         if (Response.data.code !== -9999) {
-          NotifyCation.showNotification("success_add");
-          this.props.close_modal();
           this.child.current.handleUpload(Response.data.payload._id);
+          NotifyCation.showNotification("success_add");
           this.props.reload();
+          this.props.close_modal();
         } else {
           NotifyCation.showNotification(Response.data.message);
         }
@@ -42,6 +39,7 @@ class AddEditStudent extends Component {
       MemberService.updateMember(this.props.student._id, this.state.name).then(
         (Response) => {
           if (Response.data.code !== -9999) {
+            this.child.current.handleUpload(this.props.student._id);
             NotifyCation.showNotification("success_update");
             this.props.close_modal();
             this.props.reload();
@@ -50,21 +48,6 @@ class AddEditStudent extends Component {
           }
         }
       );
-    }
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.student !== null) {
-      this.setState({
-        name: nextProps.student.name,
-        email: nextProps.student.email,
-      });
-    } else {
-      this.setState({
-        name: "",
-        email: "",
-        password: "",
-      });
     }
   }
 
@@ -118,15 +101,7 @@ class AddEditStudent extends Component {
             >
               <div className="form-group"></div>
               <div className="form-group">
-                <ImageUpload
-                  ref={this.child}
-                  reload={this.props.reload}
-                  url={
-                    this.props.student !== null
-                      ? this.props.student.avatar
-                      : "https://firebasestorage.googleapis.com/v0/b/englishcenter-bd4ab.appspot.com/o/images%2Favatar-1.png?alt=media&token=1e9f3c81-c00e-40fb-9be1-6b292d0582c6"
-                  }
-                />
+                <ImageUpload ref={this.child} url={this.props.student.avatar} />
               </div>
               <div className="form-group">
                 <label>Họ và tên</label>
@@ -134,9 +109,13 @@ class AddEditStudent extends Component {
                   id="name"
                   type="text"
                   className="form-control"
-                  onChange={this.handleChange}
+                  onChange={this.handleInput}
                   required
-                  value={this.state.name}
+                  value={
+                    this.state.name === ""
+                      ? this.props.student.name
+                      : this.state.name
+                  }
                 />
                 <div className="invalid-feedback">What's your name?</div>
               </div>
@@ -146,22 +125,26 @@ class AddEditStudent extends Component {
                   id="email"
                   type="email"
                   className="form-control"
-                  onChange={this.handleChange}
+                  onChange={this.handleInput}
                   required
-                  value={this.state.email}
+                  value={
+                    this.state.email === ""
+                      ? this.props.student.email
+                      : this.state.email
+                  }
                 />
                 <div className="invalid-feedback">Oh no! Email is invalid.</div>
               </div>
               <div
                 className="form-group"
-                hidden={this.props.student !== null ? true : false}
+                hidden={this.props.student._id !== -1 ? true : false}
               >
                 <label>Mật khẩu</label>
                 <input
                   id="password"
                   type="password"
                   className="form-control"
-                  onChange={this.handleChange}
+                  onChange={this.handleInput}
                   required
                   value={this.state.password}
                 />
@@ -179,5 +162,14 @@ class AddEditStudent extends Component {
     );
   }
 }
+
+AddEditStudent.defaultProps = {
+  show_add: false,
+  student: {
+    name: "",
+    email: "",
+    avatar: null,
+  },
+};
 
 export default AddEditStudent;
