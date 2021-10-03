@@ -5,14 +5,7 @@ class UpDownButton extends Component {
     return (
       <div className="d-flex flex-row">
         <div>{this.props.col_name}</div>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            margin: "0 8px",
-          }}
-        >
+        <div className="custom-css-005">
           <img
             alt="up"
             width="10px"
