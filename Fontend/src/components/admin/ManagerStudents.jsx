@@ -32,7 +32,7 @@ class ManagerStudents extends Component {
       previous_page: 1,
       next_page: 1,
       item: null,
-      is_asc: true,
+      is_asc: false,
       field: "ID",
     };
 
@@ -98,8 +98,33 @@ class ManagerStudents extends Component {
                 <div className="col-12">
                   <div className="card">
                     <div className="card-header">
-                      <h4>Danh sách học viên</h4>
-                      <div className="card-header-form">
+                      {/* <div className="col form-group">
+                        <label
+                          htmlFor="categories"
+                          className="form-control-label"
+                        >
+                          Ngành hàng
+                        </label>
+                        <div>
+                          <select
+                            className="form-control"
+                            name="categories"
+                            id="categories"
+                            multiple
+                            rows={5}
+                          >
+                            <option value={1}>USA</option>
+                            <option value={2}>Germany</option>
+                            <option value={3}>France</option>
+                            <option value={3}>Poland</option>
+                            <option value={3}>Japan</option>
+                          </select>
+                        </div>
+                        <small className="error-input text-danger">
+                          Vui lòng chọn ngành hàng
+                        </small>
+                      </div> */}
+                      {/* <div className="card-header-form">
                         <form>
                           <div className="input-group">
                             <input
@@ -114,7 +139,7 @@ class ManagerStudents extends Component {
                             </div>
                           </div>
                         </form>
-                      </div>
+                      </div> */}
                     </div>
                     <div className="card-body p-0">
                       <div className="table-responsive">
@@ -275,15 +300,27 @@ class ManagerStudents extends Component {
             </div>
           </section>
         </div>
-        <AddEditStudent
-          show_add={this.state.show_add}
-          close_modal={this.showAdd}
-          reload={this.reload}
-          student={this.state.item}
-        />
+        {this.state.show_add && (
+          <AddEditStudent
+            show_add={this.state.show_add}
+            close_modal={this.showAdd}
+            reload={this.reload}
+            student={this.state.item}
+          />
+        )}
       </React.Fragment>
     );
   }
 }
+
+ManagerStudents.defaultProps = {
+  item: {
+    _id: -1,
+    name: "",
+    email: "",
+    password: "",
+    avatar: null,
+  },
+};
 
 export default ManagerStudents;

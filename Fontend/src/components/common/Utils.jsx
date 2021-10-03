@@ -1,3 +1,5 @@
+import { storage } from "./firebase/Config";
+
 export function handleInput(event) {
   this.setState({ [event.target.id]: event.target.value });
 }
@@ -59,7 +61,7 @@ export function getPageShow() {
 }
 
 export function showAdd() {
-  this.setState({ show_add: !this.state.show_add, item: null });
+  this.setState({ show_add: !this.state.show_add, item: this.props.item });
 }
 
 export function showEdit(event) {
@@ -67,6 +69,26 @@ export function showEdit(event) {
     item: JSON.parse(event.currentTarget.getAttribute("data-item")),
     show_add: !this.state.show_add,
   });
+}
+
+export function getImageURL() {
+  if (this.props.url !== null) {
+    storage
+      .ref(this.props.url)
+      .getDownloadURL()
+      .then((url) => {
+        this.setState({ url: url });
+      })
+      .catch((error) => {
+        this.setState({
+          url: "https://firebasestorage.googleapis.com/v0/b/englishcenter-bd4ab.appspot.com/o/images%2Favatar-1.png?alt=media&token=1e9f3c81-c00e-40fb-9be1-6b292d0582c6",
+        });
+      });
+  } else {
+    this.setState({
+      url: "https://firebasestorage.googleapis.com/v0/b/englishcenter-bd4ab.appspot.com/o/images%2Favatar-1.png?alt=media&token=1e9f3c81-c00e-40fb-9be1-6b292d0582c6",
+    });
+  }
 }
 
 function range(a, b) {

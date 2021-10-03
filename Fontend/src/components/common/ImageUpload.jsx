@@ -1,57 +1,40 @@
 import React, { Component } from "react";
 import { storage } from "./firebase/Config";
-import MemberService from "../../service/MemberService";
+import { getImageURL } from "./Utils";
 
 class ImageUpload extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      image: null,
-      url: "",
-    };
+    this.state = { file: null, url: "" };
 
     this.handleUpload = this.handleUpload.bind(this);
+    this.getImageURL = getImageURL.bind(this);
+    console.log(this.state.file);
+  }
+
+  componentDidMount() {
+    this.getImageURL();
   }
 
   handleUpload(id) {
     const { image } = this.state;
-    const uploadTask = storage.ref(`images/${id}.png`).put(image);
-    uploadTask.on("state_changed", () => {
-      console.log("1");
-      storage
-        .ref("images")
-        .child(id + ".png")
-        .getDownloadURL()
-        .then((url) => {
-          console.log("2");
-          this.setState({ url: url });
-          MemberService.updateMember(id, null, url);
-          this.props.reload();
-        });
-    });
+    storage.ref(`avatar/${id}.png`).put(image);
   }
 
   _handleImageChange(e) {
     e.preventDefault();
+    if (e.target.files.length > 0) {
+      let reader = new FileReader();
+      let file = e.target.files[0];
+      file = new File();
+      reader.onloadend = () => {
+        this.setState({
+          image: file,
+          url: reader.result,
+        });
+      };
 
-    let reader = new FileReader();
-    let file = e.target.files[0];
-
-    reader.onloadend = () => {
-      this.setState({
-        image: file,
-        url: reader.result,
-      });
-    };
-
-    reader.readAsDataURL(file);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (this.state.url === "") {
-      this.setState({
-        url: nextProps.url,
-      });
+      reader.readAsDataURL(file);
     }
   }
 
@@ -63,11 +46,7 @@ class ImageUpload extends Component {
             id="img-upload-0"
             alt="avatar"
             className="img-thumbnail"
-            src={
-              this.state.url !== ""
-                ? this.state.url
-                : "https://firebasestorage.googleapis.com/v0/b/englishcenter-bd4ab.appspot.com/o/images%2FTC_ADD_004.png?alt=media&token=5ef94381-4693-4e3c-a8dc-0e6ed02aeb71"
-            }
+            src={this.state.url}
           />
         </label>
         <div className="custom-file">

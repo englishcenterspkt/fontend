@@ -65,10 +65,11 @@ public class MemberApplication implements IMemberApplication {
                 .name(command.getName())
                 .email(command.getEmail())
                 .type(command.getType() != null ? command.getType() : Member.MemberType.STUDENT)
-                .avatar(command.getAvatar())
                 .build();
         Optional<Member> optional = mongoDBConnection.insert(member);
         if (optional.isPresent()) {
+            optional.get().setAvatar("avatar/" + optional.get().get_id().toHexString() + ".png");
+            mongoDBConnection.update(optional.get().get_id().toHexString(), optional.get());
             authApplication.add(optional.get(), command.getPassword());
             return optional;
         }
