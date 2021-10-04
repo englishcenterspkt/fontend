@@ -2,7 +2,39 @@ import React, { Component } from "react";
 import Member from "../../service/MemberService";
 import NotifyCation from "../../components/NotifyCation";
 import AddEditStudent from "./AddEditStudent";
+<<<<<<< Updated upstream
 
+=======
+import UpDownButton from "../common/UpDownButton";
+import {
+  parseDate,
+  getKeyByValue,
+  onChangePage,
+  previousPage,
+  nextPage,
+  changeSize,
+  onSort,
+  getPageShow,
+  showAdd,
+  showEdit,
+} from "../common/Utils";
+import Select from "react-select";
+
+const key = { _id: "ID", name: "Họ và tên", create_date: "Ngày tạo" };
+
+const colourOptions = [
+  { value: "ocean", label: "Ocean" },
+  { value: "blue", label: "Blue" },
+  { value: "purple", label: "Purple" },
+  { value: "red", label: "Red" },
+  { value: "orange", label: "Orange" },
+  { value: "yellow", label: "Yellow" },
+  { value: "green", label: "Green" },
+  { value: "forest", label: "Forest" },
+  { value: "slate", label: "Slate" },
+  { value: "silver", label: "Silver" },
+];
+>>>>>>> Stashed changes
 class ManagerStudents extends Component {
   constructor(props) {
     super(props);
@@ -106,9 +138,22 @@ class ManagerStudents extends Component {
               <div className="row">
                 <div className="col-12">
                   <div className="card">
+<<<<<<< Updated upstream
                     <div className="card-header">
                       <h4>Danh sách học viên</h4>
                       <div className="card-header-form">
+=======
+                    <div
+                      className="card-header"
+                      style={{ position: "relative", zIndex: 900 }}
+                    >
+                      <Select
+                        closeMenuOnSelect={false}
+                        isMulti
+                        options={colourOptions}
+                      />
+                      {/* <div className="card-header-form">
+>>>>>>> Stashed changes
                         <form>
                           <div className="input-group">
                             <input
