@@ -16,11 +16,21 @@ import {
   showEdit,
 } from "../common/Utils";
 import Select from "react-select";
-import makeAnimated from "react-select/animated";
-
-const animatedComponents = makeAnimated();
 
 const key = { _id: "ID", name: "Họ và tên", create_date: "Ngày tạo" };
+
+const colourOptions = [
+  { value: "ocean", label: "Ocean" },
+  { value: "blue", label: "Blue" },
+  { value: "purple", label: "Purple" },
+  { value: "red", label: "Red" },
+  { value: "orange", label: "Orange" },
+  { value: "yellow", label: "Yellow" },
+  { value: "green", label: "Green" },
+  { value: "forest", label: "Forest" },
+  { value: "slate", label: "Slate" },
+  { value: "silver", label: "Silver" },
+];
 class ManagerStudents extends Component {
   constructor(props) {
     super(props);
@@ -101,13 +111,14 @@ class ManagerStudents extends Component {
               <div className="row">
                 <div className="col-12">
                   <div className="card">
-                    <div className="card-header">
+                    <div
+                      className="card-header"
+                      style={{ position: "relative", zIndex: 900 }}
+                    >
                       <Select
                         closeMenuOnSelect={false}
-                        components={animatedComponents}
-                        defaultValue={[]}
                         isMulti
-                        options={["abc", "123", "xyz"]}
+                        options={colourOptions}
                       />
                       {/* <div className="card-header-form">
                         <form>
