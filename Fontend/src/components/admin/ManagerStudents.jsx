@@ -20,16 +20,8 @@ import Select from "react-select";
 const key = { _id: "ID", name: "Họ và tên", create_date: "Ngày tạo" };
 
 const colourOptions = [
-  { value: "ocean", label: "Ocean" },
-  { value: "blue", label: "Blue" },
-  { value: "purple", label: "Purple" },
-  { value: "red", label: "Red" },
-  { value: "orange", label: "Orange" },
-  { value: "yellow", label: "Yellow" },
-  { value: "green", label: "Green" },
-  { value: "forest", label: "Forest" },
-  { value: "slate", label: "Slate" },
-  { value: "silver", label: "Silver" },
+  { value: "admin", label: "Admin" },
+  { value: "student", label: "Học viên" },
 ];
 class ManagerStudents extends Component {
   constructor(props) {
@@ -48,6 +40,7 @@ class ManagerStudents extends Component {
       item: null,
       is_asc: false,
       field: "ID",
+      filter_status: [],
     };
 
     this.reload = this.reload.bind(this);
@@ -59,9 +52,15 @@ class ManagerStudents extends Component {
     this.changeSize = changeSize.bind(this);
     this.onChangeSort = onSort.bind(this);
     this.getPageShow = getPageShow.bind(this);
+    this.handleSelect = this.handleSelect.bind(this);
   }
 
   componentDidMount() {
+    this.reload();
+  }
+
+  handleSelect(e) {
+    this.state.filter_status = Array.isArray(e) ? e.map((x) => x.value) : [];
     this.reload();
   }
 
@@ -70,7 +69,8 @@ class ManagerStudents extends Component {
       this.state.current_page,
       this.state.size,
       getKeyByValue(key, this.state.field),
-      this.state.is_asc
+      this.state.is_asc,
+      this.state.filter_status
     ).then((Response) => {
       if (Response.data.code !== -9999) {
         this.setState({
@@ -119,6 +119,10 @@ class ManagerStudents extends Component {
                         closeMenuOnSelect={false}
                         isMulti
                         options={colourOptions}
+                        value={colourOptions.filter((obj) =>
+                          this.state.filter_status.includes(obj.value)
+                        )}
+                        onChange={this.handleSelect}
                       />
                       {/* <div className="card-header-form">
                         <form>
