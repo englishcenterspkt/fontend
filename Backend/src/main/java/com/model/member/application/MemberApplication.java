@@ -10,9 +10,11 @@ import com.utils.Paging;
 import com.utils.enums.ExceptionEnum;
 import com.utils.enums.MongodbEnum;
 import org.apache.commons.lang3.StringUtils;
+import org.bson.Document;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 
 import java.util.HashMap;
 import java.util.List;
@@ -45,6 +47,9 @@ public class MemberApplication implements IMemberApplication {
         Map<String, Object> sort = new HashMap<>();
         sort.put(command.getField_sort(), command.getIs_acs() ? 1 : -1);
         query.put("is_deleted", false);
+        if (!CollectionUtils.isEmpty(command.getTypes())) {
+            query.put("type", new Document("$in", command.getTypes()));
+        }
         return mongoDBConnection.find(query, sort, command.getPage(), command.getSize());
     }
 

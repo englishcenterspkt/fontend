@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @Builder
 @AllArgsConstructor
@@ -14,6 +16,7 @@ public class CommandSearchMember {
     private Integer size;
     private Integer page;
     private String keyword;
+    private List<String> types;
     @Builder.Default
     private String field_sort = "_id";
     @Builder.Default
