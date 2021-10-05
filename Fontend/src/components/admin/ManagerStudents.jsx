@@ -60,9 +60,12 @@ class ManagerStudents extends Component {
   }
 
   handleSelect(e) {
-    this.setState({filter_types : Array.isArray(e) ? e.map((x) => x.value) : []},()=>{
-      this.reload();
-    });
+    this.setState(
+      { filter_types: Array.isArray(e) ? e.map((x) => x.value) : [] },
+      () => {
+        this.reload();
+      }
+    );
   }
 
   reload() {
