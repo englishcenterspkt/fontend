@@ -40,7 +40,7 @@ class ManagerStudents extends Component {
       item: null,
       is_asc: false,
       field: "ID",
-      filter_status: [],
+      filter_types: [],
     };
 
     this.reload = this.reload.bind(this);
@@ -60,8 +60,9 @@ class ManagerStudents extends Component {
   }
 
   handleSelect(e) {
-    this.state.filter_status = Array.isArray(e) ? e.map((x) => x.value) : [];
-    this.reload();
+    this.setState({filter_types : Array.isArray(e) ? e.map((x) => x.value) : []},()=>{
+      this.reload();
+    });
   }
 
   reload() {
@@ -70,7 +71,7 @@ class ManagerStudents extends Component {
       this.state.size,
       getKeyByValue(key, this.state.field),
       this.state.is_asc,
-      this.state.filter_status
+      this.state.filter_types
     ).then((Response) => {
       if (Response.data.code !== -9999) {
         this.setState({
@@ -120,7 +121,7 @@ class ManagerStudents extends Component {
                         isMulti
                         options={colourOptions}
                         value={colourOptions.filter((obj) =>
-                          this.state.filter_status.includes(obj.value)
+                          this.state.filter_types.includes(obj.value)
                         )}
                         onChange={this.handleSelect}
                       />
