@@ -1,6 +1,6 @@
-import React, { Component } from "react";
-import { storage } from "./firebase/Config";
-import { getImageURL } from "./Utils";
+import React, {Component} from "react";
+import {storage} from "./firebase/Config";
+import {getImageURL} from "./Utils";
 
 class ImageUpload extends Component {
   constructor(props) {

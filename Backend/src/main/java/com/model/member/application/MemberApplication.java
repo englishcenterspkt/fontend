@@ -20,6 +20,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.regex.Pattern;
 
 @Component
 public class MemberApplication implements IMemberApplication {
@@ -49,6 +50,11 @@ public class MemberApplication implements IMemberApplication {
         query.put("is_deleted", false);
         if (!CollectionUtils.isEmpty(command.getTypes())) {
             query.put("type", new Document("$in", command.getTypes()));
+        }
+        if (StringUtils.isNotBlank(command.getKeyword())) {
+            Map<String, Object> $regex = new HashMap<>();
+            $regex.put("$regex", Pattern.compile(command.getKeyword(), Pattern.CASE_INSENSITIVE));
+            query.put("name", $regex);
         }
         return mongoDBConnection.find(query, sort, command.getPage(), command.getSize());
     }

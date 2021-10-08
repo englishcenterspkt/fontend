@@ -1,9 +1,9 @@
 import React from "react";
 import Login from "./Login";
 import Admin from "./Admin";
-import { ToastContainer } from "react-toastify";
+import {ToastContainer} from "react-toastify";
 
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 
 export default function MainRoute() {
   return (
