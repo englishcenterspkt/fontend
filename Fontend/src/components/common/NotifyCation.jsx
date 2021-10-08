@@ -1,5 +1,5 @@
-import { Component } from "react";
-import { toast } from "react-toastify";
+import {Component} from "react";
+import {toast} from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 class Notification extends Component {

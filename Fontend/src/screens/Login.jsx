@@ -1,9 +1,9 @@
-import React, { Component } from "react";
-import { Redirect } from "react-router-dom";
+import React, {Component} from "react";
+import {Redirect} from "react-router-dom";
 import Auth from "../service/AuthService";
 import Cookies from "universal-cookie";
 import NotifyCation from "../components/common/NotifyCation";
-import { handleInput } from "../components/common/Utils";
+import {handleInput} from "../components/common/Utils";
 
 class Login extends Component {
   constructor(props) {
