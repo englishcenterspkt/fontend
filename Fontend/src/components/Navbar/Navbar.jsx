@@ -1,5 +1,5 @@
 import Sidebar from "../../components/Sidebar/Sidebar";
-import React, { Component } from "react";
+import React, {Component} from "react";
 
 class Navbar extends Component {
   render() {

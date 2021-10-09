@@ -1,4 +1,4 @@
-import { storage } from "./firebase/Config";
+import {storage} from "./firebase/Config";
 
 export function handleInput(event) {
   this.setState({ [event.target.id]: event.target.value });
