@@ -8,39 +8,39 @@
 /*# sourceMappingURL=custom.css.map */
 
 .custom-css-001 {
-  position: fixed;
-  z-index: 998;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-  justify-content: center;
+    position: fixed;
+    z-index: 998;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: center;
 }
 
 .custom-css-002 {
-  background-color: rgba(34, 34, 34, 0.5);
-  z-index: 999;
-  width: 100vw;
-  height: 100vh;
-  position: absolute;
+    background-color: rgba(34, 34, 34, 0.5);
+    z-index: 999;
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
 }
 
 .custom-css-003 {
-  z-index: 1000;
-  width: 60%;
+    z-index: 1000;
+    width: 60%;
 }
 
 .custom-css-004 {
-  height: 700px;
-  overflow-y: scroll;
+    height: 700px;
+    overflow-y: scroll;
 }
 
 .custom-css-005 {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  margin: 0 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0 8px;
 }
