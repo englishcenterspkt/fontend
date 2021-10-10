@@ -25,6 +25,14 @@ const colourOptions = [
     { value: "admin", label: "Admin" },
     { value: "student", label: "Học viên" },
 ];
+const style = {
+    control: base => ({
+        ...base,
+        border: 0,
+        // This line disable the blue border
+        boxShadow: "none"
+    })
+};
 class ManagerStudents extends Component {
     constructor(props) {
         super(props);
@@ -131,17 +139,24 @@ class ManagerStudents extends Component {
                                     <div className="card">
                                         <div
                                             className="card-header"
-                                            style={{ position: "relative", zIndex: 900 }}
+                                            style={{ position: "relative", zIndex: 900 , width:"auto", marginRight:"auto"}}
                                         >
-                                            <Select
-                                                closeMenuOnSelect={false}
-                                                isMulti
-                                                options={colourOptions}
-                                                value={colourOptions.filter((obj) =>
-                                                    this.state.filter_types.includes(obj.value)
-                                                )}
-                                                onChange={this.handleSelect}
-                                            />
+                                            <InputGroup style={{border: "2px solid #000000",borderRadius:"5px"}}>
+                                                <InputGroup.Text style={{Height: "42px", borderColor:"white", paddingRight:"0px", paddingLeft:"6px"}}>
+                                                    Loại:
+                                                </InputGroup.Text>
+                                                <Select
+                                                    placeholder={"Chọn"}
+                                                    closeMenuOnSelect={false}
+                                                    isMulti
+                                                    options={colourOptions}
+                                                    value={colourOptions.filter((obj) =>
+                                                        this.state.filter_types.includes(obj.value)
+                                                    )}
+                                                    onChange={this.handleSelect}
+                                                    styles={style}
+                                                />
+                                            </InputGroup>
                                         </div>
                                         <div className="card-body p-0">
                                             <InputGroup>
