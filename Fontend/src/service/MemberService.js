@@ -4,7 +4,7 @@ import Cookies from "universal-cookie";
 const INSTRUCTOR_API_URL = `http://localhost:8080/member`;
 const cookies = new Cookies();
 class MemberService {
-    getMembers(page, size, field, is_asc, types, keyword) {
+    getMembers(page, size, field, is_asc, types, keyword, from_date, to_date) {
         return axios({
             method: "POST",
             url: `${INSTRUCTOR_API_URL}/get_list?page=` + page + `&size=` + size,
@@ -12,7 +12,9 @@ class MemberService {
                 field_sort: field,
                 is_acs: is_asc,
                 types: types,
-                keyword: keyword
+                keyword: keyword,
+                form_date: from_date,
+                to_date: to_date
             },
             headers: {
                 Authorization: `Bearer ${cookies.get("token")}`,

@@ -1,8 +1,7 @@
 package com.utils;
 
-import com.model.auth.application.IAuthApplication;
-import com.model.auth.command.CommandJwt;
-import com.model.member.command.CommandSearchMember;
+import com.ec.auth.application.IAuthApplication;
+import com.ec.auth.command.CommandJwt;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 

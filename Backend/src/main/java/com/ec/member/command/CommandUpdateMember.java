@@ -1,4 +1,4 @@
-package com.model.member.command;
+package com.ec.member.command;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

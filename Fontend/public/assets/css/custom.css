@@ -44,3 +44,37 @@
     justify-content: center;
     margin: 0 8px;
 }
+
+.custom-css-006 {
+    z-index: 900;
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    margin: 10px;
+}
+
+.custom-css-007 {
+    border: 1px solid #000000;
+    border-radius:5px;
+    width: auto;
+    vertical-align: middle;
+    align-items: center;
+    margin-right: 10px;
+}
+
+.custom-css-008 {
+    border-color: white;
+    padding-right: 0;
+    padding-left: 6px;
+    margin-right: 5px;
+}
+
+.custom-css-009 {
+    width: 20px;
+    height: 20px
+}
+
+.custom-css-010 {
+    border-color: white;
+    margin: auto;
+}

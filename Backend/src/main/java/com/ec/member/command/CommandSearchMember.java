@@ -1,4 +1,4 @@
-package com.model.member.command;
+package com.ec.member.command;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,6 +17,8 @@ public class CommandSearchMember {
     private Integer page;
     private String keyword;
     private List<String> types;
+    private Long from_date;
+    private Long to_date;
     @Builder.Default
     private String field_sort = "_id";
     @Builder.Default

@@ -1,4 +1,4 @@
-package com.model.member;
+package com.ec.member;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;

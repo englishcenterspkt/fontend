@@ -1,7 +1,7 @@
-package com.controller;
+package com.ec.auth;
 
-import com.model.auth.application.IAuthApplication;
-import com.model.auth.command.CommandLogin;
+import com.ec.auth.application.IAuthApplication;
+import com.ec.auth.command.CommandLogin;
 import com.utils.ResponseUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
