@@ -1,11 +1,11 @@
-package com.model.auth.application;
+package com.ec.auth.application;
 
 import com.google.gson.Gson;
-import com.model.auth.Auth;
-import com.model.auth.command.CommandJwt;
-import com.model.auth.command.CommandLogin;
-import com.model.member.Member;
-import com.model.member.application.IMemberApplication;
+import com.ec.auth.Auth;
+import com.ec.auth.command.CommandJwt;
+import com.ec.auth.command.CommandLogin;
+import com.ec.member.Member;
+import com.ec.member.application.IMemberApplication;
 import com.utils.HashUtils;
 import com.utils.MongoDBConnection;
 import com.utils.enums.ExceptionEnum;

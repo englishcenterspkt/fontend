@@ -1,9 +1,9 @@
-package com.model.member.application;
+package com.ec.member.application;
 
-import com.model.member.Member;
-import com.model.member.command.CommandAddMember;
-import com.model.member.command.CommandSearchMember;
-import com.model.member.command.CommandUpdateMember;
+import com.ec.member.Member;
+import com.ec.member.command.CommandAddMember;
+import com.ec.member.command.CommandSearchMember;
+import com.ec.member.command.CommandUpdateMember;
 import com.utils.Paging;
 
 import java.util.List;

@@ -14,10 +14,12 @@ import {
     parseDate,
     previousPage,
     showAdd,
-    showEdit
+    showEdit,
+    getTimestamp
 } from "../common/Utils";
 import Select from "react-select";
 import {FormControl, Image, InputGroup} from "react-bootstrap";
+import DateRange from "../common/DateRange";
 
 const key = { _id: "ID", name: "Họ và tên", create_date: "Ngày tạo" };
 
@@ -25,11 +27,11 @@ const colourOptions = [
     { value: "admin", label: "Admin" },
     { value: "student", label: "Học viên" },
 ];
+
 const style = {
     control: base => ({
         ...base,
         border: 0,
-        // This line disable the blue border
         boxShadow: "none"
     })
 };
@@ -66,6 +68,7 @@ class ManagerStudents extends Component {
         this.handleSelect = this.handleSelect.bind(this);
         this.handleInput = handleInput.bind(this);
         this.onKeyPress = this.onKeyPress.bind(this);
+        this.child = React.createRef();
     }
 
     componentDidMount() {
@@ -88,7 +91,9 @@ class ManagerStudents extends Component {
             getKeyByValue(key, this.state.field),
             this.state.is_asc,
             this.state.filter_types,
-            this.state.keyword
+            this.state.keyword,
+            getTimestamp(this.child.current.state.startValue),
+            getTimestamp(this.child.current.state.endValue)
         ).then((Response) => {
             if (Response.data.code !== -9999) {
                 this.setState({
@@ -138,11 +143,10 @@ class ManagerStudents extends Component {
                                 <div className="col-12">
                                     <div className="card">
                                         <div
-                                            className="card-header"
-                                            style={{ position: "relative", zIndex: 900 , width:"auto", marginRight:"auto"}}
+                                            className="custom-css-006"
                                         >
-                                            <InputGroup style={{border: "2px solid #000000",borderRadius:"5px"}}>
-                                                <InputGroup.Text style={{Height: "42px", borderColor:"white", paddingRight:"0px", paddingLeft:"6px"}}>
+                                            <InputGroup className="custom-css-007">
+                                                <InputGroup.Text className="custom-css-008">
                                                     Loại:
                                                 </InputGroup.Text>
                                                 <Select
@@ -157,11 +161,17 @@ class ManagerStudents extends Component {
                                                     styles={style}
                                                 />
                                             </InputGroup>
+                                            <InputGroup className="custom-css-007">
+                                                <InputGroup.Text className="custom-css-008">
+                                                    Ngày tạo:
+                                                </InputGroup.Text>
+                                                <DateRange ref={this.child} reload={this.reload}/>
+                                            </InputGroup>
                                         </div>
                                         <div className="card-body p-0">
                                             <InputGroup>
                                                 <InputGroup.Text>
-                                                    <Image style={{width: "22px", height: "22px"}} src="https://firebasestorage.googleapis.com/v0/b/englishcenter-bd4ab.appspot.com/o/images%2Fsearch.png?alt=media&token=FGHT2AXQBr0xWNS6d7mALw==" />
+                                                    <Image className="custom-css-009" src="https://firebasestorage.googleapis.com/v0/b/englishcenter-bd4ab.appspot.com/o/images%2Fsearch.png?alt=media&token=FGHT2AXQBr0xWNS6d7mALw==" />
                                                 </InputGroup.Text>
                                                 <FormControl
                                                     id="keyword"
@@ -234,7 +244,7 @@ class ManagerStudents extends Component {
                                                         }
                                                     >
                                                         <button className="page-link" tabIndex="-1">
-                                                            <i className="fas fa-chevron-left"></i>
+                                                            <i className="fas fa-chevron-left"/>
                                                         </button>
                                                     </li>
                                                     {Array.from(this.getPageShow(), (e, i) => {
@@ -268,7 +278,7 @@ class ManagerStudents extends Component {
                                                         onClick={this.state.has_next ? this.nextPage : null}
                                                     >
                                                         <button className="page-link">
-                                                            <i className="fas fa-chevron-right"></i>
+                                                            <i className="fas fa-chevron-right"/>
                                                         </button>
                                                     </li>
                                                 </ul>

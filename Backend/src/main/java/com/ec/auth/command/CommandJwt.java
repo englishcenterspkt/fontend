@@ -1,4 +1,4 @@
-package com.model.auth.command;
+package com.ec.auth.command;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -1,7 +1,7 @@
 package com.security;
 
-import com.model.auth.application.AuthApplication;
-import com.model.auth.application.IAuthApplication;
+import com.ec.auth.application.AuthApplication;
+import com.ec.auth.application.IAuthApplication;
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.DefaultSecurityFilterChain;

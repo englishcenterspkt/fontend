@@ -1,10 +1,9 @@
-package com.controller;
+package com.ec.member;
 
-import com.model.auth.command.CommandJwt;
-import com.model.member.application.IMemberApplication;
-import com.model.member.command.CommandAddMember;
-import com.model.member.command.CommandSearchMember;
-import com.model.member.command.CommandUpdateMember;
+import com.ec.member.application.IMemberApplication;
+import com.ec.member.command.CommandAddMember;
+import com.ec.member.command.CommandSearchMember;
+import com.ec.member.command.CommandUpdateMember;
 import com.utils.ResponseUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
