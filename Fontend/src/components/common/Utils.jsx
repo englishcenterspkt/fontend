@@ -103,14 +103,6 @@ export function getImageURL() {
     }
 }
 
-export function onStartChange(value) {
-    this.state.startValue = value;
-}
-
-export function onEndChange(value) {
-    this.state.endValue = value;
-}
-
 export function getTimestamp(moment) {
     return moment != null ? moment.unix() * 1000 : null
 }

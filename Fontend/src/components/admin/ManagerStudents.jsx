@@ -7,6 +7,7 @@ import {
     changeSize,
     getKeyByValue,
     getPageShow,
+    getTimestamp,
     handleInput,
     nextPage,
     onChangePage,
@@ -14,18 +15,17 @@ import {
     parseDate,
     previousPage,
     showAdd,
-    showEdit,
-    getTimestamp
+    showEdit
 } from "../common/Utils";
 import Select from "react-select";
 import {FormControl, Image, InputGroup} from "react-bootstrap";
 import DateRange from "../common/DateRange";
 
-const key = { _id: "ID", name: "Họ và tên", create_date: "Ngày tạo" };
+const key = {_id: "ID", name: "Họ và tên", create_date: "Ngày tạo"};
 
 const colourOptions = [
-    { value: "admin", label: "Admin" },
-    { value: "student", label: "Học viên" },
+    {value: "admin", label: "Admin"},
+    {value: "student", label: "Học viên"},
 ];
 
 const style = {
@@ -35,6 +35,7 @@ const style = {
         boxShadow: "none"
     })
 };
+
 class ManagerStudents extends Component {
     constructor(props) {
         super(props);
@@ -77,7 +78,7 @@ class ManagerStudents extends Component {
 
     handleSelect(e) {
         this.setState(
-            { filter_types: Array.isArray(e) ? e.map((x) => x.value) : [] },
+            {filter_types: Array.isArray(e) ? e.map((x) => x.value) : []},
             () => {
                 this.reload();
             }
@@ -113,7 +114,7 @@ class ManagerStudents extends Component {
     }
 
     onKeyPress(event) {
-        this.setState({ [event.target.id]: event.target.value }, () => {
+        this.setState({[event.target.id]: event.target.value}, () => {
             if (event.charCode === 13) {
                 this.reload()
             }
@@ -171,7 +172,8 @@ class ManagerStudents extends Component {
                                         <div className="card-body p-0">
                                             <InputGroup>
                                                 <InputGroup.Text>
-                                                    <Image className="custom-css-009" src="https://firebasestorage.googleapis.com/v0/b/englishcenter-bd4ab.appspot.com/o/images%2Fsearch.png?alt=media&token=FGHT2AXQBr0xWNS6d7mALw==" />
+                                                    <Image className="custom-css-009"
+                                                           src="https://firebasestorage.googleapis.com/v0/b/englishcenter-bd4ab.appspot.com/o/images%2Fsearch.png?alt=media&token=FGHT2AXQBr0xWNS6d7mALw=="/>
                                                 </InputGroup.Text>
                                                 <FormControl
                                                     id="keyword"
@@ -295,7 +297,7 @@ class ManagerStudents extends Component {
                                                 </button>
                                                 <div
                                                     className="dropdown-menu"
-                                                    style={{ width: "auto" }}
+                                                    style={{width: "auto"}}
                                                 >
                                                     <button
                                                         className="btn btn-outline-secondary dropdown-item"
@@ -325,7 +327,7 @@ class ManagerStudents extends Component {
                                             </div>
                                             <div
                                                 className="float-right"
-                                                style={{ marginRight: "5px" }}
+                                                style={{marginRight: "5px"}}
                                             >
                                                 <button type="button" className="btn btn-light">
                                                     {"Tổng học viên: " + this.state.total_items}
