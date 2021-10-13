@@ -1,38 +1,50 @@
 import { DatePicker } from 'antd';
 import 'antd/dist/antd.css';
-import React, {Component} from "react";
+import React, {useState} from "react";
 
 const { RangePicker } = DatePicker;
 
-class DateRange extends Component {
-    constructor(prods) {
-        super(prods);
+function DateRange() {
+    const [startValue, setStartValue] = useState(null);
+    const [endValue, setEndValue] = useState(null);
+    const [open, setOpen] = useState(true);
+    const [style, setStyle] = useState("130px");
 
-        this.onChange = this.onChange.bind(this);
+    function onChange(dates) {
+        if (dates !== null) {
+            setStartValue(dates[0]);
+            setEndValue(dates[1]);
+            this.props.reload();
+        } else {
+            setStartValue(null);
+            setEndValue(null);
+            setOpen(true);
+            setStyle("130px");
+        }
     }
-    state = {
-        startValue: null,
-        endValue: null,
-        endOpen: false,
-    };
 
-    onChange(dates) {
-        console.log('From: ', dates[0], ', to: ', dates[1]);
-        this.setState({startValue: dates[0], endValue: dates[1]}, () => {this.props.reload()});
+    function onOpenChange() {
+        if (startValue !== null || endValue !== null || open) {
+            setOpen(false);
+            setStyle("330px");
+        } else {
+            setOpen(true);
+            setStyle("130px");
+        }
     }
 
-    render() {
-        return (
-            <div>
-                <RangePicker
-                    renderExtraFooter={() => 'extra footer'}
-                    showTime
-                    bordered={false}
-                    style={{width: "172px"}}
-                    onChange={this.onChange}/>
-            </div>
-        );
-    }
+    return (
+        <div>
+            <RangePicker
+                placeholder={["Từ", "Đến"]}
+                showTime
+                bordered={false}
+                style={{width: style}}
+                onChange={onChange}
+                onOpenChange={onOpenChange}
+            />
+        </div>
+    );
 }
 
 export default DateRange;

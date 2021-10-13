@@ -13,7 +13,7 @@ class MemberService {
                 is_acs: is_asc,
                 types: types,
                 keyword: keyword,
-                form_date: from_date,
+                from_date: from_date,
                 to_date: to_date
             },
             headers: {
