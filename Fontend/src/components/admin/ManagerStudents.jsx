@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import Member from "../../service/MemberService";
+import MemberService from "../../service/MemberService";
 import NotifyCation from "../common/NotifyCation";
 import AddEditStudent from "./AddEditStudent";
 import UpDownButton from "../common/UpDownButton";
@@ -55,6 +55,8 @@ class ManagerStudents extends Component {
             field: "ID",
             filter_types: [],
             keyword: null,
+            from_date: null,
+            to_date: null
         };
 
         this.reload = this.reload.bind(this);
@@ -69,7 +71,7 @@ class ManagerStudents extends Component {
         this.handleSelect = this.handleSelect.bind(this);
         this.handleInput = handleInput.bind(this);
         this.onKeyPress = this.onKeyPress.bind(this);
-        this.child = React.createRef();
+        this.setDates = this.setDates.bind(this);
     }
 
     componentDidMount() {
@@ -86,15 +88,15 @@ class ManagerStudents extends Component {
     }
 
     reload() {
-        Member.getMembers(
+        MemberService.getMembers(
             this.state.current_page,
             this.state.size,
             getKeyByValue(key, this.state.field),
             this.state.is_asc,
             this.state.filter_types,
             this.state.keyword,
-            getTimestamp(this.child.current.state.startValue),
-            getTimestamp(this.child.current.state.endValue)
+            getTimestamp(this.state.from_date),
+            getTimestamp(this.state.to_date)
         ).then((Response) => {
             if (Response.data.code !== -9999) {
                 this.setState({
@@ -119,6 +121,14 @@ class ManagerStudents extends Component {
                 this.reload()
             }
         });
+    }
+
+    setDates(dates) {
+        if (dates !== null) {
+            this.setState({from_date : dates[0], to_date: dates[1]}, () => {this.reload()})
+        } else {
+            this.setState({from_date : null, to_date: null}, () => {this.reload()})
+        }
     }
 
     render() {
@@ -166,7 +176,7 @@ class ManagerStudents extends Component {
                                                 <InputGroup.Text className="custom-css-008">
                                                     Ngày tạo:
                                                 </InputGroup.Text>
-                                                <DateRange ref={this.child} reload={this.reload}/>
+                                                <DateRange setDates={this.setDates}/>
                                             </InputGroup>
                                         </div>
                                         <div className="card-body p-0">
