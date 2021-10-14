@@ -4,27 +4,27 @@ import React, {useState} from "react";
 
 const { RangePicker } = DatePicker;
 
-function DateRange() {
-    const [startValue, setStartValue] = useState(null);
-    const [endValue, setEndValue] = useState(null);
-    const [open, setOpen] = useState(true);
+function DateRange(props) {
     const [style, setStyle] = useState("130px");
+    const [open, setOpen] = useState(true);
+    let myDates = null;
 
     function onChange(dates) {
+        console.log("onChange");
+        props.setDates(dates);
+        myDates = dates;
         if (dates !== null) {
-            setStartValue(dates[0]);
-            setEndValue(dates[1]);
-            this.props.reload();
+            setOpen(false);
+            setStyle("330px");
         } else {
-            setStartValue(null);
-            setEndValue(null);
             setOpen(true);
             setStyle("130px");
         }
     }
 
     function onOpenChange() {
-        if (startValue !== null || endValue !== null || open) {
+        console.log("onOpenChange " + open);
+        if (myDates !== null || open) {
             setOpen(false);
             setStyle("330px");
         } else {
