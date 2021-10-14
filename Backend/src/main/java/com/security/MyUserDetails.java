@@ -1,9 +1,9 @@
 package com.security;
 
-import com.model.auth.Auth;
-import com.model.auth.application.AuthApplication;
-import com.model.auth.application.IAuthApplication;
-import com.model.auth.command.CommandJwt;
+import com.ec.auth.Auth;
+import com.ec.auth.application.AuthApplication;
+import com.ec.auth.application.IAuthApplication;
+import com.ec.auth.command.CommandJwt;
 import com.utils.JsonUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

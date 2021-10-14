@@ -1,10 +1,10 @@
-package com.model.member.application;
+package com.ec.member.application;
 
-import com.model.auth.application.IAuthApplication;
-import com.model.member.Member;
-import com.model.member.command.CommandAddMember;
-import com.model.member.command.CommandSearchMember;
-import com.model.member.command.CommandUpdateMember;
+import com.ec.auth.application.IAuthApplication;
+import com.ec.member.Member;
+import com.ec.member.command.CommandAddMember;
+import com.ec.member.command.CommandSearchMember;
+import com.ec.member.command.CommandUpdateMember;
 import com.utils.MongoDBConnection;
 import com.utils.Paging;
 import com.utils.enums.ExceptionEnum;
@@ -55,6 +55,9 @@ public class MemberApplication implements IMemberApplication {
             Map<String, Object> $regex = new HashMap<>();
             $regex.put("$regex", Pattern.compile(command.getKeyword(), Pattern.CASE_INSENSITIVE));
             query.put("name", $regex);
+        }
+        if (command.getFrom_date() != null && command.getTo_date() != null) {
+            query.put("create_date", new Document("$gte", command.getFrom_date()).append("$lte", command.getTo_date()));
         }
         return mongoDBConnection.find(query, sort, command.getPage(), command.getSize());
     }

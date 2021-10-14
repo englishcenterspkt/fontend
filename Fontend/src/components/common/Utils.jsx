@@ -103,6 +103,10 @@ export function getImageURL() {
     }
 }
 
+export function getTimestamp(moment) {
+    return moment != null ? moment.unix() * 1000 : null
+}
+
 function range(a, b) {
     const result = [];
     for (var i = a; i <= b; i++) {

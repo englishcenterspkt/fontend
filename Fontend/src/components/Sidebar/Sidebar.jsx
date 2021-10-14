@@ -15,13 +15,13 @@ class Sidebar extends Component {
                         <li className="menu-header">Thống kê</li>
                         <li className={this.props.index === "/admin" ? "active" : ""}>
                             <a href="/admin" className="nav-link no-dropdown">
-                                <i className="fas fa-fire" />
+                                <i className="fas fa-fire"/>
                                 <span>Tổng quan</span>
                             </a>
                         </li>
                         <li className={this.props.index === "/admin/abc" ? "active" : ""}>
                             <a href="/admin/abc" className="nav-link no-dropdown">
-                                <i className="fas fa-fire" />
+                                <i className="fas fa-fire"/>
                                 <span>Xuất báo cáo</span>
                             </a>
                         </li>
@@ -30,18 +30,18 @@ class Sidebar extends Component {
                             className={this.props.index === "/admin/student" ? "active" : ""}
                         >
                             <a href="/admin/student" className="nav-link no-dropdown">
-                                <i className="fas fa-fire" />
+                                <i className="fas fa-fire"/>
                                 <span>Học viên</span>
                             </a>
                         </li>
                         <li>
                             <a className="nav-link" href="forms-editor.html">
-                                <i className="far fa-square" /> <span>Giảng viên</span>
+                                <i className="far fa-square"/> <span>Giảng viên</span>
                             </a>
                         </li>
                         <li>
                             <a className="nav-link" href="forms-validation.html">
-                                <i className="far fa-square" /> <span>Nhân viên</span>
+                                <i className="far fa-square"/> <span>Nhân viên</span>
                             </a>
                         </li>
                     </ul>

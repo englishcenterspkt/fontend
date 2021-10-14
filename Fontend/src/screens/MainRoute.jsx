@@ -8,17 +8,17 @@ import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 export default function MainRoute() {
     return (
         <Router>
-            <ToastContainer closeButton={true} position="bottom-right" />
+            <ToastContainer closeButton={true} position="bottom-right"/>
             <>
                 <Switch>
                     <Route path="/login">
-                        <Login />
+                        <Login/>
                     </Route>
                     <Route path="/admin">
-                        <Admin />
+                        <Admin/>
                     </Route>
                     <Route path="/admin/abc">
-                        <Admin />
+                        <Admin/>
                     </Route>
                 </Switch>
             </>
