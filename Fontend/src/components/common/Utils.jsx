@@ -71,38 +71,6 @@ export function showEdit(event) {
     });
 }
 
-export function getImageURL() {
-    if (this.props.url !== null) {
-        storage
-            .ref("images/" + this.props.url)
-            .getMetadata()
-            .then((Response) => {
-                if (Response.contentType === "image/png") {
-                    this.setState({
-                        url:
-                            "https://firebasestorage.googleapis.com/v0/b/englishcenter-bd4ab.appspot.com/o/images%2F" +
-                            this.props.url +
-                            "?alt=media&token=" +
-                            Response.md5Hash,
-                    });
-                } else {
-                    this.setState({
-                        url: "https://firebasestorage.googleapis.com/v0/b/englishcenter-bd4ab.appspot.com/o/images%2Favatar-1.png?alt=media&token=1e9f3c81-c00e-40fb-9be1-6b292d0582c6",
-                    });
-                }
-            })
-            .catch((error) => {
-                this.setState({
-                    url: "https://firebasestorage.googleapis.com/v0/b/englishcenter-bd4ab.appspot.com/o/images%2Favatar-1.png?alt=media&token=1e9f3c81-c00e-40fb-9be1-6b292d0582c6",
-                });
-            });
-    } else {
-        this.setState({
-            url: "https://firebasestorage.googleapis.com/v0/b/englishcenter-bd4ab.appspot.com/o/images%2Favatar-1.png?alt=media&token=1e9f3c81-c00e-40fb-9be1-6b292d0582c6",
-        });
-    }
-}
-
 export function getTimestamp(moment) {
     return moment != null ? moment.unix() * 1000 : null
 }

@@ -1,4 +1,4 @@
-import { DatePicker } from 'antd';
+import {DatePicker} from 'antd';
 import 'antd/dist/antd.css';
 import React, {useState} from "react";
 

@@ -1,6 +1,6 @@
 import React, {Component} from "react";
-import MemberService from "../../service/MemberService";
-import NotifyCation from "../common/NotifyCation";
+import {getMembers} from "../../service/MemberService";
+import {showNotification} from "../common/NotifyCation";
 import AddEditStudent from "./AddEditStudent";
 import UpDownButton from "../common/UpDownButton";
 import {
@@ -88,7 +88,7 @@ class ManagerStudents extends Component {
     }
 
     reload() {
-        MemberService.getMembers(
+        getMembers(
             this.state.current_page,
             this.state.size,
             getKeyByValue(key, this.state.field),
@@ -110,7 +110,7 @@ class ManagerStudents extends Component {
                     total_items: Response.data.payload.total_items,
                 });
             } else {
-                NotifyCation.showNotification(Response.data.message);
+                showNotification(Response.data.message);
             }
         });
     }

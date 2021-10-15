@@ -1,6 +1,6 @@
 import React, {Component} from "react";
-import MemberService from "../../service/MemberService";
-import NotifyCation from "../common/NotifyCation";
+import {addMember, updateMember} from "../../service/MemberService";
+import {showNotification} from "../common/NotifyCation";
 import ImageUpload from "../common/ImageUpload";
 import {handleInput} from "../common/Utils";
 
@@ -22,7 +22,7 @@ class AddEditStudent extends Component {
     onSubmit(e) {
         e.preventDefault();
         if (this.props.student._id === -1) {
-            MemberService.addMember(
+            addMember(
                 this.state.name,
                 this.state.email,
                 this.state.password
@@ -31,23 +31,23 @@ class AddEditStudent extends Component {
                     this.child.current.handleUpload(
                         "avatar-" + Response.data.payload._id
                     );
-                    NotifyCation.showNotification("success_add");
+                    showNotification("success_add");
                     this.props.reload();
                     this.props.close_modal();
                 } else {
-                    NotifyCation.showNotification(Response.data.message);
+                    showNotification(Response.data.message);
                 }
             });
         } else {
-            MemberService.updateMember(this.props.student._id, this.state.name).then(
+            updateMember(this.props.student._id, this.state.name).then(
                 (Response) => {
                     if (Response.data.code !== -9999) {
                         this.child.current.handleUpload(this.props.student._id);
-                        NotifyCation.showNotification("success_update");
+                        showNotification("success_update");
                         this.props.close_modal();
                         this.props.reload();
                     } else {
-                        NotifyCation.showNotification(Response.data.message);
+                        showNotification(Response.data.message);
                     }
                 }
             );
