@@ -1,26 +1,7 @@
-import React, {Component} from "react";
-import {storage} from "./firebase/Config";
-import {getImageURL} from "./Utils";
+import React from "react";
 
-class ImageUpload extends Component {
-    constructor(props) {
-        super(props);
-        this.state = { file: null, url: "" };
-
-        this.handleUpload = this.handleUpload.bind(this);
-        this.getImageURL = getImageURL.bind(this);
-    }
-
-    componentDidMount() {
-        this.getImageURL();
-    }
-
-    handleUpload(name) {
-        const { image } = this.state;
-        storage.ref(`images/${name}.png`).put(image);
-    }
-
-    _handleImageChange(e) {
+function ImageUpload(props) {
+    function handleImageChange(e) {
         e.preventDefault();
         if (e.target.files.length > 0) {
             let reader = new FileReader();
@@ -36,30 +17,28 @@ class ImageUpload extends Component {
         }
     }
 
-    render() {
-        return (
-            <div className="text-center">
-                <label htmlFor="up-image-0" className="col-6">
-                    <img
-                        id="img-upload-0"
-                        alt="avatar"
-                        className="img-thumbnail"
-                        src={this.state.url}
-                    />
-                </label>
-                <div className="custom-file">
-                    <input
-                        type="file"
-                        className="custom-file-input"
-                        id="up-image-0"
-                        name="up-image-0"
-                        accept="image/*"
-                        onChange={(e) => this._handleImageChange(e)}
-                    />
-                </div>
+    return (
+        <div className="text-center">
+            <label htmlFor="up-image-0" className="col-6">
+                <img
+                    id="img-upload-0"
+                    alt="avatar"
+                    className="img-thumbnail"
+                    src={props.url}
+                />
+            </label>
+            <div className="custom-file">
+                <input
+                    type="file"
+                    className="custom-file-input"
+                    id="up-image-0"
+                    name="up-image-0"
+                    accept="image/*"
+                    onChange={handleImageChange}
+                />
             </div>
-        );
-    }
+        </div>
+    );
 }
 
 export default ImageUpload;
