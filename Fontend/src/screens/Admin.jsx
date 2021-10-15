@@ -1,29 +1,21 @@
-import React, {Component} from "react";
+import React from "react";
 import Navbar from "../components/Navbar/Navbar";
 import Dashboard from "../components/admin/Dashboard";
 import ManagerStudents from "../components/admin/ManagerStudents";
 import ImageUpload from "../components/common/ImageUpload";
+import {Route, Switch} from "react-router-dom";
 
-class Admin extends Component {
-    renderSwitch() {
-        switch (window.location.pathname) {
-            case "/admin/abc":
-                return <ImageUpload />;
-            case "/admin/student":
-                return <ManagerStudents></ManagerStudents>;
-            default:
-                return <Dashboard></Dashboard>;
-        }
-    }
-
-    render() {
-        return (
-            <div>
-                <Navbar index={window.location.pathname}></Navbar>
-                {this.renderSwitch()}
-            </div>
-        );
-    }
+function Admin() {
+    return (
+        <div>
+            <Navbar/>
+            <Switch>
+                <Route exact path="/admin/dashboard" component={Dashboard} />
+                <Route exact path="/admin/abc" component={ImageUpload} />
+                <Route exact path="/admin/student" component={ManagerStudents} />
+            </Switch>
+        </div>
+    );
 }
 
 export default Admin;
