@@ -3,20 +3,11 @@ import {getMembers} from "../../service/MemberService";
 import {showNotification} from "../common/NotifyCation";
 import AddEditStudent from "./AddEditStudent";
 import UpDownButton from "../common/UpDownButton";
-import {
-    changeSize,
-    getKeyByValue,
-    range,
-    getTimestamp,
-    handleInput,
-    onChangePage,
-    onNextPage,
-    onPreviousPage,
-    parseDate
-} from "../common/Utils";
+import {getKeyByValue, getTimestamp, handleInput, parseDate, range} from "../common/Utils";
 import Select from "react-select";
 import {FormControl, Image, InputGroup} from "react-bootstrap";
 import DateRange from "../common/DateRange";
+import CustomInput from "../common/CustomInput"
 
 const key = {_id: "ID", name: "Họ và tên", create_date: "Ngày tạo"};
 
@@ -34,57 +25,86 @@ const style = {
 };
 
 function ManagerStudents(props) {
+    const [object, setObject] = useState({
+        items: [],
+        total_pages: 1,
+        current_page: 1,
+        has_next: false,
+        has_previous: false,
+        next_page: 1,
+        previous_page: 1,
+        total_items: 0,
+    })
+    const [filter, setFilter] = useState({
+        types: [],
+        keyword: null,
+        sort: {
+            is_asc: false,
+            field: "ID",
+        },
+        from_date: null,
+        to_date: null,
+    })
     const [showAdd, setShowAdd] = useState(false);
-    const [students, setStudents] = useState([]);
-    const [totalPages, setTotalPages] = useState(1);
-    const [totalItems, setTotalItems] = useState(0);
-    const [currentPage, setCurrentPage] = useState(1);
-    const [hasPrevious, setHasPrevious] = useState(false);
-    const [hasNext, setHasNext] = useState(false);
     const [size, setSize] = useState(5);
-    const [previousPage, setPreviousPage] = useState(1);
-    const [nextPage, setNextPage] = useState(1);
+    const [page, setPage] = useState(1);
     const [item, setItem] = useState(null);
-    const [isAsc, setIsAsc] = useState(false);
-    const [field, setField] = useState("ID");
-    const [filterTypes, setFilterTypes] = useState([]);
-    const [keyword, setKeyword] = useState(null);
-    const [fromDate, setFromDate] = useState(null);
-    const [toDate, setToDate] = useState(null);
 
     useEffect(() => {
-        console.log("useEffect");
         reload();
-    })
+    }, [filter,size, page])
 
     function handleSelect(e) {
-        this.setState(
-            {filter_types: Array.isArray(e) ? e.map((x) => x.value) : []},
-            () => {
-                this.reload();
-            }
-        );
+        setFilter({
+            types: Array.isArray(e) ? e.map((x) => x.value) : [],
+            keyword: filter.keyword,
+            sort: {
+                is_asc: filter.sort.is_asc,
+                field: filter.sort.field,
+            },
+            from_date: filter.from_date,
+            to_date: filter.to_date,
+        })
     }
 
     function onSort(event) {
-        setIsAsc(!this.state.is_asc);
-        setField(event.target.innerText);
-        this.reload();
+        setFilter({
+            sort: {
+                is_asc: !filter.sort.is_asc,
+                field: event.target.innerText,
+            },
+            types: filter.types,
+            keyword: filter.keyword,
+            from_date: filter.from_date,
+            to_date: filter.to_date,
+        })
+    }
+
+    function onChangePage(event) {
+        setPage(event.target.attributes.value.value);
+    }
+
+    function changeSize(event) {
+        const s = event.target.attributes.value.value;
+        setPage(parseInt((
+            (object.current_page * size - (size - 1)) / s
+        ).toString()) + 1);
+        setSize(s);
     }
 
     function reload() {
         getMembers(
-            currentPage,
+            page,
             size,
-            getKeyByValue(key, field),
-            isAsc,
-            filterTypes,
-            keyword,
-            getTimestamp(fromDate),
-            getTimestamp(toDate)
+            getKeyByValue(key, filter.sort.field),
+            filter.sort.is_asc,
+            filter.types,
+            filter.keyword,
+            getTimestamp(filter.from_date),
+            getTimestamp(filter.to_date)
         ).then((Response) => {
             if (Response.data.code !== -9999) {
-                setStudents(Response.data.payload.items);
+                setObject(Response.data.payload)
             } else {
                 showNotification(Response.data.message);
             }
@@ -92,21 +112,42 @@ function ManagerStudents(props) {
     }
 
     function onKeyPress(event) {
-        this.setState({[event.target.id]: event.target.value}, () => {
-            if (event.charCode === 13) {
-                this.reload()
-            }
-        });
+        if (event.charCode === 13) {
+            setFilter({
+                sort: {
+                    is_asc: filter.sort.is_asc,
+                    field: filter.sort.field,
+                },
+                types: filter.types,
+                keyword: filter.keyword,
+                from_date: filter.from_date,
+                to_date: filter.to_date,
+            })
+        }
     }
 
     function setDates(dates) {
         if (dates !== null) {
-            this.setState({from_date: dates[0], to_date: dates[1]}, () => {
-                this.reload()
+            setFilter({
+                sort: {
+                    is_asc: filter.sort.is_asc,
+                    field: filter.sort.field,
+                },
+                types: filter.types,
+                keyword: filter.keyword,
+                from_date: dates[0],
+                to_date: dates[1],
             })
         } else {
-            this.setState({from_date: null, to_date: null}, () => {
-                this.reload()
+            setFilter({
+                sort: {
+                    is_asc: filter.sort.is_asc,
+                    field: filter.sort.field,
+                },
+                types: filter.types,
+                keyword: filter.keyword,
+                from_date: null,
+                to_date: null,
             })
         }
     }
@@ -121,24 +162,37 @@ function ManagerStudents(props) {
     }
 
     function getPageShow() {
-        if (currentPage - 2 < 1) {
-            return range(1, totalPages > 5 ? 5 : totalPages);
+        if (object.current_page - 2 < 1) {
+            return range(1, object.total_pages > 5 ? 5 : object.total_pages);
         }
-        if (currentPage + 2 > totalPages) {
+        if (object.current_page + 2 > object.total_pages) {
             return range(
-                totalPages - 5 > 1 ? totalPages - 4 : 1,
-                totalPages
+                object.total_pages - 5 > 1 ? object.total_pages - 4 : 1,
+                object.total_pages
             );
         }
-        return range(currentPage - 2, currentPage + 2);
+        return range(object.current_page - 2, object.current_page + 2);
     }
 
     function onPreviousPage() {
-        setCurrentPage(previousPage);
+        setPage(object.previous_page);
     }
 
     function onNextPage() {
-        setCurrentPage(nextPage);
+        setPage(object.next_page);
+    }
+
+    function onChangeKeyword(value){
+        setFilter({
+            sort: {
+                is_asc: filter.sort.is_asc,
+                field: filter.sort.field,
+            },
+            types: filter.types,
+            keyword: value,
+            from_date: filter.from_date,
+            to_date: filter.to_date,
+        })
     }
 
     return (
@@ -175,7 +229,7 @@ function ManagerStudents(props) {
                                                 isMulti
                                                 options={colourOptions}
                                                 value={colourOptions.filter((obj) =>
-                                                    filterTypes.includes(obj.value)
+                                                    filter.types.includes(obj.value)
                                                 )}
                                                 onChange={handleSelect}
                                                 styles={style}
@@ -194,12 +248,10 @@ function ManagerStudents(props) {
                                                 <Image className="custom-css-009"
                                                        src="https://firebasestorage.googleapis.com/v0/b/englishcenter-bd4ab.appspot.com/o/images%2Fsearch.png?alt=media&token=FGHT2AXQBr0xWNS6d7mALw=="/>
                                             </InputGroup.Text>
-                                            <FormControl
-                                                id="keyword"
-                                                placeholder="Tìm kiếm"
-                                                onChange={handleInput}
-                                                onKeyPress={onKeyPress}
+                                            <CustomInput
+                                                onSubmit={onChangeKeyword}
                                             />
+
                                         </InputGroup>
                                         <div className="table-responsive">
                                             <table className="table table-hover table-striped">
@@ -208,30 +260,30 @@ function ManagerStudents(props) {
                                                     <th>STT</th>
                                                     <th onClick={onSort}>
                                                         <UpDownButton
-                                                            asc={isAsc}
+                                                            asc={filter.sort.is_asc}
                                                             col_name={key._id}
-                                                            select_field={field}
+                                                            select_field={filter.sort.field}
                                                         />
                                                     </th>
                                                     <th onClick={onSort}>
                                                         <UpDownButton
-                                                            asc={isAsc}
+                                                            asc={filter.sort.is_asc}
                                                             col_name={key.name}
-                                                            select_field={field}
+                                                            select_field={filter.sort.field}
                                                         />
                                                     </th>
                                                     <th>Email</th>
                                                     <th onClick={onSort}>
                                                         <UpDownButton
-                                                            asc={isAsc}
+                                                            asc={filter.sort.is_asc}
                                                             col_name={key.create_date}
-                                                            select_field={field}
+                                                            select_field={filter.sort.field}
                                                         />
                                                     </th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
-                                                {students.map((student, index) => {
+                                                {object.items.map((student, index) => {
                                                     return (
                                                         <tr
                                                             key={index + 1}
@@ -256,12 +308,12 @@ function ManagerStudents(props) {
                                                 <li
                                                     key="previous"
                                                     className={
-                                                        hasPrevious
+                                                        object.has_previous
                                                             ? "page-item"
                                                             : "page-item disabled"
                                                     }
                                                     onClick={
-                                                        hasPrevious ? onPreviousPage : null
+                                                        object.has_previous ? onPreviousPage : null
                                                     }
                                                 >
                                                     <button className="page-link" tabIndex="-1">
@@ -273,7 +325,7 @@ function ManagerStudents(props) {
                                                         <li
                                                             key={e}
                                                             className={
-                                                                currentPage === e
+                                                                object.current_page === e
                                                                     ? "page-item active"
                                                                     : "page-item"
                                                             }
@@ -292,11 +344,11 @@ function ManagerStudents(props) {
                                                 <li
                                                     key="next"
                                                     className={
-                                                        hasNext
+                                                        object.has_next
                                                             ? "page-item"
                                                             : "page-item disabled"
                                                     }
-                                                    onClick={hasNext ? onNextPage : null}
+                                                    onClick={object.has_next ? onNextPage : null}
                                                 >
                                                     <button className="page-link">
                                                         <i className="fas fa-chevron-right"/>
@@ -349,7 +401,7 @@ function ManagerStudents(props) {
                                             style={{marginRight: "5px"}}
                                         >
                                             <button type="button" className="btn btn-light">
-                                                {"Tổng học viên: " + totalItems}
+                                                {"Tổng học viên: " + object.total_items}
                                             </button>
                                         </div>
                                     </div>

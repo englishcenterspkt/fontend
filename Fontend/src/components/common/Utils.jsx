@@ -16,11 +16,6 @@ export function getKeyByValue(map, object) {
     return Object.keys(map).find((i) => map[i] === object);
 }
 
-export function onChangePage(event) {
-    this.state.current_page = event.target.attributes.value.value;
-    this.reload();
-}
-
 export function previousPage() {
     this.state.current_page = this.state.previous_page;
     this.reload();
@@ -28,16 +23,6 @@ export function previousPage() {
 
 export function nextPage() {
     this.state.current_page = this.state.next_page;
-    this.reload();
-}
-
-export function changeSize(event) {
-    const s = event.target.attributes.value.value;
-    this.state.current_page =
-        parseInt(
-            (this.state.current_page * this.state.size - (this.state.size - 1)) / s
-        ) + 1;
-    this.state.size = s;
     this.reload();
 }
 
@@ -75,7 +60,7 @@ export function getTimestamp(moment) {
     return moment != null ? moment.unix() * 1000 : null
 }
 
-function range(a, b) {
+export function range(a, b) {
     const result = [];
     for (var i = a; i <= b; i++) {
         result.push(i);
