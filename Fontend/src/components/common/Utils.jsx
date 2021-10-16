@@ -1,9 +1,5 @@
 import {storage} from "./firebase/Config";
 
-export function handleInput(event) {
-    this.setState({ [event.target.id]: event.target.value });
-}
-
 export function parseDate(timestamp) {
     return new Intl.DateTimeFormat("en-US", {
         year: "numeric",
@@ -16,54 +12,51 @@ export function getKeyByValue(map, object) {
     return Object.keys(map).find((i) => map[i] === object);
 }
 
-export function previousPage() {
-    this.state.current_page = this.state.previous_page;
-    this.reload();
-}
-
-export function nextPage() {
-    this.state.current_page = this.state.next_page;
-    this.reload();
-}
-
-export function onSort(event) {
-    this.state.is_asc = !this.state.is_asc;
-    this.state.field = event.target.innerText;
-    this.reload();
-}
-
-export function getPageShow() {
-    if (this.state.current_page - 2 < 1) {
-        return range(1, this.state.total_pages > 5 ? 5 : this.state.total_pages);
-    }
-    if (this.state.current_page + 2 > this.state.total_pages) {
-        return range(
-            this.state.total_pages - 5 > 1 ? this.state.total_pages - 4 : 1,
-            this.state.total_pages
-        );
-    }
-    return range(this.state.current_page - 2, this.state.current_page + 2);
-}
-
-export function showAdd() {
-    this.setState({ show_add: !this.state.show_add, item: this.props.item });
-}
-
-export function showEdit(event) {
-    this.setState({
-        item: JSON.parse(event.currentTarget.getAttribute("data-item")),
-        show_add: !this.state.show_add,
-    });
-}
-
 export function getTimestamp(moment) {
     return moment != null ? moment.unix() * 1000 : null
 }
 
+export async function getImageURL(path, image_default) {
+    let result = "";
+    if (path !== null) {
+        let promise = new Promise((resolve) => {
+            storage
+                .ref("images/" + path)
+                .getMetadata()
+                .then((Response) => {
+                    if (Response.contentType === "image/png") {
+                        resolve("https://firebasestorage.googleapis.com/v0/b/englishcenter-bd4ab.appspot.com/o/images%2F" + path + "?alt=media&token=" + Response.md5Hash);
+                    } else {
+                        resolve(image_default);
+                    }
+                })
+                .catch((error) => {
+                    resolve(image_default);
+                })
+        });
+        result = await promise;
+    } else {
+        result = image_default;
+    }
+    return result + "";
+}
+
 export function range(a, b) {
     const result = [];
-    for (var i = a; i <= b; i++) {
+    for (let i = a; i <= b; i++) {
         result.push(i);
     }
     return result;
+}
+
+export function getToken() {
+    return localStorage.getItem('token');
+}
+
+export function setToken(token) {
+    localStorage.setItem('token', token);
+}
+
+export function clearToken() {
+    localStorage.removeItem('token');
 }

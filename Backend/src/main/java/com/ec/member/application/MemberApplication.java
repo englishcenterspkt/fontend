@@ -45,8 +45,6 @@ public class MemberApplication implements IMemberApplication {
             throw new Exception(ExceptionEnum.member_type_deny);
         }
         Map<String, Object> query = new HashMap<>();
-        Map<String, Object> sort = new HashMap<>();
-        sort.put(command.getField_sort(), command.getIs_acs() ? 1 : -1);
         query.put("is_deleted", false);
         if (!CollectionUtils.isEmpty(command.getTypes())) {
             query.put("type", new Document("$in", command.getTypes()));
@@ -59,7 +57,7 @@ public class MemberApplication implements IMemberApplication {
         if (command.getFrom_date() != null && command.getTo_date() != null) {
             query.put("create_date", new Document("$gte", command.getFrom_date()).append("$lte", command.getTo_date()));
         }
-        return mongoDBConnection.find(query, sort, command.getPage(), command.getSize());
+        return mongoDBConnection.find(query, command.getSort(), command.getPage(), command.getSize());
     }
 
     @Override

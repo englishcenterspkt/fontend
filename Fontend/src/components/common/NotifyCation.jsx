@@ -1,5 +1,6 @@
 import {toast} from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import {clearToken} from "./Utils";
 
 const errors = {
     param_not_null: {
@@ -18,6 +19,11 @@ const errors = {
         vn: "Người dùng này đã tồn tại!",
         type: "info",
     },
+    member_type_deny: {
+        vn: "Lỗi xác thực",
+        type: "error",
+        logout: true,
+    },
     success_add: {
         vn: "Thêm thành công",
         type: "success",
@@ -32,6 +38,9 @@ export function showNotification(message) {
     if (errors[message] === null) {
         toast.error(message);
     } else {
+        if (errors[message].logout != null) {
+            clearToken();
+        }
         switch (errors[message].type) {
             case "info":
                 toast.info(errors[message].vn);

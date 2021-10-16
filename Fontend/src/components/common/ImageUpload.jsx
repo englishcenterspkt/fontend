@@ -1,22 +1,7 @@
 import React from "react";
 
 function ImageUpload(props) {
-    function handleImageChange(e) {
-        e.preventDefault();
-        if (e.target.files.length > 0) {
-            let reader = new FileReader();
-            let file = e.target.files[0];
-            reader.onloadend = () => {
-                this.setState({
-                    image: file,
-                    url: reader.result,
-                });
-            };
-
-            reader.readAsDataURL(file);
-        }
-    }
-
+    console.log(props.url);
     return (
         <div className="text-center">
             <label htmlFor="up-image-0" className="col-6">
@@ -34,7 +19,7 @@ function ImageUpload(props) {
                     id="up-image-0"
                     name="up-image-0"
                     accept="image/*"
-                    onChange={handleImageChange}
+                    onChange={props.handleImageChange}
                 />
             </div>
         </div>

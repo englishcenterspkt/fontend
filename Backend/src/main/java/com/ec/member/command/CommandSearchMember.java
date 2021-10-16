@@ -1,5 +1,6 @@
 package com.ec.member.command;
 
+import eu.dozd.mongo.annotation.Embedded;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,8 +20,15 @@ public class CommandSearchMember {
     private List<String> types;
     private Long from_date;
     private Long to_date;
-    @Builder.Default
-    private String field_sort = "_id";
-    @Builder.Default
-    private Boolean is_acs = false;
+    private Sort sort;
+
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Embedded
+    @Builder
+    public static class Sort {
+        private String field;
+        private Boolean is_asc;
+    }
 }
