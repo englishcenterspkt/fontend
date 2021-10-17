@@ -15,5 +15,9 @@ public class CommandAddMember {
     private String password;
     private String type;
     private String avatar;
+    private Long dob;
+    private String address;
+    private String phone_number;
+    private String gender;
 }
 

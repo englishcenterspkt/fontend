@@ -22,11 +22,15 @@ export function getMembers(page, size, field, is_asc, types, keyword, from_date,
     });
 }
 
-export function addMember(name, email, password) {
+export function addMember(name, email, password, address, gender, dob, phone_number) {
     return axios.post(`${INSTRUCTOR_API_URL}/add`, {
         name: name,
         email: email,
         password: password,
+        address: address,
+        gender: gender,
+        dob: dob,
+        phone_number: phone_number
     });
 }
 

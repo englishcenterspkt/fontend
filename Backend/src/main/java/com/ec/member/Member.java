@@ -26,6 +26,10 @@ public class Member implements Serializable {
     private String type;
     private String email;
     private String avatar;
+    private Long dob;
+    private String address;
+    private String phone_number;
+    private String gender;
     @Builder.Default
     private Boolean is_deleted = false;
 

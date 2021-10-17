@@ -3,7 +3,7 @@ import React from "react";
 function ImageUpload(props) {
     return (
         <div className="text-center">
-            <label htmlFor="up-image-0" className="col-6">
+            <label htmlFor="up-image-0" className="col-4">
                 <img
                     id="img-upload-0"
                     alt="avatar"

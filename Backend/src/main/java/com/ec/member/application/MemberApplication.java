@@ -62,7 +62,7 @@ public class MemberApplication implements IMemberApplication {
 
     @Override
     public Optional<Member> add(CommandAddMember command) throws Exception {
-        if (StringUtils.isAnyBlank(command.getName(), command.getEmail(), command.getPassword())) {
+        if (StringUtils.isAnyBlank(command.getName(), command.getEmail(), command.getPassword(), command.getGender(), command.getPhone_number()) || command.getDob() == null) {
             throw new Exception(ExceptionEnum.param_not_null);
         }
         Map<String, Object> query = new HashMap<>();
@@ -77,6 +77,10 @@ public class MemberApplication implements IMemberApplication {
                 .name(command.getName())
                 .email(command.getEmail())
                 .type(command.getType() != null ? command.getType() : Member.MemberType.STUDENT)
+                .dob(command.getDob())
+                .gender(command.getGender())
+                .address(command.getAddress())
+                .phone_number(command.getPhone_number())
                 .build();
         Optional<Member> optional = mongoDBConnection.insert(member);
         if (optional.isPresent()) {

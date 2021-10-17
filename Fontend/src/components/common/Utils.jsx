@@ -1,11 +1,8 @@
 import {storage} from "./firebase/Config";
 
 export function parseDate(timestamp) {
-    return new Intl.DateTimeFormat("en-US", {
-        year: "numeric",
-        month: "2-digit",
-        day: "2-digit",
-    }).format(timestamp);
+    const date = new Date(timestamp);
+    return date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear();
 }
 
 export function getKeyByValue(map, object) {
@@ -59,4 +56,8 @@ export function setToken(token) {
 
 export function clearToken() {
     localStorage.removeItem('token');
+}
+
+export function timeNow() {
+    return new Date().getTime();
 }
