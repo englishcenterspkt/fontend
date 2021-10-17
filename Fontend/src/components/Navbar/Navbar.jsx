@@ -1,11 +1,12 @@
 import Sidebar from "../../components/Sidebar/Sidebar";
 import React from "react";
+import {clearToken} from "../common/Utils";
 
 function Navbar() {
     return (
         <div>
             <div className="navbar-bg"/>
-            <nav className="navbar navbar-expand-lg main-navbar">
+            <nav className="navbar navbar-expand-lg main-navbar custom-css-011">
                 <form className="form-inline mr-auto">
                     <ul className="navbar-nav mr-3">
                         <li>
@@ -27,200 +28,8 @@ function Navbar() {
                             </a>
                         </li>
                     </ul>
-                    <div className="search-element">
-                        <input
-                            className="form-control"
-                            type="search"
-                            placeholder="Search"
-                            aria-label="Search"
-                            data-width={250}
-                        />
-                        <button className="btn" type="submit">
-                            <i className="fas fa-search"/>
-                        </button>
-                        <div className="search-backdrop"/>
-                        <div className="search-result">
-                            <div className="search-header">Histories</div>
-                            <div className="search-item">
-                                <a href="# ">How to hack NASA using CSS</a>
-                                <a href="# " className="search-close">
-                                    <i className="fas fa-times"/>
-                                </a>
-                            </div>
-                            <div className="search-item">
-                                <a href="# ">Kodinger.com</a>
-                                <a href="# " className="search-close">
-                                    <i className="fas fa-times"/>
-                                </a>
-                            </div>
-                            <div className="search-item">
-                                <a href="# ">#Stisla</a>
-                                <a href="# " className="search-close">
-                                    <i className="fas fa-times"/>
-                                </a>
-                            </div>
-                            <div className="search-header">Result</div>
-                            <div className="search-item">
-                                <a href="# ">
-                                    <img
-                                        className="mr-3 rounded"
-                                        width={30}
-                                        src="../assets/img/products/product-3-50.png"
-                                        alt="product"
-                                    />
-                                    oPhone S9 Limited Edition
-                                </a>
-                            </div>
-                            <div className="search-item">
-                                <a href="# ">
-                                    <img
-                                        className="mr-3 rounded"
-                                        width={30}
-                                        src="../assets/img/products/product-2-50.png"
-                                        alt="product"
-                                    />
-                                    Drone X2 New Gen-7
-                                </a>
-                            </div>
-                            <div className="search-item">
-                                <a href="# ">
-                                    <img
-                                        className="mr-3 rounded"
-                                        width={30}
-                                        src="../assets/img/products/product-1-50.png"
-                                        alt="product"
-                                    />
-                                    Headphone Blitz
-                                </a>
-                            </div>
-                            <div className="search-header">Projects</div>
-                            <div className="search-item">
-                                <a href="# ">
-                                    <div className="search-icon bg-danger text-white mr-3">
-                                        <i className="fas fa-code"/>
-                                    </div>
-                                    Stisla Admin Template
-                                </a>
-                            </div>
-                            <div className="search-item">
-                                <a href="# ">
-                                    <div className="search-icon bg-primary text-white mr-3">
-                                        <i className="fas fa-laptop"/>
-                                    </div>
-                                    Create a new Homepage Design
-                                </a>
-                            </div>
-                        </div>
-                    </div>
                 </form>
                 <ul className="navbar-nav navbar-right">
-                    <li className="dropdown dropdown-list-toggle">
-                        <a
-                            href="# "
-                            data-toggle="dropdown"
-                            className="nav-link nav-link-lg message-toggle beep"
-                        >
-                            <i className="far fa-envelope"/>
-                        </a>
-                        <div className="dropdown-menu dropdown-list dropdown-menu-right">
-                            <div className="dropdown-header">
-                                Messages
-                                <div className="float-right">
-                                    <a href="# ">Mark All As Read</a>
-                                </div>
-                            </div>
-                            <div className="dropdown-list-content dropdown-list-message">
-                                <a href="# " className="dropdown-item dropdown-item-unread">
-                                    <div className="dropdown-item-avatar">
-                                        <img
-                                            alt="avatar"
-                                            src="https://firebasestorage.googleapis.com/v0/b/englishcenter-bd4ab.appspot.com/o/images%2Favatar-1.png?alt=media&token=1e9f3c81-c00e-40fb-9be1-6b292d0582c6"
-                                            className="rounded-circle"
-                                        />
-                                        <div className="is-online"/>
-                                    </div>
-                                    <div className="dropdown-item-desc">
-                                        <b>Kusnaedi</b>
-                                        <p>Hello, Bro!</p>
-                                        <div className="time">10 Hours Ago</div>
-                                    </div>
-                                </a>
-                                <a href="# " className="dropdown-item dropdown-item-unread">
-                                    <div className="dropdown-item-avatar">
-                                        <img
-                                            alt="avatar"
-                                            src="../assets/img/avatar/avatar-2.png"
-                                            className="rounded-circle"
-                                        />
-                                    </div>
-                                    <div className="dropdown-item-desc">
-                                        <b>Dedik Sugiharto</b>
-                                        <p>
-                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit
-                                        </p>
-                                        <div className="time">12 Hours Ago</div>
-                                    </div>
-                                </a>
-                                <a href="# " className="dropdown-item dropdown-item-unread">
-                                    <div className="dropdown-item-avatar">
-                                        <img
-                                            alt="avatar"
-                                            src="../assets/img/avatar/avatar-3.png"
-                                            className="rounded-circle"
-                                        />
-                                        <div className="is-online"/>
-                                    </div>
-                                    <div className="dropdown-item-desc">
-                                        <b>Agung Ardiansyah</b>
-                                        <p>
-                                            Sunt in culpa qui officia deserunt mollit anim id est
-                                            laborum.
-                                        </p>
-                                        <div className="time">12 Hours Ago</div>
-                                    </div>
-                                </a>
-                                <a href="# " className="dropdown-item">
-                                    <div className="dropdown-item-avatar">
-                                        <img
-                                            alt="avatar"
-                                            src="../assets/img/avatar/avatar-4.png"
-                                            className="rounded-circle"
-                                        />
-                                    </div>
-                                    <div className="dropdown-item-desc">
-                                        <b>Ardian Rahardiansyah</b>
-                                        <p>
-                                            Duis aute irure dolor in reprehenderit in voluptate
-                                            velit ess
-                                        </p>
-                                        <div className="time">16 Hours Ago</div>
-                                    </div>
-                                </a>
-                                <a href="# " className="dropdown-item">
-                                    <div className="dropdown-item-avatar">
-                                        <img
-                                            alt="avatar"
-                                            src="../assets/img/avatar/avatar-5.png"
-                                            className="rounded-circle"
-                                        />
-                                    </div>
-                                    <div className="dropdown-item-desc">
-                                        <b>Alfa Zulkarnain</b>
-                                        <p>
-                                            Exercitation ullamco laboris nisi ut aliquip ex ea
-                                            commodo
-                                        </p>
-                                        <div className="time">Yesterday</div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div className="dropdown-footer text-center">
-                                <a href="# ">
-                                    View All <i className="fas fa-chevron-right"/>
-                                </a>
-                            </div>
-                        </div>
-                    </li>
                     <li className="dropdown dropdown-list-toggle">
                         <a
                             href="# "
@@ -327,7 +136,7 @@ function Navbar() {
                                 <i className="fas fa-cog"/> Settings
                             </a>
                             <div className="dropdown-divider"/>
-                            <a href="# " className="dropdown-item has-icon text-danger">
+                            <a href="/login" className="dropdown-item has-icon text-danger" onClick={clearToken}>
                                 <i className="fas fa-sign-out-alt"/> Logout
                             </a>
                         </div>

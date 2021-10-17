@@ -1,10 +1,10 @@
 import React, {useState} from "react";
 import {Redirect} from "react-router-dom";
 import {login} from "../service/AuthService";
-import Cookies from "universal-cookie";
 import {showNotification} from "../components/common/NotifyCation";
+import {getToken, setToken} from "../components/common/Utils";
 
-function Login (props){
+function Login (){
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [loggedInUser, setLoggedInUser] = useState(null);
@@ -13,8 +13,7 @@ function Login (props){
         e.preventDefault();
         login(username, password).then((Response) => {
             if (Response.data.code !== -9999) {
-                const cookies = new Cookies();
-                cookies.set("token", Response.data.payload, { path: "/" });
+                setToken(Response.data.payload);
                 setLoggedInUser( true);
             } else {
                 showNotification(Response.data.message);
@@ -22,7 +21,7 @@ function Login (props){
         });
     }
 
-    if (loggedInUser) {
+    if (getToken() != null || loggedInUser) {
         return (
             <Redirect
                 to={{

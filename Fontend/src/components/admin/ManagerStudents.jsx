@@ -3,11 +3,11 @@ import {getMembers} from "../../service/MemberService";
 import {showNotification} from "../common/NotifyCation";
 import AddEditStudent from "./AddEditStudent";
 import UpDownButton from "../common/UpDownButton";
-import {getKeyByValue, getTimestamp, handleInput, parseDate, range} from "../common/Utils";
+import {getImageURL, getKeyByValue, getTimestamp, getToken, parseDate, range} from "../common/Utils";
 import Select from "react-select";
-import {FormControl, Image, InputGroup} from "react-bootstrap";
+import {Image, InputGroup} from "react-bootstrap";
 import DateRange from "../common/DateRange";
-import CustomInput from "../common/CustomInput"
+import CustomInput from "../common/CustomInput";
 
 const key = {_id: "ID", name: "Họ và tên", create_date: "Ngày tạo"};
 
@@ -25,6 +25,11 @@ const style = {
 };
 
 function ManagerStudents(props) {
+    if (getToken() == null) {
+        props.history.push("/login");
+    }
+    const image_default = "https://firebasestorage.googleapis.com/v0/b/englishcenter-bd4ab.appspot.com/o/images%2Favatar-1.png?alt=media&token=1e9f3c81-c00e-40fb-9be1-6b292d0582c6";
+
     const [object, setObject] = useState({
         items: [],
         total_pages: 1,
@@ -35,49 +40,46 @@ function ManagerStudents(props) {
         previous_page: 1,
         total_items: 0,
     })
-    const [filter, setFilter] = useState({
-        types: [],
-        keyword: null,
-        sort: {
-            is_asc: false,
-            field: "ID",
-        },
-        from_date: null,
-        to_date: null,
-    })
     const [showAdd, setShowAdd] = useState(false);
+
     const [size, setSize] = useState(5);
     const [page, setPage] = useState(1);
     const [item, setItem] = useState(null);
+    const [types, setTypes] = useState([]);
+    const [keyword, setKeyword] = useState(null);
+    const [sort, setSort] = useState({is_asc: false, field: "ID"})
+    const [create_date, setCreate_date] = useState({from: null, to: null});
+    const [url_avatar, setUrl_avatar] = useState(null);
+    const [is_update, setIs_update] = useState(true);
 
     useEffect(() => {
-        reload();
-    }, [filter,size, page])
+        getMembers(
+            page,
+            size,
+            getKeyByValue(key, sort.field),
+            sort.is_asc,
+            types,
+            keyword,
+            getTimestamp(create_date.from),
+            getTimestamp(create_date.to)
+        ).then((Response) => {
+            if (Response.data.code !== -9999) {
+                setObject(Response.data.payload)
+            } else {
+                showNotification(Response.data.message);
+            }
+        });
+    }, [types, keyword, sort, create_date, size, page, is_update])
 
     function handleSelect(e) {
-        setFilter({
-            types: Array.isArray(e) ? e.map((x) => x.value) : [],
-            keyword: filter.keyword,
-            sort: {
-                is_asc: filter.sort.is_asc,
-                field: filter.sort.field,
-            },
-            from_date: filter.from_date,
-            to_date: filter.to_date,
-        })
+        setTypes(Array.isArray(e) ? e.map((x) => x.value) : []);
     }
 
     function onSort(event) {
-        setFilter({
-            sort: {
-                is_asc: !filter.sort.is_asc,
-                field: event.target.innerText,
-            },
-            types: filter.types,
-            keyword: filter.keyword,
-            from_date: filter.from_date,
-            to_date: filter.to_date,
-        })
+        setSort({
+            is_asc: !sort.is_asc,
+            field: event.target.innerText
+        });
     }
 
     function onChangePage(event) {
@@ -92,73 +94,47 @@ function ManagerStudents(props) {
         setSize(s);
     }
 
-    function reload() {
-        getMembers(
-            page,
-            size,
-            getKeyByValue(key, filter.sort.field),
-            filter.sort.is_asc,
-            filter.types,
-            filter.keyword,
-            getTimestamp(filter.from_date),
-            getTimestamp(filter.to_date)
-        ).then((Response) => {
-            if (Response.data.code !== -9999) {
-                setObject(Response.data.payload)
-            } else {
-                showNotification(Response.data.message);
-            }
-        });
-    }
-
-    function onKeyPress(event) {
-        if (event.charCode === 13) {
-            setFilter({
-                sort: {
-                    is_asc: filter.sort.is_asc,
-                    field: filter.sort.field,
-                },
-                types: filter.types,
-                keyword: filter.keyword,
-                from_date: filter.from_date,
-                to_date: filter.to_date,
-            })
-        }
-    }
-
     function setDates(dates) {
         if (dates !== null) {
-            setFilter({
-                sort: {
-                    is_asc: filter.sort.is_asc,
-                    field: filter.sort.field,
-                },
-                types: filter.types,
-                keyword: filter.keyword,
-                from_date: dates[0],
-                to_date: dates[1],
-            })
+            setCreate_date({
+                from: dates[0],
+                to: dates[1]
+            });
         } else {
-            setFilter({
-                sort: {
-                    is_asc: filter.sort.is_asc,
-                    field: filter.sort.field,
-                },
-                types: filter.types,
-                keyword: filter.keyword,
-                from_date: null,
-                to_date: null,
-            })
+            setCreate_date({
+                from: null,
+                to: null
+            });
         }
     }
 
     function onShowAdd() {
         setShowAdd(!showAdd);
         setItem(props.item);
+        setUrl_avatar(image_default);
+    }
+
+    function closeModal() {
+        setShowAdd(!showAdd);
+        setUrl_avatar(null);
+        setItem(props.item);
     }
 
     function onShowEdit(event) {
-        setItem(JSON.parse(event.currentTarget.getAttribute("data-item")));
+        setShowAdd(!showAdd);
+        const ob = JSON.parse(event.currentTarget.getAttribute("data-item"))
+        setItem(ob);
+        try {
+            if (ob.avatar == null) {
+                setUrl_avatar(image_default);
+            } else {
+                getImageURL(ob.avatar, image_default).then(value => {
+                    setUrl_avatar(value);
+                })
+            }
+        } catch (e) {
+            setUrl_avatar(image_default);
+        }
     }
 
     function getPageShow() {
@@ -182,17 +158,12 @@ function ManagerStudents(props) {
         setPage(object.next_page);
     }
 
-    function onChangeKeyword(value){
-        setFilter({
-            sort: {
-                is_asc: filter.sort.is_asc,
-                field: filter.sort.field,
-            },
-            types: filter.types,
-            keyword: value,
-            from_date: filter.from_date,
-            to_date: filter.to_date,
-        })
+    function onChangeKeyword(value) {
+        setKeyword(value);
+    }
+
+    function onSetIsUpdate() {
+        setIs_update(!is_update);
     }
 
     return (
@@ -207,7 +178,7 @@ function ManagerStudents(props) {
                                     onClick={onShowAdd}
                                     className="btn btn-icon btn-primary"
                                 >
-                                    <i className="fas fa-plus"></i>
+                                    <i className="fas fa-plus"/>
                                 </button>
                             </div>
                         </div>
@@ -229,7 +200,7 @@ function ManagerStudents(props) {
                                                 isMulti
                                                 options={colourOptions}
                                                 value={colourOptions.filter((obj) =>
-                                                    filter.types.includes(obj.value)
+                                                    types.includes(obj.value)
                                                 )}
                                                 onChange={handleSelect}
                                                 styles={style}
@@ -251,7 +222,6 @@ function ManagerStudents(props) {
                                             <CustomInput
                                                 onSubmit={onChangeKeyword}
                                             />
-
                                         </InputGroup>
                                         <div className="table-responsive">
                                             <table className="table table-hover table-striped">
@@ -260,24 +230,24 @@ function ManagerStudents(props) {
                                                     <th>STT</th>
                                                     <th onClick={onSort}>
                                                         <UpDownButton
-                                                            asc={filter.sort.is_asc}
+                                                            asc={sort.is_asc}
                                                             col_name={key._id}
-                                                            select_field={filter.sort.field}
+                                                            select_field={sort.field}
                                                         />
                                                     </th>
                                                     <th onClick={onSort}>
                                                         <UpDownButton
-                                                            asc={filter.sort.is_asc}
+                                                            asc={sort.is_asc}
                                                             col_name={key.name}
-                                                            select_field={filter.sort.field}
+                                                            select_field={sort.field}
                                                         />
                                                     </th>
                                                     <th>Email</th>
                                                     <th onClick={onSort}>
                                                         <UpDownButton
-                                                            asc={filter.sort.is_asc}
+                                                            asc={sort.is_asc}
                                                             col_name={key.create_date}
-                                                            select_field={filter.sort.field}
+                                                            select_field={sort.field}
                                                         />
                                                     </th>
                                                 </tr>
@@ -411,12 +381,13 @@ function ManagerStudents(props) {
                     </div>
                 </section>
             </div>
-            {showAdd && (
+            {showAdd && url_avatar && (
                 <AddEditStudent
                     show_add={showAdd}
-                    close_modal={showAdd}
-                    reload={reload}
+                    close_modal={closeModal}
                     student={item}
+                    url_avatar={url_avatar}
+                    reload={onSetIsUpdate}
                 />
             )}
         </React.Fragment>
