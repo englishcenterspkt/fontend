@@ -3,12 +3,11 @@ import {getMembers} from "../../service/MemberService";
 import {showNotification} from "../common/NotifyCation";
 import AddEditStudent from "./AddEditStudent";
 import UpDownButton from "../common/UpDownButton";
-import {getImageURL, getKeyByValue, getTimestamp, parseDate, range} from "../common/Utils";
+import {getImageURL, getKeyByValue, getTimestamp, getToken, parseDate, range} from "../common/Utils";
 import Select from "react-select";
 import {Image, InputGroup} from "react-bootstrap";
 import DateRange from "../common/DateRange";
 import CustomInput from "../common/CustomInput";
-import {getToken} from "../common/Utils";
 
 const key = {_id: "ID", name: "Họ và tên", create_date: "Ngày tạo"};
 
@@ -51,6 +50,7 @@ function ManagerStudents(props) {
     const [sort, setSort] = useState({is_asc: false, field: "ID"})
     const [create_date, setCreate_date] = useState({from: null, to: null});
     const [url_avatar, setUrl_avatar] = useState(null);
+    const [is_update, setIs_update] = useState(true);
 
     useEffect(() => {
         getMembers(
@@ -69,7 +69,7 @@ function ManagerStudents(props) {
                 showNotification(Response.data.message);
             }
         });
-    }, [types, keyword, sort, create_date, size, page])
+    }, [types, keyword, sort, create_date, size, page, is_update])
 
     function handleSelect(e) {
         setTypes(Array.isArray(e) ? e.map((x) => x.value) : []);
@@ -160,6 +160,10 @@ function ManagerStudents(props) {
 
     function onChangeKeyword(value) {
         setKeyword(value);
+    }
+
+    function onSetIsUpdate() {
+        setIs_update(!is_update);
     }
 
     return (
@@ -383,6 +387,7 @@ function ManagerStudents(props) {
                     close_modal={closeModal}
                     student={item}
                     url_avatar={url_avatar}
+                    reload={onSetIsUpdate}
                 />
             )}
         </React.Fragment>

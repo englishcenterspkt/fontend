@@ -1,7 +1,6 @@
 import React from "react";
 
 function ImageUpload(props) {
-    console.log(props.url);
     return (
         <div className="text-center">
             <label htmlFor="up-image-0" className="col-6">

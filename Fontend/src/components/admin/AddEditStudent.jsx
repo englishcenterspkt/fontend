@@ -8,7 +8,8 @@ function AddEditStudent(props) {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [image, setImage] = useState({ file: null, url: props.url_avatar});
+    const [image, setImage] = useState(null);
+    const [url, setUrl] = useState(props.url_avatar);
 
     function onSubmit(e) {
         if (props.student._id === -1) {
@@ -18,11 +19,10 @@ function AddEditStudent(props) {
                 password
             ).then((Response) => {
                 if (Response.data.code !== -9999) {
-                    handleUpload(
-                        "avatar-" + Response.data.payload._id
-                    );
+                    handleUpload("avatar-" + Response.data.payload._id);
                     showNotification("success_add");
                     props.close_modal();
+                    props.reload();
                 } else {
                     showNotification(Response.data.message);
                 }
@@ -31,9 +31,10 @@ function AddEditStudent(props) {
             updateMember(props.student._id, name).then(
                 (Response) => {
                     if (Response.data.code !== -9999) {
-                        handleUpload(props.student._id);
+                        handleUpload("avatar-" + props.student._id);
                         showNotification("success_update");
                         props.close_modal();
+                        props.reload();
                     } else {
                         showNotification(Response.data.message);
                     }
@@ -43,30 +44,21 @@ function AddEditStudent(props) {
     }
 
     function handleUpload(name) {
-        const {imageUpload} = image;
-        storage.ref(`images/${name}.png`).put(imageUpload);
+        console.log(image);
+        storage.ref(`images/${name}.png`).put(image);
     }
 
     function handleImageChange(e) {
         if (e.target.files.length > 0) {
             let reader = new FileReader();
             let file = e.target.files[0];
+            setImage(file);
             reader.onloadend = () => {
-                setImage({
-                    url: reader.result.toString(),
-                    file: file,
-                })
+                setUrl(reader.result.toString());
             };
 
             reader.readAsDataURL(file);
         }
-    }
-
-    function onSetImage(url, file) {
-        setImage({
-            url: url,
-            file: file
-        });
     }
 
     return (
@@ -89,7 +81,7 @@ function AddEditStudent(props) {
                     <div className="modal-body custom-css-004">
                         <div className="form-group"/>
                         <div className="form-group">
-                            <ImageUpload url={image.url} onSetImage={onSetImage} handleImageChange={handleImageChange}/>
+                            <ImageUpload url={url} handleImageChange={handleImageChange}/>
                         </div>
                         <div className="form-group">
                             <label>Họ và tên</label>
@@ -102,7 +94,7 @@ function AddEditStudent(props) {
                                 }}
                                 required
                                 value={
-                                    props.student.name !== ""
+                                    name === ""
                                         ? props.student.name
                                         : name
                                 }

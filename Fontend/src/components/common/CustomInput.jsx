@@ -9,7 +9,6 @@ function CustomInput(props) {
 
     function onKeyPress(e) {
         if (e.charCode === 13) {
-            console.log(value);
             props.onSubmit(value);
         }
     }
