@@ -6,6 +6,7 @@ import java.util.List;
 public class APIOpenEnum {
     public final static List<String> apiOpen = Arrays.asList(
             "/member/add",
-            "/auth/login"
+            "/auth/login",
+            "/member/get_all"
     );
 }

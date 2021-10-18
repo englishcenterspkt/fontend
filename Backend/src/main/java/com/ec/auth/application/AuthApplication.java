@@ -61,7 +61,7 @@ public class AuthApplication implements IAuthApplication {
         return Optional.empty();
     }
 
-    private Optional<Auth> generateToken(Auth auth) throws Exception{
+    private Optional<Auth> generateToken(Auth auth) throws Exception {
         Optional<Member> optional = memberApplication.getById(auth.getMember_id());
         if (!optional.isPresent()) {
             throw new Exception(ExceptionEnum.member_not_exist);

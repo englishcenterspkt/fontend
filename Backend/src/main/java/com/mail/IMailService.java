@@ -1,5 +1,5 @@
 package com.mail;
 
-public interface MailService {
-    public void sendEmail(Mail mail);
+public interface IMailService {
+    void sendEmail(Mail mail);
 }
