@@ -1,7 +1,8 @@
 import axios from "axios";
 import {getToken} from "../components/common/Utils";
+import {host} from "../components/common/Utils";
 
-const INSTRUCTOR_API_URL = `http://localhost:8080/member`;
+const INSTRUCTOR_API_URL = `${host}/member`;
 export function getMembers(page, size, field, is_asc, types, keyword, from_date, to_date) {
     return axios({
         method: "POST",

@@ -5,6 +5,8 @@ import com.ec.member.Member;
 import com.ec.member.command.CommandAddMember;
 import com.ec.member.command.CommandSearchMember;
 import com.ec.member.command.CommandUpdateMember;
+import com.mail.IMailService;
+import com.mail.Mail;
 import com.utils.MongoDBConnection;
 import com.utils.Paging;
 import com.utils.enums.ExceptionEnum;
